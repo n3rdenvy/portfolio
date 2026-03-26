@@ -1,0 +1,70 @@
+@import url('https://api.fontshare.com/v2/css?f[]=satoshi@900,700,500,400&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply font-satoshi bg-slateBg text-textPrimary antialiased overflow-x-hidden m-0;
+  }
+
+  #root {
+    @apply w-full min-h-[100svh] flex flex-col m-0 p-0 border-none;
+  }
+}
+
+@layer components {
+  .glass {
+    @apply bg-white/5 backdrop-blur-md border border-white/10 shadow-xl rounded-2xl;
+  }
+
+  .btn-theme {
+    @apply rounded-2xl px-6 py-3 transition-all active:scale-95;
+    @apply bg-white/5 backdrop-blur-md border border-white/10 text-textPrimary shadow-xl;
+  }
+
+  .btn-theme:hover {
+    @apply bg-white/[0.08] border-white/15;
+  }
+
+  .btn-slate-glass {
+    @apply bg-white/5 backdrop-blur-md border border-white/10 text-textPrimary rounded-2xl px-6 py-3 transition-all shadow-xl;
+  }
+
+  .btn-slate-glass:hover {
+    @apply bg-white/[0.08] border-white/15;
+  }
+
+  .portfolio-hub-card {
+    @apply relative flex min-h-[12rem] flex-col justify-between gap-4 text-left no-underline outline-none transition-[border-color,box-shadow,transform] duration-300 ease-out;
+  }
+
+  .portfolio-hub-card:hover {
+    border-color: rgba(255, 255, 255, 0.28);
+    box-shadow:
+      0 10px 42px 0 rgba(0, 0, 0, 0.55),
+      inset 0 0 0 1px rgba(255, 255, 255, 0.2),
+      0 0 28px rgba(56, 189, 248, 0.12);
+  }
+
+  .portfolio-hub-card:focus-visible {
+    outline: 2px solid #38bdf8;
+    outline-offset: 2px;
+  }
+
+  .portfolio-hub-card:active {
+    transform: scale(0.98);
+  }
+
+  .device-frame-clay {
+    @apply border border-white/25 bg-textPrimary text-slate-bg shadow-xl;
+    box-shadow:
+      inset 0 1px 0 0 rgba(255, 255, 255, 0.85),
+      0 12px 40px rgba(0, 0, 0, 0.35);
+  }
+
+  .frame-theme-media {
+    @apply rounded-2xl border border-white/10 bg-white/5 shadow-xl backdrop-blur-md;
+  }
+}

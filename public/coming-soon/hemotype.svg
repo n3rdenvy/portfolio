@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="360" height="780" viewBox="0 0 360 780" fill="none" aria-hidden="true">
+  <defs>
+    <linearGradient id="hbg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#f8fafc"/>
+      <stop offset="100%" style="stop-color:#e2e8f0"/>
+    </linearGradient>
+  </defs>
+  <rect width="360" height="780" fill="url(#hbg)"/>
+  <circle cx="180" cy="200" r="48" fill="#1e293b" opacity="0.08"/>
+  <path d="M180 168c-18 0-32 14-32 32s14 32 32 32 32-14 32-32-14-32-32-32z" fill="#0f172a" opacity="0.12"/>
+  <text x="180" y="320" text-anchor="middle" font-family="system-ui,sans-serif" font-size="28" font-weight="700" fill="#0f172a">HemoType</text>
+  <text x="180" y="358" text-anchor="middle" font-family="system-ui,sans-serif" font-size="14" fill="#475569">Clinical typography</text>
+  <rect x="48" y="420" width="264" height="8" rx="4" fill="#cbd5e1"/>
+  <rect x="48" y="448" width="200" height="8" rx="4" fill="#e2e8f0"/>
+  <rect x="48" y="476" width="232" height="8" rx="4" fill="#e2e8f0"/>
+</svg>

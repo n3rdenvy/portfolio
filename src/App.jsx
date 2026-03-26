@@ -1,0 +1,42 @@
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import AppLayout from './components/AppLayout';
+import TJunctionShell from './components/TJunctionShell';
+import Accessibility from './pages/Accessibility';
+import Process from './pages/Process';
+import ROI from './pages/ROI';
+import Commercials from './pages/Commercials';
+import ComingSoon from './pages/ComingSoon';
+import Interiors from './pages/Interiors';
+import TransitPulseAx from './pages/TransitPulseAx';
+import Visualization3D from './pages/Visualization3D';
+import Contact from './pages/Contact';
+
+const ROUTES = [
+  { path: '/accessibility', Component: Accessibility },
+  { path: '/process', Component: Process },
+  { path: '/roi', Component: ROI },
+  { path: '/contact', Component: Contact },
+  { path: '/commercials', Component: Commercials },
+  { path: '/3d-visualization', Component: Visualization3D },
+  { path: '/transit-pulse-ax', Component: TransitPulseAx },
+  { path: '/coming-soon', Component: ComingSoon },
+  { path: '/interiors', Component: Interiors },
+];
+
+function App() {
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route element={<AppLayout />}>
+          <Route path="/" element={<TJunctionShell />} />
+          {ROUTES.map((route) => {
+            const Page = route.Component;
+            return <Route key={route.path} path={route.path} element={<Page />} />;
+          })}
+        </Route>
+      </Routes>
+    </BrowserRouter>
+  );
+}
+
+export default App;
