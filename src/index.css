@@ -12,6 +12,8 @@
    */
   :root {
     --color-slate-bg: 10 24 32;
+    /** Hub nav / custom cursor (matches `.nav-amber-glow-bar`) */
+    --amber-brand: #ffc933;
   }
 
   html[data-bg-depth='0'] {
@@ -47,6 +49,31 @@
 
   #root {
     @apply w-full min-h-[100svh] flex flex-col m-0 p-0 border-none;
+  }
+
+  /**
+   * Custom cursor mode: strip the OS pointer (black/white hand) and any `cursor-pointer` overrides.
+   * Text fields keep an I-beam so editing stays obvious.
+   */
+  html[data-custom-cursor='on'] *,
+  html[data-custom-cursor='on'] *::before,
+  html[data-custom-cursor='on'] *::after {
+    cursor: none !important;
+  }
+
+  html[data-custom-cursor='on'] input:not([type]),
+  html[data-custom-cursor='on'] input[type='text'],
+  html[data-custom-cursor='on'] input[type='search'],
+  html[data-custom-cursor='on'] input[type='email'],
+  html[data-custom-cursor='on'] input[type='password'],
+  html[data-custom-cursor='on'] input[type='url'],
+  html[data-custom-cursor='on'] input[type='tel'],
+  html[data-custom-cursor='on'] input[type='number'],
+  html[data-custom-cursor='on'] input[type='date'],
+  html[data-custom-cursor='on'] input[type='time'],
+  html[data-custom-cursor='on'] textarea,
+  html[data-custom-cursor='on'] [contenteditable='true'] {
+    cursor: text !important;
   }
 }
 
@@ -291,9 +318,71 @@
       0 12px 40px rgba(0, 0, 0, 0.35);
   }
 
+  /**
+   * Routed content sheet — matches RootLayout glass (gradient, blur, hue) so the FluidBlob reads through.
+   */
+  .glass-hub-sheet {
+    border-radius: 1rem;
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    background: linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 0.35) 0%,
+      rgba(0, 0, 0, 0.25) 50%,
+      rgba(0, 0, 0, 0.3) 100%
+    );
+    box-shadow:
+      0 28px 90px -24px rgba(0, 0, 0, 0.75),
+      inset 0 1px 0 0 rgba(255, 255, 255, 0.16),
+      inset 0 0 0 1px rgba(255, 255, 255, 0.04);
+    backdrop-filter: blur(80px) saturate(1.5);
+    -webkit-backdrop-filter: blur(80px) saturate(1.5);
+  }
+
+  /**
+   * Use on pages with cross-origin iframes (YouTube). WebKit often paints a blank iframe when
+   * `backdrop-filter` stacks (hub shell + sheet + frame). Gradient/chrome stays; blur is dropped.
+   */
+  .glass-hub-sheet--no-backdrop {
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+
+  /**
+   * Media chrome around embeds — same material language as the hub shell, slightly lighter blur when nested.
+   */
   .frame-theme-media {
-    @apply rounded-2xl border border-white/10 bg-white/5 backdrop-blur-md;
-    box-shadow: none;
+    border-radius: 1rem;
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    background: linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 0.32) 0%,
+      rgba(0, 0, 0, 0.2) 45%,
+      rgba(0, 0, 0, 0.28) 100%
+    );
+    box-shadow:
+      0 18px 56px -20px rgba(0, 0, 0, 0.65),
+      inset 0 1px 0 0 rgba(255, 255, 255, 0.12),
+      inset 0 0 0 1px rgba(255, 255, 255, 0.04);
+    backdrop-filter: blur(56px) saturate(1.5);
+    -webkit-backdrop-filter: blur(56px) saturate(1.5);
+  }
+
+  /**
+   * YouTube / third-party iframe wrapper — no backdrop blur (see `.glass-hub-sheet--no-backdrop`).
+   */
+  .frame-theme-media-embed {
+    border-radius: 1rem;
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    background: linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 0.32) 0%,
+      rgba(0, 0, 0, 0.2) 45%,
+      rgba(0, 0, 0, 0.28) 100%
+    );
+    box-shadow:
+      0 18px 56px -20px rgba(0, 0, 0, 0.65),
+      inset 0 1px 0 0 rgba(255, 255, 255, 0.12),
+      inset 0 0 0 1px rgba(255, 255, 255, 0.04);
   }
 }
 

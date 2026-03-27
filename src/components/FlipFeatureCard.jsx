@@ -1,6 +1,8 @@
 import { motion } from 'framer-motion';
 import { useState } from 'react';
 
+const MotionDiv = motion.div;
+
 export default function FlipFeatureCard({ title, body }) {
   const [flipped, setFlipped] = useState(false);
 
@@ -20,7 +22,7 @@ export default function FlipFeatureCard({ title, body }) {
 
   return (
     <div className="h-[min(22rem,50svh)] [perspective:1000px]">
-      <motion.div
+      <MotionDiv
         className="relative h-full w-full cursor-pointer outline-none focus-visible:ring-2 focus-visible:ring-white/45 focus-visible:ring-offset-2 focus-visible:ring-offset-slateBg"
         role="button"
         tabIndex={0}
@@ -45,7 +47,7 @@ export default function FlipFeatureCard({ title, body }) {
         >
           <p className="text-sm leading-relaxed text-white">{body}</p>
         </div>
-      </motion.div>
+      </MotionDiv>
     </div>
   );
 }

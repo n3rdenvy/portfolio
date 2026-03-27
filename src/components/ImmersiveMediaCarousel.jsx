@@ -37,7 +37,7 @@ export default function ImmersiveMediaCarousel({ items }) {
           {item.type === 'image' ? (
             <img
               src={item.src}
-              alt={item.alt ?? ''}
+              alt={item.alt?.trim() ? item.alt : 'Gallery image'}
               className="max-h-full max-w-full object-contain"
               draggable={false}
             />
@@ -46,6 +46,7 @@ export default function ImmersiveMediaCarousel({ items }) {
               key={item.src}
               src={item.src}
               className="max-h-full max-w-full object-contain"
+              aria-label={item.alt ?? 'Video clip'}
               controls
               playsInline
               preload="metadata"

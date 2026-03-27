@@ -1,22 +1,23 @@
 import { LayoutGrid } from 'lucide-react';
+import { Fragment, useLayoutEffect, useState } from 'react';
+import { createPortal } from 'react-dom';
 import { Link, useLocation } from 'react-router-dom';
+import { FIXED_NAV_PORTAL_ID } from '../utils/fixedNavPortal';
 import { hubEnterStateForPath, markPageLeavingToHub } from '../utils/pageTransitions';
 
 /**
- * @param {{ aboveEmbed?: boolean }} props — raise stacking when a full-viewport iframe sits underneath.
+ * Rendered via portal above page content so `position: fixed` is not captured by Framer’s transformed route layer.
  */
-export default function ReturnToPortfolioButton({ aboveEmbed = false }) {
+export default function ReturnToPortfolioButton() {
   const { pathname } = useLocation();
+  const [root, setRoot] = useState(null);
 
-  return (
-    <div
-      className={[
-        'site-fixed-nav-tl pointer-events-none flex items-start justify-start',
-        aboveEmbed ? 'site-fixed-nav-tl--above-embed' : '',
-      ]
-        .filter(Boolean)
-        .join(' ')}
-    >
+  useLayoutEffect(() => {
+    setRoot(document.getElementById(FIXED_NAV_PORTAL_ID));
+  }, []);
+
+  const tree = (
+    <div className="site-fixed-nav-tl pointer-events-none flex items-start justify-start">
       <Link
         to="/?wing=east"
         state={hubEnterStateForPath(pathname)}
@@ -27,5 +28,12 @@ export default function ReturnToPortfolioButton({ aboveEmbed = false }) {
         Return to portfolio
       </Link>
     </div>
+  );
+
+  return (
+    <Fragment>
+      <div className="h-[3.25rem] shrink-0 md:hidden" aria-hidden />
+      {root ? createPortal(tree, root) : null}
+    </Fragment>
   );
 }

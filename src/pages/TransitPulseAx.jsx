@@ -61,7 +61,7 @@ export default function TransitPulseAx() {
 
   return (
     <div className="flex min-h-[100svh] flex-col bg-slateBg text-white">
-      <ReturnToPortfolioButton aboveEmbed />
+      <ReturnToPortfolioButton />
 
       <div className="relative min-h-0 flex-1">
         {hasPrototype ? (

@@ -7,7 +7,7 @@ import HubPageHeading, { HubPageHeadingRow } from './HubPageHeading';
 const PORTFOLIO_HUB_CARDS = [
   {
     to: '/commercials',
-    title: 'Commercials & Interior Expertise',
+    title: 'Set Design + Designer Tips',
     description: 'Spec work, commissioned motion, and set-forward visual systems.',
     icon: Clapperboard,
   },
@@ -25,10 +25,10 @@ const PORTFOLIO_HUB_CARDS = [
   },
   {
     to: '/coming-soon',
-    title: 'Coming Soon',
-    description: 'New case studies and experiments in the pipeline.',
+    title: 'Future Projects',
+    description:
+      "New case studies and experiments in the pipeline. Plus other projects I'm having fun with right now.",
     icon: Sparkles,
-    badge: 'Soon',
   },
 ];
 
@@ -39,10 +39,12 @@ export default function PortfolioHubPanel() {
 
       <div className="flex min-h-0 min-w-0 flex-1 flex-col pb-20 pt-4 max-md:pt-[3.85rem] md:pt-8">
         <HubPageHeadingRow>
-          <HubPageHeading
-            title="Portfolio hub"
-            subtitle="Pick a stream to open its detail page."
-          />
+          <div className="min-w-0 pl-6 sm:pl-7 md:pl-10 lg:pl-12">
+            <HubPageHeading
+              title="Portfolio hub"
+              subtitle="Pick a stream to open its detail page."
+            />
+          </div>
         </HubPageHeadingRow>
 
         <div className="mt-6 flex min-h-0 min-w-0 flex-1 flex-col justify-center max-md:mt-5 md:mt-8 lg:mt-6">

@@ -1,9 +1,15 @@
 import { motion } from 'framer-motion';
 import { useCallback, useLayoutEffect, useRef, useState } from 'react';
+import { Link } from 'react-router-dom';
 
-export default function InteriorCarousel({ images }) {
+const MotionDiv = motion.div;
+
+const DRAG_CLICK_THRESHOLD_PX = 12;
+
+export default function InteriorCarousel({ images, linkTo }) {
   const viewportRef = useRef(null);
   const trackRef = useRef(null);
+  const dragMovedPastThresholdRef = useRef(false);
   const [dragConstraints, setDragConstraints] = useState({ left: 0, right: 0 });
 
   const measure = useCallback(() => {
@@ -28,27 +34,62 @@ export default function InteriorCarousel({ images }) {
 
   return (
     <div ref={viewportRef} className="w-full overflow-hidden">
-      <motion.div
+      <MotionDiv
         ref={trackRef}
         className="flex w-max cursor-grab gap-4 pb-2 active:cursor-grabbing"
         drag="x"
         dragConstraints={dragConstraints}
         dragElastic={0.1}
         dragMomentum
+        onDragStart={() => {
+          dragMovedPastThresholdRef.current = false;
+        }}
+        onDragEnd={(_, info) => {
+          if (Math.abs(info.offset.x) >= DRAG_CLICK_THRESHOLD_PX) {
+            dragMovedPastThresholdRef.current = true;
+          }
+        }}
         aria-label="Interior gallery — drag horizontally to scroll"
         role="region"
       >
-        {images.map((src, i) => (
-          <div key={src} className="glass shrink-0 rounded-2xl p-2">
+        {images.map((src, i) => {
+          const inner = (
             <img
               src={src}
-              alt={`Interior visualization ${i + 1}`}
+              alt={linkTo ? '' : `Interior visualization ${i + 1}`}
               className="h-52 w-72 rounded-2xl object-cover sm:h-56 sm:w-80 md:h-64 md:w-96"
               draggable={false}
             />
-          </div>
-        ))}
-      </motion.div>
+          );
+          const shellClass =
+            'glass shrink-0 rounded-2xl p-2 outline-none focus-visible:ring-2 focus-visible:ring-white/45 focus-visible:ring-offset-2 focus-visible:ring-offset-slateBg';
+
+          if (linkTo) {
+            return (
+              <Link
+                key={src}
+                to={linkTo}
+                className={`${shellClass} block cursor-pointer no-underline transition-opacity hover:opacity-95`}
+                aria-label={`Open 3D visualization portfolio — preview ${i + 1} of ${images.length}`}
+                onClick={(e) => {
+                  if (dragMovedPastThresholdRef.current) {
+                    e.preventDefault();
+                    dragMovedPastThresholdRef.current = false;
+                  }
+                }}
+              >
+                {inner}
+              </Link>
+            );
+          }
+
+          return (
+            <div key={src} className={shellClass}>
+              {inner}
+            </div>
+          );
+        })}
+      </MotionDiv>
     </div>
   );
 }

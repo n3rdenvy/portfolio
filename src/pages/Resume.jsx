@@ -34,8 +34,9 @@ function HubAmberLink({
 }) {
   const baseCompact =
     'nav-amber-wrap relative z-10 inline-flex shrink-0 cursor-pointer items-center justify-center gap-1.5 whitespace-nowrap px-2 text-left text-xs font-medium text-white no-underline max-md:py-1';
+  /** Match `btn-theme` + `btn-theme-compact` horizontal padding so icons align with Home. */
   const baseFull =
-    'nav-amber-wrap relative z-10 inline-flex shrink-0 cursor-pointer items-center justify-start gap-1.5 whitespace-nowrap pl-2 text-left text-xs font-medium text-white no-underline md:gap-2 md:pl-4 md:text-sm';
+    'nav-amber-wrap relative z-10 inline-flex shrink-0 cursor-pointer items-center justify-start gap-2 whitespace-nowrap px-3 py-2 text-left text-xs font-medium text-white no-underline md:gap-2 md:px-4 md:py-2.5 md:text-sm';
 
   const className = [compact ? baseCompact : baseFull, classNameProp].filter(Boolean).join(' ');
 
@@ -131,6 +132,8 @@ export default function Resume() {
   }, []);
 
   useLayoutEffect(() => {
+    // Measures nav vs content overlap after commit; same work as resize/MQ handlers.
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- intentional layout sync with DOM geometry
     runLayoutCheck();
   }, [runLayoutCheck]);
 
@@ -199,7 +202,7 @@ export default function Resume() {
             ? 'z-[60] pointer-events-none flex flex-col items-end gap-1 border-0 bg-transparent px-4 pb-2 pt-[max(0.375rem,env(safe-area-inset-top,0px))] scrollbar-none sm:px-6 fixed inset-x-0 top-0'
             : topBarActive
               ? 'resume-mobile-nav-pill z-[60] pointer-events-none flex flex-col items-end gap-1 border-0 bg-transparent px-4 pb-2 pt-[max(0.375rem,env(safe-area-inset-top,0px))] sm:px-6 fixed inset-x-0 top-0'
-              : 'z-[60] site-fixed-nav-tl flex flex-col items-start gap-4 overflow-visible border-0 bg-transparent px-0 py-0'
+              : 'z-[60] site-fixed-nav-tl flex flex-col items-start gap-0 overflow-visible border-0 bg-transparent px-0 py-0'
         }
         aria-label="Resume navigation and downloads"
       >
@@ -318,49 +321,56 @@ export default function Resume() {
               </>
             ) : (
               <>
-                <Link
-                  to="/"
-                  state={hubEnterStateForPath('/resume')}
-                  onClick={() => markPageLeavingToHub('/resume')}
-                  className={`btn-theme btn-theme-compact flex shrink-0 items-center gap-2 px-3 py-2 text-xs no-underline md:px-4 md:py-2.5 md:text-sm ${navLinkEmphasis}`}
-                >
-                  <Home className="size-4 shrink-0" strokeWidth={2} aria-hidden />
-                  Home
-                </Link>
-                <HubAmberLink
-                  href="/erik_smith_resume.pdf"
-                  downloadName="erik_smith_resume.pdf"
-                  icon={Download}
-                  compact={false}
-                >
-                  Resume (PDF)
-                </HubAmberLink>
-                <HubAmberLink
-                  href={LINKEDIN_HREF}
-                  external
-                  icon={LinkedInLogo}
-                  iconProps={{ 'aria-hidden': true }}
-                  compact={false}
-                >
-                  LinkedIn
-                </HubAmberLink>
+                <div className="flex w-full min-w-0 shrink-0 flex-col gap-4 self-stretch">
+                  <Link
+                    to="/"
+                    state={hubEnterStateForPath('/resume')}
+                    onClick={() => markPageLeavingToHub('/resume')}
+                    className={`btn-theme btn-theme-compact inline-flex w-fit max-w-full shrink-0 self-start items-center justify-start gap-2 px-3 py-2 text-left text-xs no-underline md:px-4 md:py-2.5 md:text-sm ${navLinkEmphasis}`}
+                  >
+                    <Home className="size-4 shrink-0" strokeWidth={2} aria-hidden />
+                    Home
+                  </Link>
+                  <HubAmberLink
+                    href="/erik_smith_resume.pdf"
+                    downloadName="erik_smith_resume.pdf"
+                    icon={Download}
+                    compact={false}
+                  >
+                    Resume (PDF)
+                  </HubAmberLink>
+                  <HubAmberLink
+                    href={LINKEDIN_HREF}
+                    external
+                    icon={LinkedInLogo}
+                    iconProps={{ 'aria-hidden': true }}
+                    compact={false}
+                  >
+                    LinkedIn
+                  </HubAmberLink>
+                </div>
                 {showScrollHintUi ? (
-                  <div className="pointer-events-none mt-0.5 flex w-fit shrink-0 flex-col items-center gap-0.5 md:mt-[4.75rem]" aria-hidden>
-                    <Framer.motion.span
-                      className="text-center text-[10px] font-semibold tracking-wide text-white/55"
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-                    >
-                      Scroll
-                    </Framer.motion.span>
-                    <Framer.motion.span
-                      className="flex justify-center text-white"
-                      animate={reduceMotion ? { y: 0 } : { y: [0, HUB_NAV_PULSE_Y, 0] }}
-                      transition={reduceMotion ? { duration: 0 } : HUB_NAV_EDGE_PULSE_TRANSITION}
-                    >
-                      <ChevronDown className="size-[18px] shrink-0" strokeWidth={1.5} aria-hidden />
-                    </Framer.motion.span>
+                  <div
+                    className="pointer-events-none mt-[5.75rem] flex w-full min-w-0 shrink-0 justify-center self-stretch"
+                    aria-hidden
+                  >
+                    <div className="flex flex-col items-center gap-0.5">
+                      <Framer.motion.span
+                        className="text-center text-[10px] font-semibold tracking-wide text-white/55"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+                      >
+                        Scroll
+                      </Framer.motion.span>
+                      <Framer.motion.span
+                        className="flex justify-center text-white"
+                        animate={reduceMotion ? { y: 0 } : { y: [0, HUB_NAV_PULSE_Y, 0] }}
+                        transition={reduceMotion ? { duration: 0 } : HUB_NAV_EDGE_PULSE_TRANSITION}
+                      >
+                        <ChevronDown className="size-[18px] shrink-0" strokeWidth={1.5} aria-hidden />
+                      </Framer.motion.span>
+                    </div>
                   </div>
                 ) : null}
               </>

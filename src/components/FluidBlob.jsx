@@ -12,8 +12,10 @@ function useMicroRoughnessMap() {
     const h = 256;
     const n = w * h;
     const data = new Uint8Array(n * 4);
+    let seed = 0x1a1c23;
     for (let i = 0; i < n; i++) {
-      const v = 85 + Math.floor(Math.random() * 115);
+      seed = (Math.imul(seed, 1664525) + 1013904223) >>> 0;
+      const v = 85 + (seed % 115);
       const o = i * 4;
       data[o] = v;
       data[o + 1] = v;

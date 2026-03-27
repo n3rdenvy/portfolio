@@ -18,8 +18,18 @@ export default function HubPageHeading({ title, subtitle = null }) {
 /**
  * First row: heading lives in column 1 only; column 2 is reserved so the title aligns with
  * the left column of the 50/50 split below (matches Contact accordions spine).
+ * `align="center"` spans both columns and centers the block (e.g. Portfolio hub above a 2-col card grid).
  */
-export function HubPageHeadingRow({ children }) {
+export function HubPageHeadingRow({ children, align = 'start' }) {
+  if (align === 'center') {
+    return (
+      <div className={['w-full', HUB_PAGE_TWO_COL].join(' ')}>
+        <div className="flex min-w-0 flex-col items-center text-center lg:col-span-2">
+          {children}
+        </div>
+      </div>
+    );
+  }
   return (
     <div className={['w-full', HUB_PAGE_TWO_COL].join(' ')}>
       <div className="min-w-0">{children}</div>
