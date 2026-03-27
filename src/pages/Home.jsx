@@ -51,7 +51,7 @@ export default function Home() {
           </div>
           <div className="mt-8 flex items-start justify-start md:mt-0 md:justify-end">
             <a
-              href="/resume-technical.pdf"
+              href="/erik_smith_resume.pdf"
               download
               className="btn-theme inline-flex items-center justify-center gap-2 px-6 py-3 text-sm font-semibold tracking-tight no-underline"
             >
@@ -73,9 +73,9 @@ export default function Home() {
             <div className="glass mx-auto flex min-h-[min(52vh,28rem)] w-full max-w-3xl flex-1 flex-col rounded-2xl p-4 md:p-6">
               <div className="min-h-[min(40vh,22rem)] w-full flex-1">
                 <img
-                  src="/ui-widgets.png"
+                  src="/3D Vis Images/image 7.jpg"
                   className="w-full h-full object-cover rounded-2xl opacity-90"
-                  alt="TransitPulse UI"
+                  alt="3D visualization render"
                 />
               </div>
             </div>
@@ -92,7 +92,10 @@ export default function Home() {
 
         <section className="space-y-4">
           <h2 className="text-xs font-semibold tracking-tight text-white">Interior carousel</h2>
-          <InteriorCarousel images={INTERIOR_CAROUSEL_IMAGES} />
+          <InteriorCarousel
+            images={INTERIOR_CAROUSEL_IMAGES}
+            linkTo="/3d-visualization"
+          />
         </section>
 
         <section>
