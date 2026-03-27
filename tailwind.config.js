@@ -8,7 +8,11 @@ export default {
         satoshi: ['Satoshi', 'sans-serif'],
       },
       colors: {
-        slateBg: '#122330',
+        /**
+         * Page background follows `data-bg-depth` on `<html>` (see index.css).
+         * RGB channels only — supports opacity modifiers e.g. `bg-slateBg/90`.
+         */
+        slateBg: 'rgb(var(--color-slate-bg) / <alpha-value>)',
         slateGlass: 'rgba(255, 255, 255, 0.05)',
         textPrimary: '#F8FAFC',
         textSecondary: '#94A3B8',
@@ -21,7 +25,8 @@ export default {
           border: '#FFFFFF',
         },
         slate: {
-          bg: '#122330',
+          /** Fixed ink for text on accent / clay (deepest ocean tone) */
+          bg: '#0A1820',
           glass: 'rgba(255, 255, 255, 0.05)',
           edge: 'rgba(255, 255, 255, 0.1)',
         },

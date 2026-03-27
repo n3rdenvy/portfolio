@@ -1,12 +1,11 @@
 import { Link } from 'react-router-dom';
-import { ArrowUp, ArrowUpRight, Armchair, Clapperboard, LineChart } from 'lucide-react';
+import { ArrowUp, ArrowUpRight, Armchair, Clapperboard, Download, LineChart } from 'lucide-react';
 import InteriorCarousel from '../components/InteriorCarousel';
 
 const HERO_COPY =
   'Trauma-Informed Design and systems architecture shape how products collect attention, surface state, and recover from error. Boundaries, interfaces, and observability are the levers—not decoration. Erik Smith works at that intersection: humane patterns inside rigorous technical frames.';
 
-const GLASS_NAV =
-  'glass rounded-lg px-4 py-2.5 text-sm font-medium text-accent transition-colors hover:bg-white/10';
+const BTN_NAV = 'btn-theme inline-flex items-center gap-2 px-4 py-2.5 text-sm font-medium no-underline';
 
 const INTERIOR_CAROUSEL_IMAGES = [
   '/3D Vis Images/image 1.jpg',
@@ -40,22 +39,23 @@ const PORTALS = [
 
 export default function Home() {
   return (
-    <div className="min-h-screen bg-slateBg text-textPrimary">
+    <div className="min-h-screen bg-slateBg text-white">
       <main className="mx-auto max-w-6xl space-y-14 px-4 py-12 text-left md:space-y-20 md:py-16">
         <section className="glass rounded-2xl p-8 md:grid md:grid-cols-2 md:gap-12 md:p-12">
           <div className="space-y-6">
-            <h1 className="font-bold leading-tight tracking-tight text-textPrimary md:text-4xl">
-              Erik Smith <span className="font-normal text-textSecondary">|</span>{' '}
-              <span className="font-semibold text-accent">Systems Architect</span>
+            <h1 className="font-bold leading-tight tracking-tight text-white md:text-4xl">
+              Erik Smith <span className="font-normal text-white">|</span>{' '}
+              <span className="font-semibold text-white">Systems Architect</span>
             </h1>
-            <p className="max-w-xl text-[15px] leading-relaxed text-textSecondary md:text-base">{HERO_COPY}</p>
+            <p className="max-w-xl text-[15px] leading-relaxed text-white md:text-base">{HERO_COPY}</p>
           </div>
           <div className="mt-8 flex items-start justify-start md:mt-0 md:justify-end">
             <a
               href="/resume-technical.pdf"
               download
-              className="inline-flex items-center justify-center rounded-xl bg-accent px-6 py-3 text-sm font-semibold uppercase tracking-wider text-slate-bg transition-opacity hover:opacity-90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+              className="btn-theme inline-flex items-center justify-center gap-2 px-6 py-3 text-sm font-semibold tracking-tight no-underline"
             >
+              <Download className="size-4 shrink-0" strokeWidth={2} aria-hidden />
               Download Technical Resume
             </a>
           </div>
@@ -63,7 +63,7 @@ export default function Home() {
 
         <section className="space-y-6">
           <div className="flex justify-center">
-            <Link to="/accessibility" className={`${GLASS_NAV} inline-flex items-center gap-2`}>
+            <Link to="/accessibility" className={BTN_NAV}>
               <ArrowUp className="size-4 shrink-0" strokeWidth={2} aria-hidden />
               Accessibility
             </Link>
@@ -82,7 +82,7 @@ export default function Home() {
 
             <Link
               to="/process"
-              className={`${GLASS_NAV} flex shrink-0 items-center justify-center gap-2 self-center py-3 md:self-start`}
+              className={`${BTN_NAV} shrink-0 self-center justify-center md:self-start`}
             >
               <ArrowUpRight className="size-4 shrink-0" strokeWidth={2} aria-hidden />
               Process
@@ -91,12 +91,12 @@ export default function Home() {
         </section>
 
         <section className="space-y-4">
-          <h2 className="text-xs font-semibold uppercase tracking-[0.25em] text-textSecondary">Interior carousel</h2>
+          <h2 className="text-xs font-semibold tracking-tight text-white">Interior carousel</h2>
           <InteriorCarousel images={INTERIOR_CAROUSEL_IMAGES} />
         </section>
 
         <section>
-          <h2 className="mb-6 text-xs font-semibold uppercase tracking-[0.25em] text-textSecondary">Portals</h2>
+          <h2 className="mb-6 text-xs font-semibold tracking-tight text-white">Portals</h2>
           <div className="grid gap-6 md:grid-cols-3">
             {PORTALS.map((portal) => {
               const PortalIcon = portal.Icon;
@@ -104,15 +104,15 @@ export default function Home() {
                 <Link
                   key={portal.to}
                   to={portal.to}
-                  className="glass group flex flex-col gap-4 rounded-2xl p-8 transition-colors hover:bg-white/10"
+                  className="btn-theme group flex flex-col gap-4 rounded-2xl p-8 no-underline"
                 >
                   <PortalIcon
-                    className="size-8 text-accent/90 group-hover:text-accent"
+                    className="size-8 text-white group-hover:text-white"
                     strokeWidth={1.5}
                     aria-hidden
                   />
-                  <span className="text-sm font-semibold uppercase tracking-wide text-textPrimary">{portal.title}</span>
-                  <span className="text-xs leading-relaxed text-textSecondary">{portal.blurb}</span>
+                  <span className="text-sm font-semibold tracking-tight text-white">{portal.title}</span>
+                  <span className="text-xs leading-relaxed text-white">{portal.blurb}</span>
                 </Link>
               );
             })}

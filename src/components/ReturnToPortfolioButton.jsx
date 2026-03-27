@@ -1,15 +1,30 @@
 import { LayoutGrid } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
+import { hubEnterStateForPath, markPageLeavingToHub } from '../utils/pageTransitions';
 
-export default function ReturnToPortfolioButton() {
+/**
+ * @param {{ aboveEmbed?: boolean }} props — raise stacking when a full-viewport iframe sits underneath.
+ */
+export default function ReturnToPortfolioButton({ aboveEmbed = false }) {
+  const { pathname } = useLocation();
+
   return (
-    <div className="pointer-events-none fixed left-4 top-20 z-[110] md:left-6 md:top-24">
+    <div
+      className={[
+        'site-fixed-nav-tl pointer-events-none flex items-start justify-start',
+        aboveEmbed ? 'site-fixed-nav-tl--above-embed' : '',
+      ]
+        .filter(Boolean)
+        .join(' ')}
+    >
       <Link
         to="/?wing=east"
-        className="pointer-events-auto inline-flex items-center gap-2 btn-theme px-4 py-2.5 text-sm font-medium no-underline"
+        state={hubEnterStateForPath(pathname)}
+        onClick={() => markPageLeavingToHub(pathname)}
+        className="pointer-events-auto inline-flex shrink-0 items-center gap-2 btn-theme px-4 py-2.5 text-xs font-semibold tracking-tight no-underline sm:text-sm"
       >
         <LayoutGrid className="size-4 shrink-0" strokeWidth={2} aria-hidden />
-        Return to Portfolio
+        Return to portfolio
       </Link>
     </div>
   );

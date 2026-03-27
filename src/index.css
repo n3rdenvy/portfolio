@@ -5,8 +5,44 @@
 @tailwind utilities;
 
 @layer base {
+  /**
+   * Warm ocean-floor slates: cyan-teal undertone, darker as navigation goes deeper.
+   * Depth 0 (welcome): lightest — WCAG AA for #94A3B8 secondary text (~4.53:1).
+   * Depth 2 (routed pages): deepest floor.
+   */
+  :root {
+    --color-slate-bg: 10 24 32;
+  }
+
+  html[data-bg-depth='0'] {
+    --color-slate-bg: 34 60 72;
+  }
+
+  html[data-bg-depth='1'] {
+    --color-slate-bg: 24 52 64;
+  }
+
+  html[data-bg-depth='2'] {
+    --color-slate-bg: 10 24 32;
+  }
+
   body {
-    @apply font-satoshi bg-slateBg text-textPrimary antialiased overflow-x-hidden m-0;
+    background-color: theme('colors.slateBg');
+    color: #ffffff;
+    transition: background-color 320ms ease-out;
+    @apply font-satoshi text-white antialiased overflow-x-hidden m-0;
+    text-shadow: none;
+  }
+
+  a {
+    @apply text-white no-underline;
+    text-shadow: none;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    body {
+      transition-duration: 0.01ms;
+    }
   }
 
   #root {
@@ -16,55 +52,261 @@
 
 @layer components {
   .glass {
-    @apply bg-white/5 backdrop-blur-md border border-white/10 shadow-xl rounded-2xl;
+    @apply rounded-2xl border border-white/10 bg-white/5 backdrop-blur-md;
+    box-shadow: none;
   }
 
+  /**
+   * Shared top-left anchor for Home / Return to portfolio on every route except `/`.
+   * Matches `2rem` (Tailwind `top-8` / `left-8`) with safe-area for notched devices.
+   */
+  .site-fixed-nav-tl {
+    position: fixed;
+    top: calc(2rem + env(safe-area-inset-top, 0px));
+    left: calc(2rem + env(safe-area-inset-left, 0px));
+    z-index: 50;
+  }
+
+  /** Full-viewport embeds (e.g. prototype iframe) need the control above the layer. */
+  .site-fixed-nav-tl--above-embed {
+    z-index: 200;
+  }
+
+  /** Corner nav uses `.btn-theme` but must stay `fixed`. */
+  .site-fixed-nav-tl.btn-theme {
+    position: fixed;
+  }
+
+  /**
+   * Mobile top strip: flex keeps Home aligned to the leading edge regardless of title length below.
+   */
+  .return-to-hub-bar {
+    @apply flex w-full shrink-0 items-center justify-start;
+  }
+
+  /**
+   * Below 768px: Home sits in `.return-to-hub-bar` (in-flow top bar). Undo fixed corner anchoring.
+   */
+  @media (max-width: 767px) {
+    .return-to-hub-bar .return-to-hub-link.site-fixed-nav-tl.btn-theme {
+      position: relative;
+      top: auto;
+      right: auto;
+      left: auto;
+      z-index: auto;
+    }
+  }
+
+  /**
+   * Portfolio hub / Contact heading — fluid title between ~320px and 1200px viewports.
+   * clamp: min 1.875rem, preferred scales with vw, max 3rem (text-5xl).
+   */
+  .page-heading-xl {
+    font-size: clamp(1.875rem, 0.5rem + 5.8vw, 3rem);
+    line-height: 1.08;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+  }
+
+  /**
+   * Text controls: white Satoshi stack only — no cyan glow, inner light boxes, or text shadow.
+   */
   .btn-theme {
-    @apply rounded-2xl px-6 py-3 transition-all active:scale-95;
-    @apply bg-white/5 backdrop-blur-md border border-white/10 text-textPrimary shadow-xl;
+    @apply relative inline-flex items-center justify-center text-center font-medium antialiased text-white;
+    @apply px-6 py-3 transition-[opacity,transform] duration-300 ease-out;
+    border-radius: 9999px;
+    background-color: transparent;
+    border: 1px solid transparent;
+    box-shadow: none;
+    text-shadow: none;
   }
 
-  .btn-theme:hover {
-    @apply bg-white/[0.08] border-white/15;
+  .btn-theme:focus {
+    outline: none;
+  }
+
+  .btn-theme:focus-visible:not(:disabled) {
+    outline: 2px solid rgba(255, 255, 255, 0.42);
+    outline-offset: 3px;
+  }
+
+  @media (hover: hover) {
+    .btn-theme:hover:not(:disabled) {
+      opacity: 0.88;
+    }
+  }
+
+  .btn-theme:active:not(:disabled) {
+    transform: scale(0.98);
+  }
+
+  .btn-theme.btn-theme-compact {
+    @apply px-3 py-2 md:px-4 md:py-2.5;
+  }
+
+  .btn-theme.btn-theme-hub-reveal {
+    border-radius: 0.75rem;
+    background-color: transparent;
+    border-color: transparent;
+    box-shadow: none;
+    @apply text-white;
+  }
+
+  .btn-theme:disabled {
+    cursor: not-allowed;
+    opacity: 0.55;
+    transform: none;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .btn-theme {
+      transition-duration: 0.01ms;
+    }
+
+    .btn-theme:active:not(:disabled) {
+      transform: none;
+    }
+  }
+
+  .btn-theme-disclosure {
+    width: 100%;
+    justify-content: flex-start;
+    border-radius: 0.75rem;
+    text-align: left;
+  }
+
+  /**
+   * Hub + Resume lateral nav: amber under-glow (shared).
+   * Hidden until hover (fine pointer), :focus-within (keyboard), or :active (click / touch).
+   */
+  .nav-amber-glow-bar {
+    pointer-events: none;
+    position: absolute;
+    bottom: -0.2rem;
+    left: 6%;
+    z-index: -1;
+    height: 0.625rem;
+    width: 88%;
+    border-radius: 9999px;
+    background-color: #ffc933;
+    opacity: 0;
+    filter: blur(12px);
+    box-shadow:
+      0 0 18px 3px rgba(255, 200, 50, 0.5),
+      0 0 36px 8px rgba(255, 180, 0, 0.22);
+    transition: opacity 300ms ease;
+  }
+
+  @media (hover: hover) {
+    .nav-amber-wrap:hover .nav-amber-glow-bar {
+      opacity: 0.68;
+    }
+  }
+
+  .nav-amber-wrap:focus-visible .nav-amber-glow-bar {
+    opacity: 0.68;
+  }
+
+  .nav-amber-wrap:active .nav-amber-glow-bar {
+    opacity: 0.72;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .nav-amber-glow-bar {
+      transition-duration: 0.01ms;
+    }
   }
 
   .btn-slate-glass {
-    @apply bg-white/5 backdrop-blur-md border border-white/10 text-textPrimary rounded-2xl px-6 py-3 transition-all shadow-xl;
+    @apply btn-theme;
   }
 
-  .btn-slate-glass:hover {
-    @apply bg-white/[0.08] border-white/15;
-  }
-
+  /**
+   * Portfolio hub tiles: radius matches RootLayout glass (`rounded-[2.5rem]`).
+   * Amber rounded-rect glow only on hover / focus-visible / active.
+   */
   .portfolio-hub-card {
-    @apply relative flex min-h-[12rem] flex-col justify-between gap-4 text-left no-underline outline-none transition-[border-color,box-shadow,transform] duration-300 ease-out;
+    @apply relative isolate flex min-h-[12rem] flex-col justify-between gap-4 text-left text-white no-underline transition-[transform,box-shadow] duration-300 ease-out;
+    border-radius: 2.5rem;
+    box-shadow: none;
+    text-shadow: none;
   }
 
-  .portfolio-hub-card:hover {
-    border-color: rgba(255, 255, 255, 0.28);
+  .portfolio-hub-card > * {
+    position: relative;
+    z-index: 1;
+  }
+
+  .portfolio-hub-card::after {
+    content: '';
+    pointer-events: none;
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    border-radius: 2.5rem;
+    opacity: 0;
+    transition: opacity 300ms ease;
     box-shadow:
-      0 10px 42px 0 rgba(0, 0, 0, 0.55),
-      inset 0 0 0 1px rgba(255, 255, 255, 0.2),
-      0 0 28px rgba(56, 189, 248, 0.12);
+      inset 0 0 0 1px rgba(255, 210, 100, 0.42),
+      0 0 48px 10px rgba(255, 195, 0, 0.26),
+      0 0 96px 28px rgba(255, 175, 0, 0.14);
+  }
+
+  @media (hover: hover) {
+    .portfolio-hub-card:hover::after {
+      opacity: 1;
+    }
+  }
+
+  .portfolio-hub-card:focus-visible::after {
+    opacity: 1;
+  }
+
+  .portfolio-hub-card:active::after {
+    opacity: 1;
   }
 
   .portfolio-hub-card:focus-visible {
-    outline: 2px solid #38bdf8;
-    outline-offset: 2px;
+    outline: 2px solid rgba(255, 255, 255, 0.42);
+    outline-offset: 3px;
   }
 
   .portfolio-hub-card:active {
     transform: scale(0.98);
   }
 
+  @media (prefers-reduced-motion: reduce) {
+    .portfolio-hub-card::after {
+      transition-duration: 0.01ms;
+    }
+  }
+
   .device-frame-clay {
-    @apply border border-white/25 bg-textPrimary text-slate-bg shadow-xl;
+    border-width: 1px;
+    border-color: rgba(255, 255, 255, 0.25);
+    background-color: theme('colors.textPrimary');
+    color: theme('colors.slate.bg');
     box-shadow:
       inset 0 1px 0 0 rgba(255, 255, 255, 0.85),
       0 12px 40px rgba(0, 0, 0, 0.35);
   }
 
   .frame-theme-media {
-    @apply rounded-2xl border border-white/10 bg-white/5 shadow-xl backdrop-blur-md;
+    @apply rounded-2xl border border-white/10 bg-white/5 backdrop-blur-md;
+    box-shadow: none;
+  }
+}
+
+@layer utilities {
+  /** Fully hide scrollbar while keeping overflow scroll (Firefox / IE legacy / WebKit). */
+  .scrollbar-none {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  .scrollbar-none::-webkit-scrollbar {
+    display: none;
+    width: 0;
+    height: 0;
   }
 }

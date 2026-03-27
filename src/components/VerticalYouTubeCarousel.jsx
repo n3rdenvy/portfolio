@@ -59,10 +59,10 @@ export default function VerticalYouTubeCarousel({ title, videoIds, sectionLabel 
   return (
     <section className="flex flex-col gap-4" aria-labelledby={headingId}>
       <div className="flex items-end justify-between gap-4">
-        <h2 id={headingId} className="text-xl font-bold tracking-tight text-textPrimary md:text-2xl">
+        <h2 id={headingId} className="text-xl font-bold tracking-tight text-white md:text-2xl">
           {title}
         </h2>
-        <span className="text-xs font-medium tabular-nums text-textSecondary" aria-live="polite">
+        <span className="text-xs font-medium tabular-nums text-white" aria-live="polite">
           {safeIndex + 1} / {videoIds.length}
         </span>
       </div>

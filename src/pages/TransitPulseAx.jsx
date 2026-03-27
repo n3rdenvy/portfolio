@@ -8,13 +8,18 @@ import {
   TRANSIT_PULSE_PROCESS_PLACEHOLDERS,
   TRANSIT_PULSE_PROTOTYPE_URL,
 } from '../data/transitPulseAx';
+import {
+  HUB_NAV_EDGE_PULSE_TRANSITION,
+  HUB_NAV_PULSE_X,
+  HUB_NAV_PULSE_Y,
+} from '../utils/hubNavMotion';
 
 const spring = { type: 'spring', stiffness: 320, damping: 36, mass: 0.9 };
 
 /** @typedef {'north' | 'east' | 'south' | null} PanelKey */
 
 const panelShell =
-  'rounded-2xl border border-white/10 bg-white/5 p-6 text-textPrimary shadow-xl backdrop-blur-md';
+  'rounded-2xl border border-white/10 bg-white/5 p-6 text-white backdrop-blur-md';
 
 const panelMotion = {
   north: {
@@ -55,8 +60,8 @@ export default function TransitPulseAx() {
   const hasPrototype = Boolean(TRANSIT_PULSE_PROTOTYPE_URL);
 
   return (
-    <div className="flex min-h-[100svh] flex-col bg-slateBg text-textPrimary">
-      <ReturnToPortfolioButton />
+    <div className="flex min-h-[100svh] flex-col bg-slateBg text-white">
+      <ReturnToPortfolioButton aboveEmbed />
 
       <div className="relative min-h-0 flex-1">
         {hasPrototype ? (
@@ -69,10 +74,10 @@ export default function TransitPulseAx() {
         ) : (
           <div className="absolute inset-0 flex items-center justify-center p-6 pt-24 md:p-10 md:pt-28">
             <div className="frame-theme-media max-w-md px-8 py-10 text-center">
-              <p className="text-xs font-semibold uppercase tracking-[0.35em] text-textSecondary">Prototype</p>
-              <p className="mt-3 text-sm leading-relaxed text-textSecondary">
+              <p className="text-xs font-semibold tracking-tight text-white">Prototype</p>
+              <p className="mt-3 text-sm leading-relaxed text-white">
                 Set{' '}
-                <code className="rounded bg-white/10 px-1.5 py-0.5 text-xs text-textPrimary">
+                <code className="rounded bg-white/10 px-1.5 py-0.5 text-xs text-white">
                   VITE_TRANSIT_PULSE_PROTOTYPE_URL
                 </code>{' '}
                 in your environment to embed the live Transit Pulse build (Figma embed, staging URL, etc.).
@@ -87,6 +92,7 @@ export default function TransitPulseAx() {
         >
           <div className="absolute left-1/2 top-[max(5.5rem,12svh)] z-[101] -translate-x-1/2 md:top-[max(6rem,10svh)]">
             <DirectionTrigger
+              edge="north"
               label="Concept & Why"
               icon={ChevronUp}
               isOpen={active === 'north'}
@@ -97,7 +103,7 @@ export default function TransitPulseAx() {
 
           <div className="absolute right-3 top-1/2 z-[101] -translate-y-1/2 md:right-5">
             <DirectionTrigger
-              label="Learnings & Process"
+              label="Learnings & process"
               icon={ChevronRight}
               isOpen={active === 'east'}
               controlsId={`${baseId}-east`}
@@ -107,7 +113,8 @@ export default function TransitPulseAx() {
 
           <div className="absolute bottom-[max(1.25rem,4svh)] left-1/2 z-[101] -translate-x-1/2 md:bottom-6">
             <DirectionTrigger
-              label="Process Images"
+              edge="south"
+              label="Process images"
               icon={ChevronDown}
               isOpen={active === 'south'}
               controlsId={`${baseId}-south`}
@@ -138,10 +145,10 @@ export default function TransitPulseAx() {
                   onClose={close}
                   id={`${baseId}-north`}
                 >
-                  <p className="text-xs font-semibold uppercase tracking-[0.35em] text-textSecondary">
+                  <p className="text-xs font-semibold tracking-tight text-white">
                     {TRANSIT_PULSE_CONCEPT.title}
                   </p>
-                  <div className="mt-4 space-y-3 text-sm leading-relaxed text-textPrimary">
+                  <div className="mt-4 space-y-3 text-sm leading-relaxed text-white">
                     {TRANSIT_PULSE_CONCEPT.body.map((paragraph, i) => (
                       <p key={i}>{paragraph}</p>
                     ))}
@@ -156,10 +163,10 @@ export default function TransitPulseAx() {
                   onClose={close}
                   id={`${baseId}-east`}
                 >
-                  <p className="text-xs font-semibold uppercase tracking-[0.35em] text-textSecondary">
+                  <p className="text-xs font-semibold tracking-tight text-white">
                     {TRANSIT_PULSE_LEARNINGS.title}
                   </p>
-                  <ul className="mt-4 list-disc space-y-2 pl-4 text-sm leading-relaxed text-textPrimary">
+                  <ul className="mt-4 list-disc space-y-2 pl-4 text-sm leading-relaxed text-white">
                     {TRANSIT_PULSE_LEARNINGS.items.map((item, i) => (
                       <li key={i}>{item}</li>
                     ))}
@@ -170,12 +177,12 @@ export default function TransitPulseAx() {
                 <SlidePanel
                   key="south"
                   panelKey="south"
-                  ariaLabel="Process Images"
+                  ariaLabel="Process images"
                   onClose={close}
                   id={`${baseId}-south`}
                 >
-                  <p className="text-xs font-semibold uppercase tracking-[0.35em] text-textSecondary">Process Images</p>
-                  <p className="mt-2 text-xs text-textSecondary">
+                  <p className="text-xs font-semibold tracking-tight text-white">Process images</p>
+                  <p className="mt-2 text-xs text-white">
                     Drop assets into the paths shown on each tile, or replace this grid with real imagery.
                   </p>
                   <div className="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-3">
@@ -184,8 +191,8 @@ export default function TransitPulseAx() {
                         key={label}
                         className="flex aspect-[4/3] flex-col justify-end rounded-xl border border-white/12 bg-white/[0.06] p-3"
                       >
-                        <span className="text-xs font-medium text-textPrimary">{label}</span>
-                        <span className="mt-1 font-mono text-[10px] leading-snug text-textSecondary">
+                        <span className="text-xs font-medium text-white">{label}</span>
+                        <span className="mt-1 font-mono text-[10px] leading-snug text-white">
                           {hint}
                         </span>
                       </div>
@@ -201,17 +208,33 @@ export default function TransitPulseAx() {
   );
 }
 
-function DirectionTrigger({ label, icon, isOpen, controlsId, onClick }) {
+function DirectionTrigger({ edge, label, icon, isOpen, controlsId, onClick }) {
   const Glyph = icon;
+  const reduceMotion = Framer.useReducedMotion();
+  const pulseAnim = reduceMotion
+    ? { x: 0, y: 0 }
+    : edge === 'north'
+      ? { y: [0, -HUB_NAV_PULSE_Y, 0] }
+      : edge === 'east'
+        ? { x: [0, HUB_NAV_PULSE_X, 0] }
+        : { y: [0, HUB_NAV_PULSE_Y, 0] };
+  const transition = reduceMotion ? { duration: 0 } : HUB_NAV_EDGE_PULSE_TRANSITION;
+
   return (
     <button
       type="button"
       onClick={onClick}
       aria-expanded={isOpen}
       aria-controls={controlsId}
-      className="pointer-events-auto flex items-center gap-2 btn-theme py-2.5 pl-3 pr-4 text-left text-xs font-medium uppercase tracking-wider shadow-lg md:text-sm"
+      className="pointer-events-auto flex items-center gap-2 btn-theme py-2.5 pl-3 pr-4 text-left text-xs font-medium tracking-tight md:text-sm"
     >
-      <Glyph className="size-4 shrink-0 opacity-90" strokeWidth={2} aria-hidden />
+      <Framer.motion.span
+        className="inline-flex shrink-0 opacity-90"
+        animate={pulseAnim}
+        transition={transition}
+      >
+        <Glyph className="size-4 shrink-0" strokeWidth={2} aria-hidden />
+      </Framer.motion.span>
       <span className="max-w-[10rem] leading-tight md:max-w-none">{label}</span>
     </button>
   );

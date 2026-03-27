@@ -63,7 +63,7 @@ export default function ImmersiveMediaCarousel({ items }) {
         >
           <ChevronLeft className="size-6" aria-hidden />
         </button>
-        <span className="min-w-[4.5rem] text-center text-xs font-medium tabular-nums text-textSecondary">
+        <span className="min-w-[4.5rem] text-center text-xs font-medium tabular-nums text-white">
           {safe + 1} / {n}
         </span>
         <button

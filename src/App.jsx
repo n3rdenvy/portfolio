@@ -1,5 +1,6 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import AppLayout from './components/AppLayout';
+import { NavDepthProvider } from './context/NavDepthContext';
+import RootLayout from './layouts/RootLayout';
 import TJunctionShell from './components/TJunctionShell';
 import Accessibility from './pages/Accessibility';
 import Process from './pages/Process';
@@ -10,6 +11,8 @@ import Interiors from './pages/Interiors';
 import TransitPulseAx from './pages/TransitPulseAx';
 import Visualization3D from './pages/Visualization3D';
 import Contact from './pages/Contact';
+import Portfolio from './pages/Portfolio';
+import Resume from './pages/Resume';
 
 const ROUTES = [
   { path: '/accessibility', Component: Accessibility },
@@ -26,15 +29,19 @@ const ROUTES = [
 function App() {
   return (
     <BrowserRouter>
-      <Routes>
-        <Route element={<AppLayout />}>
-          <Route path="/" element={<TJunctionShell />} />
-          {ROUTES.map((route) => {
-            const Page = route.Component;
-            return <Route key={route.path} path={route.path} element={<Page />} />;
-          })}
-        </Route>
-      </Routes>
+      <NavDepthProvider>
+        <Routes>
+          <Route element={<RootLayout />}>
+            <Route path="/" element={<TJunctionShell />} />
+            <Route path="/portfolio" element={<Portfolio />} />
+            <Route path="/resume" element={<Resume />} />
+            {ROUTES.map((route) => {
+              const Page = route.Component;
+              return <Route key={route.path} path={route.path} element={<Page />} />;
+            })}
+          </Route>
+        </Routes>
+      </NavDepthProvider>
     </BrowserRouter>
   );
 }

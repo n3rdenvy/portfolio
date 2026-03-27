@@ -20,8 +20,10 @@ export default function Process() {
     <PageShell width="process">
       <ReturnToHub />
       <header className="glass mb-12 rounded-2xl p-8">
-        <h1 className="text-2xl font-semibold tracking-tight text-accent md:text-3xl">Process</h1>
-        <p className="mt-3 max-w-2xl text-sm leading-relaxed text-textSecondary">
+        <h1 className="text-2xl font-semibold tracking-tight text-white md:text-3xl">
+          Process
+        </h1>
+        <p className="mt-3 max-w-2xl text-sm leading-relaxed text-white">
           Technical discovery, documented as paired artifacts: surface (UI) and annotation (rationale).
         </p>
       </header>

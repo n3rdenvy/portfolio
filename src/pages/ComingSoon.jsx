@@ -5,16 +5,18 @@ const HEMOTYPE_SRC = '/coming-soon/hemotype.svg';
 
 export default function ComingSoon() {
   return (
-    <div className="min-h-[100svh] bg-slateBg text-textPrimary">
+    <div className="min-h-[100svh] bg-slateBg text-white">
       <ReturnToPortfolioButton />
 
-      <div className="mx-auto max-w-6xl px-4 pb-16 pt-28 md:px-8 md:pt-32">
+      <div className="mx-auto max-w-6xl px-4 pb-16 pt-20 md:px-8 md:pt-24">
         <header className="max-w-2xl">
-          <p className="text-xs font-semibold uppercase tracking-[0.35em] text-textSecondary">Coming soon</p>
-          <h1 className="mt-2 text-2xl font-bold tracking-tight text-textPrimary md:text-3xl">In the lab</h1>
-          <p className="mt-3 text-sm leading-relaxed text-textSecondary md:text-base">
-            Two product surfaces in progress — framed as hardware mockups below. Replace assets as builds
-            land.
+          <p className="text-xs font-semibold tracking-tight text-white">Coming soon</p>
+          <h1 className="mt-2 text-2xl font-bold tracking-tight text-white md:text-3xl">
+            In the lab
+          </h1>
+          <p className="mt-3 text-sm leading-relaxed text-white md:text-base">
+            Two product surfaces in progress<span className="text-white/90"> · </span>
+            framed as hardware mockups below. Replace assets as builds land.
           </p>
         </header>
 
@@ -31,13 +33,13 @@ export default function ComingSoon() {
                 decoding="async"
               />
             </DeviceClayPhoneFrame>
-            <p className="text-center text-sm font-medium text-textSecondary">HemoType</p>
+            <p className="text-center text-sm font-medium text-white">HemoType</p>
           </div>
 
           <div className="flex flex-col items-center gap-4">
             <DeviceClayPhoneFrame variant="iphone" label="iPhone showing Leah PM app placeholder">
               <div className="absolute inset-0 flex flex-col items-center justify-center bg-gradient-to-b from-slate-100 to-slate-200/95 p-6 text-center">
-                <p className="text-xs font-semibold uppercase tracking-[0.25em] text-slate-600">Placeholder</p>
+                <p className="text-xs font-semibold tracking-tight text-slate-600">Placeholder</p>
                 <p className="mt-3 text-lg font-semibold leading-snug text-slate-900 md:text-xl">
                   Leah&apos;s PM App
                 </p>
@@ -46,7 +48,7 @@ export default function ComingSoon() {
                 </p>
               </div>
             </DeviceClayPhoneFrame>
-            <p className="text-center text-sm font-medium text-textSecondary">Leah&apos;s PM App</p>
+            <p className="text-center text-sm font-medium text-white">Leah&apos;s PM App</p>
           </div>
         </div>
       </div>
