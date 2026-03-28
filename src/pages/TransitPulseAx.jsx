@@ -16,6 +16,11 @@ import {
 
 const spring = { type: 'spring', stiffness: 320, damping: 36, mass: 0.9 };
 
+/** Logical phone width — iframe `src` app sees this as viewport width (mobile breakpoints). */
+const PROTOTYPE_FRAME_MAX_W_PX = 390;
+/** Cap height so the frame fits on laptop screens without stretching the UI. */
+const PROTOTYPE_FRAME_MAX_H_PX = 844;
+
 /** @typedef {'north' | 'east' | 'south' | null} PanelKey */
 
 const panelShell =
@@ -65,12 +70,22 @@ export default function TransitPulseAx() {
 
       <div className="relative min-h-0 flex-1">
         {hasPrototype ? (
-          <iframe
-            title="Transit Pulse AX interactive prototype"
-            src={TRANSIT_PULSE_PROTOTYPE_URL}
-            className="absolute inset-0 h-full w-full border-0"
-            allowFullScreen
-          />
+          <div className="absolute inset-0 flex items-center justify-center overflow-y-auto overflow-x-hidden bg-slateBg px-3 pb-6 pt-[max(5rem,10svh)]">
+            <div
+              className="relative shrink-0 overflow-hidden rounded-[2rem] border border-white/12 bg-black shadow-[0_24px_80px_-20px_rgba(0,0,0,0.65)] ring-1 ring-inset ring-white/[0.06]"
+              style={{
+                width: `min(100%, ${PROTOTYPE_FRAME_MAX_W_PX}px)`,
+                height: `min(calc(100svh - max(6rem, 12svh)), ${PROTOTYPE_FRAME_MAX_H_PX}px)`,
+              }}
+            >
+              <iframe
+                title="Transit Pulse AX interactive prototype"
+                src={TRANSIT_PULSE_PROTOTYPE_URL}
+                className="absolute inset-0 h-full w-full border-0"
+                allowFullScreen
+              />
+            </div>
+          </div>
         ) : (
           <div className="absolute inset-0 flex items-center justify-center p-6 pt-24 md:p-10 md:pt-28">
             <div className="frame-theme-media max-w-md px-8 py-10 text-center">
