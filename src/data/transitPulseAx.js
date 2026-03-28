@@ -1,6 +1,15 @@
-/** Set `VITE_TRANSIT_PULSE_PROTOTYPE_URL` in `.env` (e.g. Figma embed or hosted prototype). */
+/**
+ * Live embed for the Transit Pulse case study (`/transit-pulse-ax`).
+ * Default: production app on Vercel. Override locally or on Vercel with
+ * `VITE_TRANSIT_PULSE_PROTOTYPE_URL` (e.g. a preview deployment or Figma embed).
+ *
+ * If the iframe is blank, the Transit Pulse app must allow embedding (no
+ * `X-Frame-Options: DENY` / tight `Content-Security-Policy: frame-ancestors`).
+ */
+const TRANSIT_PULSE_DEFAULT_URL = 'https://transit-pulse-nine.vercel.app';
+
 export const TRANSIT_PULSE_PROTOTYPE_URL = (
-  import.meta.env.VITE_TRANSIT_PULSE_PROTOTYPE_URL ?? ''
+  import.meta.env.VITE_TRANSIT_PULSE_PROTOTYPE_URL || TRANSIT_PULSE_DEFAULT_URL
 ).trim();
 
 export const TRANSIT_PULSE_CONCEPT = {
