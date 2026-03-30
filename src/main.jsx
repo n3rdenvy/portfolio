@@ -1,5 +1,6 @@
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
+import { Agentation } from 'agentation';
 import './globals.css';
 import App from './App.jsx';
 
@@ -13,8 +14,15 @@ import App from './App.jsx';
   document.documentElement.dataset.bgDepth = wing === 'east' ? '1' : '0';
 })();
 
+const showAgentation =
+  import.meta.env.DEV ||
+  new URLSearchParams(window.location.search).has('agentation');
+
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <App />
+    <>
+      <App />
+      {showAgentation ? <Agentation /> : null}
+    </>
   </StrictMode>,
 );
