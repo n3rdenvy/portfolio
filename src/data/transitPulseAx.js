@@ -21,7 +21,7 @@ export const TRANSIT_PULSE_CONCEPT = {
 };
 
 export const TRANSIT_PULSE_LEARNINGS = {
-  title: 'Learnings & process',
+  title: 'Learnings & Process',
   items: [
     'Mapped primary tasks (where is my vehicle, what changed, what do I do next) before visual polish so hierarchy stayed anchored to real urgency.',
     'Iterated contrast and touch targets against WCAG AA on the slate glass stack used across this portfolio wing.',
@@ -30,9 +30,12 @@ export const TRANSIT_PULSE_LEARNINGS = {
   ],
 };
 
-/** Replace with real process shots under `public/transit-pulse/` when available. */
+/**
+ * Process imagery for Learnings & Process carousel (`public/transit-pulse/` → served from `/transit-pulse/`).
+ * If a file is missing, the UI falls back to the label + hint placeholder.
+ */
 export const TRANSIT_PULSE_PROCESS_PLACEHOLDERS = [
-  { label: 'Journey map', hint: 'public/transit-pulse/journey.png' },
-  { label: 'Wireflow', hint: 'public/transit-pulse/wireflow.png' },
-  { label: 'Component audit', hint: 'public/transit-pulse/components.png' },
+  { label: 'Journey map', src: '/transit-pulse/journey.png', hint: 'public/transit-pulse/journey.png' },
+  { label: 'Wireflow', src: '/transit-pulse/wireflow.png', hint: 'public/transit-pulse/wireflow.png' },
+  { label: 'Component audit', src: '/transit-pulse/components.png', hint: 'public/transit-pulse/components.png' },
 ];

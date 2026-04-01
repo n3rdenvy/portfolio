@@ -14,7 +14,7 @@ const glassCard =
 
 /** Shared chrome for mobile + overlap (tablet) resume nav pills. */
 const resumeNavPillShell =
-  'pointer-events-auto flex min-h-10 w-fit max-w-full min-w-0 shrink-0 items-center justify-center gap-4 rounded-full border border-white/15 bg-slateBg/92 px-3 py-1.5 shadow-[0_8px_30px_rgba(0,0,0,0.35)] backdrop-blur-md min-[400px]:gap-6 min-[400px]:px-4';
+  'pointer-events-auto flex min-h-10 w-fit max-w-full min-w-0 shrink-0 items-center justify-center gap-4 rounded-full border border-white/15 bg-slateBg/92 px-3 py-1.5 shadow-[0_8px_30px_rgba(0,0,0,0.35)] backdrop-blur-[9.9px] min-[400px]:gap-6 min-[400px]:px-4';
 
 /** Emphasis for primary nav words (Home, Resume, LinkedIn) — title case in markup, no all-caps. */
 const navLinkEmphasis = 'font-semibold tracking-tight text-white';

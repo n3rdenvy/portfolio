@@ -365,7 +365,7 @@ export default function VerticalYouTubeCarousel({ title, videoIds, mediaItems, s
           <div
             role="toolbar"
             aria-label={`${sectionLabel} player controls`}
-            className="mt-3 flex flex-wrap items-center justify-start gap-x-3 gap-y-2 rounded-xl border border-white/10 bg-white/5 px-3 py-3 backdrop-blur-md md:hidden"
+            className="mt-3 flex flex-wrap items-center justify-start gap-x-3 gap-y-2 rounded-xl border border-white/10 bg-white/5 px-3 py-3 backdrop-blur-[9.9px] md:hidden"
           >
             <span
               className="size-2 shrink-0 rounded-full bg-[#ffc933] shadow-[0_0_10px_rgba(255,201,51,0.55)]"

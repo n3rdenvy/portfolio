@@ -62,7 +62,7 @@ export default function HubResumePortfolioNav({ centerSlot = null }) {
   const linkRow = (
     <nav
       aria-label="Resume and portfolio"
-      className="flex w-full flex-nowrap items-center justify-center gap-x-10 gap-y-3 sm:gap-x-14 md:gap-x-16 lg:justify-between lg:gap-x-0"
+      className="flex w-full flex-nowrap items-center justify-center gap-x-[clamp(4.5rem,20vw,9rem)] gap-y-3 sm:gap-x-28 md:gap-x-40"
     >
       <Link
         to="/resume"
@@ -89,9 +89,9 @@ export default function HubResumePortfolioNav({ centerSlot = null }) {
     <div className="w-full">
       <div className="flex flex-col gap-6 lg:hidden">
         {centerSlot}
-        {linkRow}
+        <div className="mt-16 w-full sm:mt-[4.5rem]">{linkRow}</div>
       </div>
-      <div className="hidden w-full gap-x-6 lg:grid lg:grid-cols-3 lg:items-end">
+      <div className="hidden w-full gap-x-12 lg:grid lg:grid-cols-3 lg:items-end xl:gap-x-16">
         <Link
           to="/resume"
           aria-label="Resume and links (west)"

@@ -4,9 +4,9 @@
  */
 export const HUB_PAGE_TWO_COL = 'lg:grid lg:grid-cols-2 lg:gap-x-10';
 
-export default function HubPageHeading({ title, subtitle = null }) {
+export default function HubPageHeading({ title, subtitle = null, className = '' }) {
   return (
-    <header className="hub-page-heading min-w-0">
+    <header className={['hub-page-heading min-w-0', className].filter(Boolean).join(' ')}>
       <h1 className="page-heading-xl text-white">{title}</h1>
       {subtitle ? (
         <p className="mt-3 text-base leading-relaxed text-white md:mt-4 lg:mt-6">{subtitle}</p>
@@ -20,10 +20,14 @@ export default function HubPageHeading({ title, subtitle = null }) {
  * the left column of the 50/50 split below (matches Contact accordions spine).
  * `align="center"` spans both columns and centers the block (e.g. Portfolio hub above a 2-col card grid).
  */
-export function HubPageHeadingRow({ children, align = 'start' }) {
+export function HubPageHeadingRow({
+  children,
+  align = 'start',
+  gridClassName = HUB_PAGE_TWO_COL,
+}) {
   if (align === 'center') {
     return (
-      <div className={['w-full', HUB_PAGE_TWO_COL].join(' ')}>
+      <div className={['w-full', gridClassName].join(' ')}>
         <div className="flex min-w-0 flex-col items-center text-center lg:col-span-2">
           {children}
         </div>
@@ -31,7 +35,7 @@ export function HubPageHeadingRow({ children, align = 'start' }) {
     );
   }
   return (
-    <div className={['w-full', HUB_PAGE_TWO_COL].join(' ')}>
+    <div className={['w-full', gridClassName].join(' ')}>
       <div className="min-w-0">{children}</div>
       <div className="hidden min-w-0 lg:block" aria-hidden />
     </div>

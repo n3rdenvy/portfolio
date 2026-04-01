@@ -41,7 +41,7 @@ export default function TJunctionShell() {
         <LandingHub />
 
         <nav
-          className="pointer-events-none fixed inset-x-0 bottom-0 z-20 px-4 pb-[max(0.75rem,env(safe-area-inset-bottom,0px))] pt-2"
+          className="pointer-events-none fixed inset-x-0 z-20 px-4 bottom-[calc(env(safe-area-inset-bottom,0px)+2.7rem)] pb-1 pt-1.5 md:bottom-0 md:pb-[max(0.75rem,env(safe-area-inset-bottom,0px))] md:pt-2"
           aria-label="Hub navigation"
         >
           <div className="pointer-events-auto mx-auto flex w-full max-w-sm justify-center md:max-w-2xl">

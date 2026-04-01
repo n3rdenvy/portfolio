@@ -12,7 +12,8 @@ export default function SpatialAnimatedOutlet() {
     document.documentElement.dataset.bgDepth = String(depth);
   }, [pathname]);
 
-  const resumeScrollContained = pathname === '/resume';
+  const viewportLocked =
+    pathname === '/resume' || pathname === '/transit-pulse-ax';
 
   return (
     <Framer.AnimatePresence mode="wait">
@@ -20,7 +21,7 @@ export default function SpatialAnimatedOutlet() {
         key={pathname}
         className={[
           'absolute inset-0 h-full w-full overflow-x-hidden scrollbar-none',
-          resumeScrollContained ? 'overflow-y-hidden' : 'overflow-y-auto',
+          viewportLocked ? 'overflow-y-hidden' : 'overflow-y-auto',
         ].join(' ')}
         custom={pathname}
         variants={spatialPageVariants}

@@ -1,8 +1,11 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { ArrowUpRight, ChevronDown, Laugh, MapPin } from 'lucide-react';
 import PageShell from '../components/PageShell';
-import HubPageHeading, { HUB_PAGE_TWO_COL, HubPageHeadingRow } from '../components/HubPageHeading';
+import HubPageHeading, { HubPageHeadingRow } from '../components/HubPageHeading';
 import ReturnToHub from '../components/ReturnToHub';
+
+/** Tighter desktop gutters than default hub pages; matches Contact body grid. */
+const CONTACT_LG_TWO_COL = 'lg:grid lg:grid-cols-2 lg:gap-x-6 lg:items-stretch';
 
 const LAUGH_VIDEO_URL =
   'https://youtu.be/Ygg0bXls8CA?si=Omfyd8lGAihIkPJF&t=19';
@@ -10,7 +13,7 @@ const LAUGH_VIDEO_URL =
 const INBOX_EMAIL = 'n3rdenvy@gmail.com';
 
 const BONUS_SMALL_WIN_PLACEHOLDER =
-  "I'll go first... My cat did puke on the floor, but on the tile and NOT the nice high pile rug!! IYKYK";
+  "I'll go first, someone took the time to look at my website. Thank you!";
 
 /** Shared shell for bonus text fields and the “Make me laugh” row (full width, same footprint). */
 const bonusFullWidthShell =
@@ -59,12 +62,6 @@ function buildSubmissionMessage(data) {
     );
   }
 
-  if (data.outcome.trim()) {
-    paragraphs.push(
-      `Fast-forwarding to the finish line: this feels like a massive success when: ${data.outcome.trim()}`
-    );
-  }
-
   const timingLines = [];
   if (data.scopeStart.trim() || data.scopeEnd.trim()) {
     const a = formatIsoDateForMessage(data.scopeStart.trim());
@@ -82,6 +79,12 @@ function buildSubmissionMessage(data) {
   }
   if (timingLines.length) {
     paragraphs.push(timingLines.join('\n'));
+  }
+
+  if (data.outcome.trim()) {
+    paragraphs.push(
+      `Fast-forwarding to the finish line: this feels like a massive success when: ${data.outcome.trim()}`
+    );
   }
 
   const n = Number(data.bonusSlider);
@@ -128,14 +131,14 @@ const INITIAL_FORM = {
 const dateInputClass =
   'w-full rounded-xl border border-white/10 bg-slateBg/90 px-3 py-2 text-sm text-white [color-scheme:dark] focus:border-white/35 focus:outline-none focus:ring-1 focus:ring-white/25';
 
-/** Fills space above the Send row inside the flex submission column (min height for empty state). */
+/** Mobile: grows in column. lg+: fixed min height, grows downward with resize only (no flex steal from center). */
 const submissionDraftTextareaClass =
-  'w-full min-h-[10rem] flex-1 basis-0 resize-y rounded-2xl border border-white/10 bg-white/[0.03] p-5 text-sm leading-relaxed text-white placeholder:text-white/45 focus:border-white/35 focus:outline-none focus:ring-1 focus:ring-white/25 sm:p-6 sm:text-base';
+  'w-full min-h-[10rem] flex-1 basis-0 resize-y rounded-2xl border border-white/10 bg-white/[0.03] p-5 text-sm leading-relaxed text-white placeholder:text-white/45 focus:border-white/35 focus:outline-none focus:ring-1 focus:ring-white/25 sm:p-6 sm:text-base lg:max-h-[min(50vh,32rem)] lg:flex-none lg:basis-auto';
 
 const ACCORDION_SECTIONS = [
   {
     id: 'name',
-    title: 'Name',
+    title: 'Your name',
     subtitle: null,
     field: 'name',
     type: 'text',
@@ -150,20 +153,20 @@ const ACCORDION_SECTIONS = [
     placeholder: 'Project context, goals, audience, or whatever helps.',
   },
   {
-    id: 'outcome',
-    title: 'Fast forward to the end. What makes this a massive success?',
-    subtitle: null,
-    field: 'outcome',
-    type: 'textarea',
-    placeholder: 'Paint the picture of the win.',
-  },
-  {
     id: 'timeline',
     title: 'Scope & deployment',
     subtitle: 'Pick a span for the build window and a target go-live date.',
     field: null,
     type: 'dates',
     placeholder: '',
+  },
+  {
+    id: 'outcome',
+    title: 'Fast forward to the end. What makes this a massive success?',
+    subtitle: null,
+    field: 'outcome',
+    type: 'textarea',
+    placeholder: 'Paint the picture of the win.',
   },
   {
     id: 'bonus',
@@ -349,6 +352,8 @@ export default function Contact() {
   const [activeAccordion, setActiveAccordion] = useState(null);
   const [formData, setFormData] = useState(INITIAL_FORM);
   const [draftBody, setDraftBody] = useState('');
+  /** After the visitor edits the draft textarea, stop overwriting from the accordion form. */
+  const skipFormDraftSyncRef = useRef(false);
 
   const toggleAccordion = (id) => {
     setActiveAccordion((prev) => (prev === id ? null : id));
@@ -359,6 +364,7 @@ export default function Contact() {
   };
 
   useEffect(() => {
+    if (skipFormDraftSyncRef.current) return;
     setDraftBody(buildSubmissionMessage(formData));
   }, [formData]);
 
@@ -372,165 +378,189 @@ export default function Contact() {
     ? `mailto:${INBOX_EMAIL}?subject=${encodeURIComponent(mailSubject)}&body=${encodeURIComponent(draftBody.trim())}`
     : undefined;
 
+  const contactDetails = (headingId) => (
+    <section className="w-full shrink-0" aria-labelledby={headingId}>
+      <h2 id={headingId} className="text-xs font-semibold tracking-tight text-white">
+        Contact
+      </h2>
+      <ul className="mt-4 space-y-3 text-sm">
+        <li>
+          <a
+            href={`mailto:${INBOX_EMAIL}`}
+            className="group flex items-start gap-2 text-white underline-offset-4 transition-colors hover:text-white"
+          >
+            <ArrowUpRight
+              className="mt-0.5 size-4 shrink-0 text-white transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+              strokeWidth={2}
+              aria-hidden
+            />
+            <span className="underline decoration-white/25 underline-offset-4 group-hover:decoration-white/50">
+              {INBOX_EMAIL}
+            </span>
+            <span className="sr-only">(opens email)</span>
+          </a>
+        </li>
+        <li className="flex items-start gap-2 text-white">
+          <MapPin className="mt-0.5 size-4 shrink-0 text-white" strokeWidth={2} aria-hidden />
+          <span>Philadelphia, PA</span>
+        </li>
+      </ul>
+    </section>
+  );
+
   return (
     <PageShell width="process">
       <ReturnToHub mobileLayout="pill-end" />
 
-      <div className="flex min-h-0 min-w-0 flex-1 flex-col pb-20 pt-4 max-md:pt-[3.85rem] md:pt-8">
-        <HubPageHeadingRow>
-          <HubPageHeading title="Let's chat" />
+      {/*
+        lg+: soft dissolve under fixed Home so scrolled copy never reads as colliding with the button.
+        Below nav anchor (matches .site-fixed-nav-tl top offset).
+      */}
+      <div
+        className="pointer-events-none fixed inset-x-0 z-[58] hidden h-28 bg-gradient-to-b from-slateBg via-slateBg/85 to-transparent lg:block"
+        style={{
+          top: 'calc(2rem + env(safe-area-inset-top, 0px))',
+        }}
+        aria-hidden
+      />
+
+      <div className="relative flex min-h-0 min-w-0 flex-1 flex-col pb-20 pt-4 max-md:pt-[3.85rem] md:pt-8 lg:mx-auto lg:min-h-0 lg:w-full lg:max-w-4xl">
+        <HubPageHeadingRow gridClassName={CONTACT_LG_TWO_COL}>
+          <HubPageHeading title="Let's chat" className="[&_h1]:mb-0" />
         </HubPageHeadingRow>
 
         {/*
           Mobile: intro → accordions → contact → submission (stacked).
-          lg+: 50/50 grid — left spine aligns with heading; right stacks Contact + Your submission
-          (submission column flexes to match left height; Send aligns with bottom of Bonus accordion).
+          lg+: intro + contact (left, vertically centered) | accordions fill column (no dead flex gap).
+          Submission is full-width along the bottom; extra input height grows downward.
         */}
-        <div
-          className={['mt-3 flex min-h-0 flex-col md:mt-4 lg:mt-6', HUB_PAGE_TWO_COL, 'lg:items-stretch'].join(
-            ' '
-          )}
-        >
-          <div className="order-1 flex min-w-0 flex-col lg:order-none">
-            <p className="text-base leading-relaxed text-white">
-              I&apos;m all ears (and eyes). Use the drop down menus below to dump your entire brain or just give me
-              the highlight reel. Shorter responses are allowed, but if you want to hit me with a beautiful wall of
-              text, I can take it. Don&apos;t hold back and let&apos;s see where we can take this!
-            </p>
-
-            <section className="mt-8 min-w-0 lg:mt-6" aria-labelledby="form-heading">
-              <h2 id="form-heading" className="sr-only">
-                Project inquiry form
-              </h2>
-              <div>
-                {ACCORDION_SECTIONS.map((section) => {
-                  const panelId = `contact-panel-${section.id}`;
-                  const isOpen = activeAccordion === section.id;
-
-                  return (
-                    <AccordionRow
-                      key={section.id}
-                      id={section.id}
-                      title={section.title}
-                      subtitle={section.subtitle}
-                      isOpen={isOpen}
-                      onToggle={toggleAccordion}
-                      panelId={panelId}
-                    >
-                      {section.type === 'bonus' ? (
-                        <BonusPointsFields
-                          bonusSlider={formData.bonusSlider}
-                          bonusSmallWin={formData.bonusSmallWin}
-                          bonusAwesome={formData.bonusAwesome}
-                          updateField={updateField}
-                        />
-                      ) : section.type === 'dates' ? (
-                        <TimelineDateFields
-                          scopeStart={formData.scopeStart}
-                          scopeEnd={formData.scopeEnd}
-                          deploymentDate={formData.deploymentDate}
-                          updateField={updateField}
-                        />
-                      ) : section.type === 'textarea' ? (
-                        <textarea
-                          id={`field-${section.field}`}
-                          rows={4}
-                          value={formData[section.field]}
-                          onChange={(e) => updateField(section.field, e.target.value)}
-                          placeholder={section.placeholder}
-                          className="w-full resize-y rounded-xl border border-white/10 bg-slateBg/90 px-3 py-2 text-sm text-white placeholder:text-white/60 focus:border-white/35 focus:outline-none focus:ring-1 focus:ring-white/25"
-                        />
-                      ) : (
-                        <input
-                          id={`field-${section.field}`}
-                          type="text"
-                          value={formData[section.field]}
-                          onChange={(e) => updateField(section.field, e.target.value)}
-                          placeholder={section.placeholder}
-                          className="w-full rounded-xl border border-white/10 bg-slateBg/90 px-3 py-2 text-sm text-white placeholder:text-white/60 focus:border-white/35 focus:outline-none focus:ring-1 focus:ring-white/25"
-                        />
-                      )}
-                    </AccordionRow>
-                  );
-                })}
+        <div className="mt-3 flex min-h-0 flex-1 flex-col md:mt-4 lg:mt-1 lg:min-h-0">
+          <div className="flex min-h-0 flex-1 flex-col justify-start lg:min-h-0 lg:justify-center">
+            <div className="grid grid-cols-1 gap-8 lg:min-h-0 lg:grid-cols-2 lg:gap-x-6 lg:gap-y-0 lg:items-stretch">
+              <div className="flex min-w-0 flex-col gap-6 lg:justify-center lg:gap-8">
+                <p className="text-base leading-relaxed text-white lg:pr-6">
+                  I&apos;m all ears (and eyes). Use the drop down menus below to dump your entire brain or just give me
+                  the highlight reel. Shorter responses are allowed, but if you want to hit me with a beautiful wall of
+                  text, I can take it. Don&apos;t hold back and let&apos;s see where we can take this!
+                </p>
+                <div className="hidden lg:block">{contactDetails('contact-heading-lg')}</div>
               </div>
-            </section>
+
+              <div className="flex min-h-0 min-w-0 flex-col lg:h-full lg:min-h-0">
+                <section
+                  className="min-w-0 shrink-0 lg:flex lg:min-h-0 lg:flex-1 lg:flex-col lg:overflow-y-auto scrollbar-none"
+                  aria-labelledby="form-heading"
+                >
+                  <h2 id="form-heading" className="sr-only">
+                    Project inquiry form
+                  </h2>
+                  <div className="lg:min-h-0 lg:flex-1">
+                    {ACCORDION_SECTIONS.map((section) => {
+                        const panelId = `contact-panel-${section.id}`;
+                        const isOpen = activeAccordion === section.id;
+
+                        return (
+                          <AccordionRow
+                            key={section.id}
+                            id={section.id}
+                            title={section.title}
+                            subtitle={section.subtitle}
+                            isOpen={isOpen}
+                            onToggle={toggleAccordion}
+                            panelId={panelId}
+                          >
+                            {section.type === 'bonus' ? (
+                              <BonusPointsFields
+                                bonusSlider={formData.bonusSlider}
+                                bonusSmallWin={formData.bonusSmallWin}
+                                bonusAwesome={formData.bonusAwesome}
+                                updateField={updateField}
+                              />
+                            ) : section.type === 'dates' ? (
+                              <TimelineDateFields
+                                scopeStart={formData.scopeStart}
+                                scopeEnd={formData.scopeEnd}
+                                deploymentDate={formData.deploymentDate}
+                                updateField={updateField}
+                              />
+                            ) : section.type === 'textarea' ? (
+                              <textarea
+                                id={`field-${section.field}`}
+                                rows={4}
+                                value={formData[section.field]}
+                                onChange={(e) => updateField(section.field, e.target.value)}
+                                placeholder={section.placeholder}
+                                className="w-full resize-y rounded-xl border border-white/10 bg-slateBg/90 px-3 py-2 text-sm text-white placeholder:text-white/60 focus:border-white/35 focus:outline-none focus:ring-1 focus:ring-white/25"
+                              />
+                            ) : (
+                              <input
+                                id={`field-${section.field}`}
+                                type="text"
+                                value={formData[section.field]}
+                                onChange={(e) => updateField(section.field, e.target.value)}
+                                placeholder={section.placeholder}
+                                className="w-full rounded-xl border border-white/10 bg-slateBg/90 px-3 py-2 text-sm text-white placeholder:text-white/60 focus:border-white/35 focus:outline-none focus:ring-1 focus:ring-white/25"
+                              />
+                            )}
+                          </AccordionRow>
+                        );
+                      })}
+                  </div>
+                </section>
+              </div>
+
+              <div className="lg:hidden">{contactDetails('contact-heading-sm')}</div>
+            </div>
           </div>
 
-          <div className="order-2 mt-10 flex min-h-0 min-w-0 flex-col lg:order-none lg:mt-0 lg:h-full lg:min-h-0">
-            <section className="w-full shrink-0" aria-labelledby="contact-heading">
-              <h2 id="contact-heading" className="text-xs font-semibold tracking-tight text-white">
-                Contact
-              </h2>
-              <ul className="mt-4 space-y-3 text-sm">
-                <li>
-                  <a
-                    href={`mailto:${INBOX_EMAIL}`}
-                    className="group flex items-start gap-2 text-white underline-offset-4 transition-colors hover:text-white"
-                  >
-                    <ArrowUpRight
-                      className="mt-0.5 size-4 shrink-0 text-white transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
-                      strokeWidth={2}
-                      aria-hidden
-                    />
-                    <span className="underline decoration-white/25 underline-offset-4 group-hover:decoration-white/50">
-                      {INBOX_EMAIL}
-                    </span>
-                    <span className="sr-only">(opens email)</span>
-                  </a>
-                </li>
-                <li className="flex items-start gap-2 text-white">
-                  <MapPin className="mt-0.5 size-4 shrink-0 text-white" strokeWidth={2} aria-hidden />
-                  <span>Philadelphia, PA</span>
-                </li>
-              </ul>
-            </section>
-
-            <section
-              className="mt-6 flex min-h-0 w-full min-w-0 flex-1 flex-col gap-3 lg:mt-6 lg:gap-4"
-              aria-labelledby="submission-preview-heading"
+          <section
+            className="mt-10 flex w-full shrink-0 flex-col gap-3 lg:mt-auto lg:flex-none lg:border-t lg:border-white/10 lg:pt-6 lg:gap-4"
+            aria-labelledby="submission-preview-heading"
+          >
+            <h2
+              id="submission-preview-heading"
+              className="shrink-0 text-lg font-semibold tracking-tight text-white"
             >
-              <h2
-                id="submission-preview-heading"
-                className="shrink-0 text-lg font-semibold tracking-tight text-white"
-              >
-                Your submission
-              </h2>
-              <p className="shrink-0 text-sm leading-relaxed text-white">
-                This updates as you fill the form; feel free to edit the text before you send.
-              </p>
-              <label htmlFor="submission-draft" className="sr-only">
-                Message draft. Edit before sending
-              </label>
-              <textarea
-                id="submission-draft"
-                value={draftBody}
-                onChange={(e) => setDraftBody(e.target.value)}
-                placeholder="Start filling in the form. Your message will build here in real time."
-                className={submissionDraftTextareaClass}
-              />
+              Your submission
+            </h2>
+            <p className="shrink-0 text-sm leading-relaxed text-white">
+              Use the questions to build a draft, or paste and write freely here — send works whenever this box has
+              something in it.
+            </p>
+            <label htmlFor="submission-draft" className="sr-only">
+              Message draft. Edit before sending
+            </label>
+            <textarea
+              id="submission-draft"
+              value={draftBody}
+              onChange={(e) => {
+                skipFormDraftSyncRef.current = true;
+                setDraftBody(e.target.value);
+              }}
+              placeholder="Fill the questions and this updates for you — or paste your own message and send anytime."
+              className={submissionDraftTextareaClass}
+            />
 
-              <div className="mt-auto w-full shrink-0 pt-1">
-                {canSubmit ? (
-                  <a
-                    href={mailtoHref}
-                    className="btn-theme inline-flex w-full items-center justify-center px-6 py-4 text-center text-base font-semibold no-underline"
-                  >
-                    Send straight to Erik&apos;s inbox
-                  </a>
-                ) : (
-                  <button
-                    type="button"
-                    disabled
-                    className="btn-theme inline-flex w-full cursor-not-allowed items-center justify-center px-6 py-4 text-center text-base font-semibold"
-                    title="Add content to the form or type a message to enable send"
-                  >
-                    Send straight to Erik&apos;s inbox
-                  </button>
-                )}
-              </div>
-            </section>
-          </div>
+            <div className="w-full shrink-0 pt-1 lg:pt-0">
+              {canSubmit ? (
+                <a
+                  href={mailtoHref}
+                  className="btn-theme btn-theme-contact-send inline-flex w-full items-center justify-center px-6 py-4 text-center text-base font-semibold no-underline"
+                >
+                  Send straight to Erik&apos;s inbox
+                </a>
+              ) : (
+                <button
+                  type="button"
+                  disabled
+                  className="btn-theme btn-theme-contact-send inline-flex w-full cursor-not-allowed items-center justify-center px-6 py-4 text-center text-base font-semibold"
+                  title="Add content to the form or type a message to enable send"
+                >
+                  Send straight to Erik&apos;s inbox
+                </button>
+              )}
+            </div>
+          </section>
         </div>
       </div>
     </PageShell>

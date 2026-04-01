@@ -20,7 +20,8 @@ const PORTFOLIO_HUB_CARDS = [
   {
     to: '/transit-pulse-ax',
     title: 'Transit Pulse AX App',
-    description: 'Application shell, accessibility posture, and operational telemetry UX.',
+    description:
+      'Real-time agentic navigation and proactive routing systems for the modern commuter.',
     icon: Activity,
   },
   {

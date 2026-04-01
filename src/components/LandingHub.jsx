@@ -1,8 +1,10 @@
+/**
+ * Welcome hub — mobile layout locked; do not change without explicit user permission
+ * (see `.cursor/rules/welcome-hub-mobile-locked.mdc`).
+ */
 import { LayoutGroup, motion, useReducedMotion } from 'framer-motion';
 import { useEffect, useMemo, useState } from 'react';
-import { Link } from 'react-router-dom';
 import HubResumePortfolioNav from './HubResumePortfolioNav';
-import { markHubLeavingToPortfolio } from '../utils/pageTransitions';
 
 const MotionH1 = motion.h1;
 const MotionDiv = motion.div;
@@ -88,7 +90,7 @@ export default function LandingHub() {
           </div>
         )}
 
-        <div className="w-full px-6 pb-[clamp(8rem,22svh,12rem)] pt-16 text-center md:px-10 md:pb-28 md:pt-20 lg:pb-32 lg:pt-24">
+        <div className="w-full px-8 pb-[clamp(5.25rem,11svh,7.5rem)] pt-32 text-center sm:px-10 md:px-14 md:pb-28 md:pt-28 lg:px-16 lg:pb-32 lg:pt-32">
           <div className="mx-auto w-full max-w-2xl">
             {showIntroOverlay ? (
               <div
@@ -105,13 +107,13 @@ export default function LandingHub() {
           {phase === 'ready' && (
             <MotionDiv
               key={skipIntro ? 'hub-body-static' : 'hub-body-intro'}
-              className="mt-6 flex w-full flex-col gap-6 text-left font-satoshi text-white"
+              className="mt-12 flex w-full flex-col gap-12 text-left font-satoshi text-white md:mt-10 md:gap-10 lg:mt-12 lg:gap-12"
               initial={skipIntro ? false : 'hidden'}
               animate="visible"
               variants={bodyVariants}
             >
-              <div className="mx-auto flex w-full max-w-xl flex-col gap-5 text-sm leading-relaxed md:text-base">
-                <p className="indent-6 md:indent-8">
+              <div className="mx-auto flex w-full max-w-xl flex-col gap-5 px-1 text-sm leading-relaxed sm:px-2 md:px-3 md:text-base">
+                <p className="indent-4 md:indent-6">
                   I have spent the last few years leading interior{' '}
                   <strong className="font-black">design strategy</strong> at IKEA,
                   where I learned that the most complex problems usually require
@@ -122,7 +124,7 @@ export default function LandingHub() {
                   I enjoy getting to the root of a problem and finding a reason
                   to laugh along the way.
                 </p>
-                <p className="indent-6 md:indent-8">
+                <p className="indent-4 md:indent-6">
                   My career has{' '}
                   <strong className="font-black">focused on user experience</strong>{' '}
                   across multiple industries, so moving into{' '}
@@ -134,27 +136,17 @@ export default function LandingHub() {
                 </p>
               </div>
 
-              <div className="mx-auto mt-12 w-full max-w-xl md:mt-14 lg:mx-0 lg:max-w-none">
+              <div className="mx-auto w-full max-w-xl lg:mx-0 lg:max-w-none">
                 <HubResumePortfolioNav
                   centerSlot={
                     <h2
                       id="hub-how-can-i-help"
-                      className={`${headlineClass} w-full text-center`}
+                      className={`${headlineClass} w-full max-w-full text-center`}
                     >
                       How can I help?
                     </h2>
                   }
                 />
-                <p className="mt-6 text-center text-sm leading-relaxed text-white/80">
-                  <Link
-                    to="/transit-pulse-ax"
-                    onClick={() => markHubLeavingToPortfolio()}
-                    className="font-medium text-white underline decoration-white/35 underline-offset-[5px] transition hover:decoration-white/70"
-                  >
-                    Transit Pulse
-                  </Link>
-                  <span className="text-white/60"> — case study (shell, a11y, telemetry UX)</span>
-                </p>
               </div>
             </MotionDiv>
           )}

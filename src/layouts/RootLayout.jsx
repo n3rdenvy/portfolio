@@ -41,7 +41,7 @@ export default function RootLayout() {
           <FluidBlob />
         </Canvas>
       </div>
-      <div className="absolute isolate z-10 overflow-hidden rounded-[2.5rem] border border-white/[0.14] bg-gradient-to-b from-black/35 via-black/25 to-black/30 text-white shadow-[0_28px_90px_-24px_rgba(0,0,0,0.75),inset_0_1px_0_0_rgba(255,255,255,0.16),inset_0_0_0_1px_rgba(255,255,255,0.04)] backdrop-blur-[80px] backdrop-saturate-150 left-[max(1rem,env(safe-area-inset-left,0px))] right-[max(1rem,env(safe-area-inset-right,0px))] top-[max(1rem,env(safe-area-inset-top,0px))] bottom-[max(1rem,env(safe-area-inset-bottom,0px))] h-auto w-auto max-w-none md:inset-auto md:left-1/2 md:top-1/2 md:h-[85vh] md:w-[90vw] md:max-w-7xl md:-translate-x-1/2 md:-translate-y-1/2">
+      <div className="absolute isolate z-10 overflow-hidden rounded-[2.5rem] border border-white/[0.14] bg-gradient-to-b from-black/35 via-black/25 to-black/30 text-white shadow-[0_28px_90px_-24px_rgba(0,0,0,0.75),inset_0_1px_0_0_rgba(255,255,255,0.16),inset_0_0_0_1px_rgba(255,255,255,0.04)] backdrop-blur-[64.8px] left-[max(1rem,env(safe-area-inset-left,0px))] right-[max(1rem,env(safe-area-inset-right,0px))] top-[max(1rem,env(safe-area-inset-top,0px))] bottom-[max(1rem,env(safe-area-inset-bottom,0px))] h-auto w-auto max-w-none md:inset-auto md:left-1/2 md:top-1/2 md:h-[85vh] md:w-[90vw] md:max-w-7xl md:-translate-x-1/2 md:-translate-y-1/2">
         {/* Diagonal specular shine (physical glass panel read) */}
         <div
           className="pointer-events-none absolute inset-0 z-[1] rounded-[inherit] bg-[linear-gradient(125deg,rgba(255,255,255,0.2)_0%,rgba(255,255,255,0.07)_14%,rgba(255,255,255,0.02)_26%,transparent_46%)] mix-blend-overlay"
