@@ -1,4 +1,5 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { Analytics } from '@vercel/analytics/react';
 import { NavDepthProvider } from './context/NavDepthContext';
 import RootLayout from './layouts/RootLayout';
 import TJunctionShell from './components/TJunctionShell';
@@ -42,6 +43,7 @@ function App() {
           </Route>
         </Routes>
       </NavDepthProvider>
+      <Analytics />
     </BrowserRouter>
   );
 }
