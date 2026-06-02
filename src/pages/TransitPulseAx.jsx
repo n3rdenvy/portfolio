@@ -2,6 +2,7 @@ import * as Framer from 'framer-motion';
 import { useCallback, useEffect, useId, useState } from 'react';
 import { ChevronLeft, ChevronRight, X } from 'lucide-react';
 import ReturnToPortfolioButton from '../components/ReturnToPortfolioButton';
+import AiBadge from '../components/AiBadge';
 import {
   TRANSIT_PULSE_CONCEPT,
   TRANSIT_PULSE_LEARNINGS,
@@ -61,6 +62,9 @@ export default function TransitPulseAx() {
   return (
     <div className="flex h-full min-h-0 flex-col overflow-hidden text-white">
       <ReturnToPortfolioButton />
+      <div className="pointer-events-none absolute right-4 top-4 z-10 md:right-6 md:top-6">
+        <AiBadge models={['claude', 'cursor']} />
+      </div>
 
       <div className="relative flex min-h-0 flex-1 flex-col">
         {hasPrototype ? (

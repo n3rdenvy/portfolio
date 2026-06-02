@@ -1,10 +1,29 @@
-import { motion } from 'framer-motion';
-import { useState } from 'react';
+import { motion, useMotionValue, useSpring, useReducedMotion } from 'framer-motion';
+import { useState, useEffect, useRef } from 'react';
 
 const MotionDiv = motion.div;
 
 export default function FlipFeatureCard({ title, body }) {
   const [flipped, setFlipped] = useState(false);
+  const wrapRef = useRef(null);
+  const reduceMotion = useReducedMotion();
+  const scale = useMotionValue(1);
+  const springScale = useSpring(scale, { stiffness: 120, damping: 22 });
+
+  useEffect(() => {
+    if (reduceMotion) return;
+    const onMove = (e) => {
+      const el = wrapRef.current;
+      if (!el) return;
+      const rect = el.getBoundingClientRect();
+      const cx = rect.left + rect.width / 2;
+      const cy = rect.top + rect.height / 2;
+      const dist = Math.hypot(e.clientX - cx, e.clientY - cy);
+      scale.set(dist < 200 ? 1 + (1 - dist / 200) * 0.016 : 1);
+    };
+    window.addEventListener('mousemove', onMove, { passive: true });
+    return () => window.removeEventListener('mousemove', onMove);
+  }, [reduceMotion, scale]);
 
   function flip() {
     setFlipped((f) => !f);
@@ -21,7 +40,11 @@ export default function FlipFeatureCard({ title, body }) {
   const backZ = flipped ? 'z-[2]' : 'z-[1]';
 
   return (
-    <div className="h-[min(22rem,50svh)] [perspective:1000px]">
+    <motion.div
+      ref={wrapRef}
+      style={{ scale: springScale, transformOrigin: 'center' }}
+      className="h-[min(22rem,50svh)] [perspective:1000px]"
+    >
       <MotionDiv
         className="relative h-full w-full cursor-pointer outline-none focus-visible:ring-2 focus-visible:ring-white/45 focus-visible:ring-offset-2 focus-visible:ring-offset-slateBg"
         role="button"
@@ -48,6 +71,6 @@ export default function FlipFeatureCard({ title, body }) {
           <p className="text-sm leading-relaxed text-white">{body}</p>
         </div>
       </MotionDiv>
-    </div>
+    </motion.div>
   );
 }
