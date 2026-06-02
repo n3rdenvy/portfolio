@@ -2,14 +2,14 @@ import { useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { motion, useMotionValue, useSpring, useReducedMotion } from 'framer-motion';
 import { markHubLeavingToPortfolio } from '../utils/pageTransitions';
+import AiBadge from './AiBadge';
 
-export default function PortfolioHubCard({ to, title, description, icon: Icon, badge }) {
+export default function PortfolioHubCard({ to, title, description, icon: Icon, badge, aiTools }) {
   const wrapRef = useRef(null);
   const reduceMotion = useReducedMotion();
   const scale = useMotionValue(1);
   const springScale = useSpring(scale, { stiffness: 120, damping: 22 });
 
-  // Proximity breathing — card subtly inhales as cursor approaches
   useEffect(() => {
     if (reduceMotion) return;
     const onMove = (e) => {
@@ -41,11 +41,14 @@ export default function PortfolioHubCard({ to, title, description, icon: Icon, b
           {Icon ? (
             <Icon className="size-9 shrink-0 text-white" strokeWidth={1.35} aria-hidden />
           ) : null}
-          {badge ? (
-            <span className="rounded-full border border-white/20 bg-white/10 px-2.5 py-0.5 text-[10px] font-semibold tracking-tight text-white">
-              {badge}
-            </span>
-          ) : null}
+          <div className="flex items-center gap-2">
+            {badge ? (
+              <span className="rounded-full border border-white/20 bg-white/10 px-2.5 py-0.5 text-[10px] font-semibold tracking-tight text-white">
+                {badge}
+              </span>
+            ) : null}
+            {aiTools?.length ? <AiBadge models={aiTools} /> : null}
+          </div>
         </div>
         <div className="min-h-0">
           <h3 className="text-base font-semibold leading-snug tracking-tight text-white md:text-lg">

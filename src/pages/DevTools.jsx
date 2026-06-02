@@ -1,6 +1,7 @@
 import PageShell from '../components/PageShell';
 import ReturnToHub from '../components/ReturnToHub';
 import HubPageHeading, { HubPageHeadingRow } from '../components/HubPageHeading';
+import AiBadge from '../components/AiBadge';
 
 function Tag({ children }) {
   return (
@@ -10,7 +11,7 @@ function Tag({ children }) {
   );
 }
 
-function ToolCard({ name, tagline, screenshot, screenshotAlt, logo, why, decisions, tags, githubUrl, flip = false }) {
+function ToolCard({ name, tagline, screenshot, screenshotAlt, logo, why, decisions, tags, githubUrl, aiTools = [], flip = false }) {
   return (
     <div className="glass-hub-sheet p-6 md:p-8">
       <div className={`flex flex-col gap-8 lg:flex-row lg:items-start ${flip ? 'lg:flex-row-reverse' : ''}`}>
@@ -18,9 +19,18 @@ function ToolCard({ name, tagline, screenshot, screenshotAlt, logo, why, decisio
         {/* Screenshot */}
         <div className="w-full shrink-0 lg:w-[340px]">
           {logo && (
-            <div className="mb-4 flex items-center gap-3">
-              <img src={logo} alt={`${name} logo`} className="h-10 w-10 rounded-xl object-contain" />
+            <div className="mb-4 flex items-center justify-between gap-3">
+              <div className="flex items-center gap-3">
+                <img src={logo} alt={`${name} logo`} className="h-10 w-10 rounded-xl object-contain" />
+                <span className="text-xs font-semibold uppercase tracking-[0.18em] text-white/50">{name}</span>
+              </div>
+              {aiTools.length > 0 && <AiBadge models={aiTools} />}
+            </div>
+          )}
+          {!logo && aiTools.length > 0 && (
+            <div className="mb-4 flex items-center justify-between gap-3">
               <span className="text-xs font-semibold uppercase tracking-[0.18em] text-white/50">{name}</span>
+              <AiBadge models={aiTools} />
             </div>
           )}
           <div className="overflow-hidden rounded-2xl border border-white/10 shadow-[0_12px_40px_rgba(0,0,0,0.5)]">
@@ -85,6 +95,7 @@ function ToolCard({ name, tagline, screenshot, screenshotAlt, logo, why, decisio
 const TOOLS = [
   {
     name: 'NitrousToken',
+    aiTools: ['claude', 'cursor'],
     tagline: 'Real-time token quota gauges for every AI tool you run.',
     screenshot: '/devtools/nitroustoken.png',
     screenshotAlt: 'NitrousToken panel showing Anthropic, Cursor, and Google quota gauges',
@@ -99,6 +110,7 @@ const TOOLS = [
   },
   {
     name: 'Ignus',
+    aiTools: ['claude', 'cursor'],
     tagline: 'One-click launcher for local AI image generation.',
     screenshot: '/devtools/ignus.png',
     screenshotAlt: 'Ignus launcher panel showing InvokeAI running and ComfyUI ready to start',
