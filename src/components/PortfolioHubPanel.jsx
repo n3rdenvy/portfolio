@@ -1,4 +1,4 @@
-import { Activity, Box, Clapperboard, Wrench, Building2 } from 'lucide-react';
+import { Activity, Box, Clapperboard, Wrench, Building2, Cpu } from 'lucide-react';
 import { motion, useReducedMotion } from 'framer-motion';
 import PageShell from './PageShell';
 import PortfolioHubCard from './PortfolioHubCard';
@@ -46,6 +46,12 @@ const PORTFOLIO_HUB_CARDS = [
     description:
       'Real-time agentic navigation and proactive routing systems for the modern commuter.',
     icon: Activity,
+  },
+  {
+    to: '/eris',
+    title: 'Eris — AI Infrastructure',
+    description: 'Fully local always-on AI system. Custom stack: Letta memory, Ollama, ambient awareness, 17 autonomous agents.',
+    icon: Cpu,
   },
   {
     to: '/dev-tools',
