@@ -268,6 +268,115 @@ export default function IkeaWork() {
             </div>
           </div>
 
+          {/* Section 1 — Room Settings Gallery */}
+          <div className="glass-hub-sheet p-6 md:p-8">
+            <div className="flex flex-col gap-6">
+
+              <div>
+                <SectionLabel>Room Settings — FY25 US Market</SectionLabel>
+                <h2 className="mt-2 text-2xl font-bold tracking-tight text-white md:text-3xl">
+                  Room Settings — Body of Work
+                </h2>
+                <p className="mt-2 text-sm leading-relaxed text-white/60">
+                  Six bedroom room settings designed for the US market in FY25. Each begins with a persona and concludes with an annotated floor plan specifying spatial strategy, styling rationale, and product placement.
+                </p>
+              </div>
+
+              <div className="grid grid-cols-2 gap-4 md:grid-cols-3">
+                {[
+                  { src: '/ikea/b01_floorplan.png', caption: 'SAGESUND · Adult primary bedroom, Scandinavian Modern' },
+                  { src: '/ikea/b02_floorplan.png', caption: 'HEMNES · College student / first apartment' },
+                  { src: '/ikea/b03_floorplan.png', caption: 'SLATTUM · Young family with newborn' },
+                  { src: '/ikea/b04_floorplan.png', caption: 'NEIDEN · Teen artist\'s sanctuary' },
+                  { src: '/ikea/b05_floorplan.png', caption: 'SMÅSTAD · Teen gamer / creator' },
+                  { src: '/ikea/home55_floorplan.png', caption: 'Home55 · Full 55m² apartment — multi-room spatial strategy' },
+                ].map(({ src, caption }) => (
+                  <figure key={src}>
+                    <div className="overflow-hidden rounded-xl border border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.4)]">
+                      <img src={src} alt={caption} className="w-full object-cover" draggable={false} />
+                    </div>
+                    <figcaption className="mt-2 text-[11px] text-white/35 leading-snug">{caption}</figcaption>
+                  </figure>
+                ))}
+              </div>
+
+            </div>
+          </div>
+
+          {/* Section 2 — Brief → Built */}
+          <div className="glass-hub-sheet p-6 md:p-8">
+            <div className="flex flex-col gap-6">
+
+              <div>
+                <SectionLabel>Brief → Floor Plan → Built</SectionLabel>
+                <h2 className="mt-2 text-2xl font-bold tracking-tight text-white md:text-3xl">
+                  Brief → Built
+                </h2>
+                <p className="mt-2 text-sm leading-relaxed text-white/60">
+                  From market positioning document to signed construction drawing to the installed room setting on the store floor — the complete pipeline.
+                </p>
+              </div>
+
+              <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
+                <CaseStudyImage
+                  src="/ikea/firsts_classification.png"
+                  alt="IKEA Firsts market positioning classification matrix"
+                  caption="Market positioning: Living Together / Scandinavian Modern / Small Space / $800 target — New Haven store"
+                />
+                <CaseStudyImage
+                  src="/ikea/newhaven_plan.png"
+                  alt="New Haven store signed architectural construction drawing"
+                  caption="Signed architectural drawing — Store 213, Room HFB 01_02"
+                />
+                <figure>
+                  <div className="overflow-hidden rounded-xl border border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.4)] grid grid-cols-2 gap-1">
+                    <img src="/ikea/ikea_store_photo_1.jpeg" alt="IKEA FIRST room setting on the New Haven store floor" className="w-full object-cover" draggable={false} />
+                    <img src="/ikea/ikea_store_photo_2.jpeg" alt="IKEA FIRST room setting on the New Haven store floor" className="w-full object-cover" draggable={false} />
+                  </div>
+                  <figcaption className="mt-2 text-[11px] text-white/35 leading-snug">Built result — IKEA FIRST room setting on the New Haven store floor</figcaption>
+                </figure>
+              </div>
+
+            </div>
+          </div>
+
+          {/* Section 3 — FY27 US Retail */}
+          <div className="glass-hub-sheet p-6 md:p-8">
+            <div className="flex flex-col gap-6">
+
+              <div>
+                <SectionLabel>FY27 — US Retail Solutions</SectionLabel>
+                <h2 className="mt-2 text-2xl font-bold tracking-tight text-white md:text-3xl">
+                  AURDAL + MALM — US Retail Adaptation
+                </h2>
+                <p className="mt-2 text-sm leading-relaxed text-white/60">
+                  The most recent work in this set. Produced for the US Retail Solutions Team for FY27, this bedroom setting spec adapts global IKEA product ranges to US spatial norms and retail floor planning. The store map (right) shows where this setting sits within the full bedroom department layout — this document bridges product strategy and physical retail execution.
+                </p>
+              </div>
+
+              <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+                <CaseStudyImage
+                  src="/ikea/b07_render_new.png"
+                  alt="AURDAL + MALM FY27 bedroom setting render — new angle"
+                  caption="FY27 bedroom setting render — AURDAL + MALM, US Retail Solutions"
+                />
+                <CaseStudyImage
+                  src="/ikea/b07_render_wide.png"
+                  alt="AURDAL + MALM FY27 bedroom setting render — wide angle"
+                  caption="Wide render — full setting in context"
+                />
+              </div>
+
+              <CaseStudyImage
+                src="/ikea/b07_store_map.png"
+                alt="Store map showing B07 position within the full bedroom department"
+                caption="Store map — B07 position within the full bedroom department"
+                wide
+              />
+
+            </div>
+          </div>
+
         </div>
       </div>
     </PageShell>
