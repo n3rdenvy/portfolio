@@ -1,6 +1,7 @@
 import PageShell from '../components/PageShell';
 import ReturnToHub from '../components/ReturnToHub';
 import HubPageHeading, { HubPageHeadingRow } from '../components/HubPageHeading';
+import AiBadge from '../components/AiBadge';
 
 function Tag({ children }) {
   return (
@@ -67,6 +68,9 @@ export default function Eris() {
               title="Eris"
               subtitle="A fully local, always-on AI infrastructure system. Built from scratch on a Mac Mini M4 Pro."
             />
+            <div className="mt-3 pl-1">
+              <AiBadge models={['claude', 'gemini']} />
+            </div>
           </div>
         </HubPageHeadingRow>
 
