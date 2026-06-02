@@ -15,6 +15,7 @@ import Portfolio from './pages/Portfolio';
 import Resume from './pages/Resume';
 import DevTools from './pages/DevTools';
 import IkeaWork from './pages/IkeaWork';
+import Eris from './pages/Eris';
 
 const ROUTES = [
   { path: '/accessibility', Component: Accessibility },
@@ -28,6 +29,7 @@ const ROUTES = [
   { path: '/interiors', Component: Interiors },
   { path: '/dev-tools', Component: DevTools },
   { path: '/ikea', Component: IkeaWork },
+  { path: '/eris', Component: Eris },
 ];
 
 function App() {
