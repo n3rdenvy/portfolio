@@ -1,4 +1,4 @@
-import { Activity, Box, Clapperboard, Sparkles } from 'lucide-react';
+import { Activity, Box, Clapperboard, Wrench } from 'lucide-react';
 import { motion, useReducedMotion } from 'framer-motion';
 import PageShell from './PageShell';
 import PortfolioHubCard from './PortfolioHubCard';
@@ -42,11 +42,11 @@ const PORTFOLIO_HUB_CARDS = [
     icon: Activity,
   },
   {
-    to: '/coming-soon',
-    title: 'Future Projects',
+    to: '/dev-tools',
+    title: 'Dev Tools',
     description:
-      "New case studies and experiments in the pipeline. Plus other projects I'm having fun with right now.",
-    icon: Sparkles,
+      'Electron menu bar apps built for the AI-heavy workflow. NitrousToken and Ignus.',
+    icon: Wrench,
   },
 ];
 

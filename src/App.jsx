@@ -13,6 +13,7 @@ import Visualization3D from './pages/Visualization3D';
 import Contact from './pages/Contact';
 import Portfolio from './pages/Portfolio';
 import Resume from './pages/Resume';
+import DevTools from './pages/DevTools';
 
 const ROUTES = [
   { path: '/accessibility', Component: Accessibility },
@@ -24,6 +25,7 @@ const ROUTES = [
   { path: '/transit-pulse-ax', Component: TransitPulseAx },
   { path: '/coming-soon', Component: ComingSoon },
   { path: '/interiors', Component: Interiors },
+  { path: '/dev-tools', Component: DevTools },
 ];
 
 function App() {
