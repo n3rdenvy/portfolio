@@ -1,10 +1,33 @@
-import { Activity, Box, Clapperboard, Sparkles } from 'lucide-react';
+import { Activity, Box, Clapperboard, Wrench, Building2, Cpu } from 'lucide-react';
+import { motion, useReducedMotion } from 'framer-motion';
 import PageShell from './PageShell';
 import PortfolioHubCard from './PortfolioHubCard';
 import ReturnToHub from './ReturnToHub';
 import HubPageHeading, { HubPageHeadingRow } from './HubPageHeading';
 
+const listVariants = {
+  visible: (reduceMotion) => ({
+    transition: reduceMotion ? {} : { staggerChildren: 0.08 },
+  }),
+  hidden: {},
+};
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { ease: [0.22, 1, 0.36, 1], duration: 0.45 },
+  },
+};
+
 const PORTFOLIO_HUB_CARDS = [
+  {
+    to: '/ikea',
+    title: 'IKEA Design Strategy',
+    description: 'US market research, set design, range direction, and CAD production documents for national campaigns.',
+    icon: Building2,
+  },
   {
     to: '/commercials',
     title: 'Set Design + Designer Tips',
@@ -23,17 +46,28 @@ const PORTFOLIO_HUB_CARDS = [
     description:
       'Real-time agentic navigation and proactive routing systems for the modern commuter.',
     icon: Activity,
+    aiTools: ['claude', 'cursor'],
   },
   {
-    to: '/coming-soon',
-    title: 'Future Projects',
+    to: '/eris',
+    title: 'Eris — AI Infrastructure',
+    description: 'Fully local always-on AI system. Custom stack: Letta memory, Ollama, ambient awareness, 17 autonomous agents.',
+    icon: Cpu,
+    aiTools: ['claude', 'gemini'],
+  },
+  {
+    to: '/dev-tools',
+    title: 'Dev Tools',
     description:
-      "New case studies and experiments in the pipeline. Plus other projects I'm having fun with right now.",
-    icon: Sparkles,
+      'Electron menu bar apps built for the AI-heavy workflow. NitrousToken and Ignus.',
+    icon: Wrench,
+    aiTools: ['claude', 'cursor'],
   },
 ];
 
 export default function PortfolioHubPanel() {
+  const reduceMotion = useReducedMotion();
+
   return (
     <PageShell width="process">
       <ReturnToHub mobileLayout="pill-end" />
@@ -49,10 +83,17 @@ export default function PortfolioHubPanel() {
         </HubPageHeadingRow>
 
         <div className="mt-6 flex min-h-0 min-w-0 flex-1 flex-col justify-center max-md:mt-5 md:mt-8 lg:mt-6">
-          <ul className="mx-auto grid w-full max-w-[min(100%,40rem)] grid-cols-1 gap-y-5 md:max-w-[min(100%,42rem)] md:grid-cols-2 md:gap-x-8 md:gap-y-5 md:items-stretch lg:max-w-[min(100%,44rem)] lg:gap-x-10">
+          <motion.ul
+            className="mx-auto grid w-full max-w-[min(100%,40rem)] grid-cols-1 gap-y-5 md:max-w-[min(100%,42rem)] md:grid-cols-2 md:gap-x-8 md:gap-y-5 md:items-stretch lg:max-w-[min(100%,44rem)] lg:gap-x-10"
+            variants={listVariants}
+            custom={reduceMotion}
+            initial={reduceMotion ? false : 'hidden'}
+            animate="visible"
+          >
             {PORTFOLIO_HUB_CARDS.map((card) => (
-              <li
+              <motion.li
                 key={card.to}
+                variants={reduceMotion ? {} : itemVariants}
                 className="flex min-h-0 min-w-0 max-md:flex-1 max-md:basis-0 md:h-full"
               >
                 <PortfolioHubCard
@@ -61,10 +102,11 @@ export default function PortfolioHubPanel() {
                   description={card.description}
                   icon={card.icon}
                   badge={card.badge}
+                  aiTools={card.aiTools}
                 />
-              </li>
+              </motion.li>
             ))}
-          </ul>
+          </motion.ul>
         </div>
       </div>
     </PageShell>

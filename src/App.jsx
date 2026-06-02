@@ -1,5 +1,6 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { NavDepthProvider } from './context/NavDepthContext';
+import { ThemeProvider } from './context/ThemeContext';
 import RootLayout from './layouts/RootLayout';
 import TJunctionShell from './components/TJunctionShell';
 import Accessibility from './pages/Accessibility';
@@ -13,6 +14,9 @@ import Visualization3D from './pages/Visualization3D';
 import Contact from './pages/Contact';
 import Portfolio from './pages/Portfolio';
 import Resume from './pages/Resume';
+import DevTools from './pages/DevTools';
+import IkeaWork from './pages/IkeaWork';
+import Eris from './pages/Eris';
 
 const ROUTES = [
   { path: '/accessibility', Component: Accessibility },
@@ -24,11 +28,15 @@ const ROUTES = [
   { path: '/transit-pulse-ax', Component: TransitPulseAx },
   { path: '/coming-soon', Component: ComingSoon },
   { path: '/interiors', Component: Interiors },
+  { path: '/dev-tools', Component: DevTools },
+  { path: '/ikea', Component: IkeaWork },
+  { path: '/eris', Component: Eris },
 ];
 
 function App() {
   return (
     <BrowserRouter>
+      <ThemeProvider>
       <NavDepthProvider>
         <Routes>
           <Route element={<RootLayout />}>
@@ -42,6 +50,7 @@ function App() {
           </Route>
         </Routes>
       </NavDepthProvider>
+      </ThemeProvider>
     </BrowserRouter>
   );
 }
