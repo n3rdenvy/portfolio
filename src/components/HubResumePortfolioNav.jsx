@@ -1,11 +1,76 @@
 import * as Framer from 'framer-motion';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import {
   HUB_NAV_EDGE_PULSE_TRANSITION,
   HUB_NAV_PULSE_X,
 } from '../utils/hubNavMotion';
+
+const SCRAMBLE_CHARS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+const SCRAMBLE_DURATION = 600; // ms
+
+function useScramble(text, active) {
+  const reduceMotion = Framer.useReducedMotion();
+  const [display, setDisplay] = useState(text);
+  const rafRef = useRef(null);
+  const startRef = useRef(null);
+
+  const cancel = useCallback(() => {
+    if (rafRef.current) {
+      cancelAnimationFrame(rafRef.current);
+      rafRef.current = null;
+    }
+  }, []);
+
+  useEffect(() => {
+    if (reduceMotion || !active) {
+      cancel();
+      setDisplay(text);
+      return;
+    }
+
+    startRef.current = performance.now();
+
+    const step = (now) => {
+      const elapsed = now - startRef.current;
+      const progress = Math.min(elapsed / SCRAMBLE_DURATION, 1);
+      // How many chars are resolved (left-to-right)
+      const resolved = Math.floor(progress * text.length);
+
+      const next = text
+        .split('')
+        .map((char, i) => {
+          if (char === ' ') return ' ';
+          if (i < resolved) return char;
+          return SCRAMBLE_CHARS[Math.floor(Math.random() * SCRAMBLE_CHARS.length)];
+        })
+        .join('');
+
+      setDisplay(next);
+
+      if (progress < 1) {
+        rafRef.current = requestAnimationFrame(step);
+      } else {
+        setDisplay(text);
+        rafRef.current = null;
+      }
+    };
+
+    rafRef.current = requestAnimationFrame(step);
+    return cancel;
+  }, [active, text, reduceMotion, cancel]);
+
+  // Reset instantly on mouseleave
+  useEffect(() => {
+    if (!active) {
+      cancel();
+      setDisplay(text);
+    }
+  }, [active, text, cancel]);
+
+  return display;
+}
 
 export const hubNavLinkCore =
   'btn-theme btn-theme-compact btn-theme-hub-reveal z-20 cursor-pointer text-xs no-underline md:text-sm';
@@ -56,7 +121,8 @@ function useMagnetic(strength = 0.30) {
 
 const MotionLink = Framer.motion(Link);
 
-function ResumeLinkContents({ pulseXNeg }) {
+function ResumeLinkContents({ pulseXNeg, hovered }) {
+  const label = useScramble('Resume', hovered);
   return (
     <div className="relative z-10 inline-flex cursor-pointer items-center justify-center">
       <span className="relative z-10 inline-flex items-center gap-1.5">
@@ -67,18 +133,19 @@ function ResumeLinkContents({ pulseXNeg }) {
         >
           <ChevronLeft className="size-4 shrink-0" strokeWidth={2} aria-hidden />
         </Framer.motion.span>
-        <span className={hubNavLabelClass}>Resume</span>
+        <span className={hubNavLabelClass}>{label}</span>
       </span>
       <div className="nav-amber-glow-bar" aria-hidden />
     </div>
   );
 }
 
-function PortfolioLinkContents({ pulseXPos }) {
+function PortfolioLinkContents({ pulseXPos, hovered }) {
+  const label = useScramble('Portfolio', hovered);
   return (
     <div className="relative z-10 inline-flex cursor-pointer items-center justify-center">
       <span className="relative z-10 inline-flex items-center gap-1.5">
-        <span className={hubNavLabelClass}>Portfolio</span>
+        <span className={hubNavLabelClass}>{label}</span>
         <Framer.motion.span
           className="inline-flex shrink-0 text-white"
           animate={pulseXPos}
@@ -99,6 +166,9 @@ export default function HubResumePortfolioNav({ centerSlot = null }) {
   const pulseXNeg = reduceMotion ? { x: 0 } : { x: [0, -HUB_NAV_PULSE_X, 0] };
   const pulseXPos = reduceMotion ? { x: 0 } : { x: [0, HUB_NAV_PULSE_X, 0] };
 
+  const [resumeHovered, setResumeHovered] = useState(false);
+  const [portfolioHovered, setPortfolioHovered] = useState(false);
+
   // Separate magnetic hooks — desktop links only (mobile layout omitted for pointer relevance)
   const resumeMagnetic = useMagnetic(0.30);
   const portfolioMagnetic = useMagnetic(0.30);
@@ -112,15 +182,19 @@ export default function HubResumePortfolioNav({ centerSlot = null }) {
         to="/resume"
         aria-label="Resume and links (west)"
         className={navLinkRowClass}
+        onMouseEnter={() => setResumeHovered(true)}
+        onMouseLeave={() => setResumeHovered(false)}
       >
-        <ResumeLinkContents pulseXNeg={pulseXNeg} />
+        <ResumeLinkContents pulseXNeg={pulseXNeg} hovered={resumeHovered} />
       </Link>
       <Link
         to="/portfolio"
         aria-label="Open portfolio hub (east)"
         className={navLinkRowClass}
+        onMouseEnter={() => setPortfolioHovered(true)}
+        onMouseLeave={() => setPortfolioHovered(false)}
       >
-        <PortfolioLinkContents pulseXPos={pulseXPos} />
+        <PortfolioLinkContents pulseXPos={pulseXPos} hovered={portfolioHovered} />
       </Link>
     </nav>
   );
@@ -145,8 +219,10 @@ export default function HubResumePortfolioNav({ centerSlot = null }) {
           ref={resumeMagnetic.ref}
           style={{ ...resumeMagnetic.style }}
           className={`${navLinkRowClass} justify-self-start`}
+          onMouseEnter={() => setResumeHovered(true)}
+          onMouseLeave={() => setResumeHovered(false)}
         >
-          <ResumeLinkContents pulseXNeg={pulseXNeg} />
+          <ResumeLinkContents pulseXNeg={pulseXNeg} hovered={resumeHovered} />
         </MotionLink>
 
         <div className="flex min-w-0 justify-center self-end">{centerSlot}</div>
@@ -157,8 +233,10 @@ export default function HubResumePortfolioNav({ centerSlot = null }) {
           ref={portfolioMagnetic.ref}
           style={{ ...portfolioMagnetic.style }}
           className={`${navLinkRowClass} justify-self-end`}
+          onMouseEnter={() => setPortfolioHovered(true)}
+          onMouseLeave={() => setPortfolioHovered(false)}
         >
-          <PortfolioLinkContents pulseXPos={pulseXPos} />
+          <PortfolioLinkContents pulseXPos={pulseXPos} hovered={portfolioHovered} />
         </MotionLink>
       </div>
     </div>

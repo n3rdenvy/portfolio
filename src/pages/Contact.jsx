@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
+import { motion, useReducedMotion } from 'framer-motion';
 import { ArrowUpRight, ChevronDown, Laugh, MapPin } from 'lucide-react';
 import PageShell from '../components/PageShell';
 import HubPageHeading, { HubPageHeadingRow } from '../components/HubPageHeading';
@@ -348,7 +349,13 @@ function AccordionRow({ id, title, subtitle, isOpen, onToggle, children, panelId
   );
 }
 
+const accordionRevealVariants = {
+  hidden: { opacity: 0, y: 16 },
+  visible: { opacity: 1, y: 0, transition: { ease: [0.22, 1, 0.36, 1], duration: 0.42 } },
+};
+
 export default function Contact() {
+  const reduceMotion = useReducedMotion();
   const [activeAccordion, setActiveAccordion] = useState(null);
   const [formData, setFormData] = useState(INITIAL_FORM);
   const [draftBody, setDraftBody] = useState('');
@@ -454,58 +461,71 @@ export default function Contact() {
                   <h2 id="form-heading" className="sr-only">
                     Project inquiry form
                   </h2>
-                  <div className="lg:min-h-0 lg:flex-1">
+                  <motion.div
+                    className="lg:min-h-0 lg:flex-1"
+                    initial={reduceMotion ? false : 'hidden'}
+                    whileInView="visible"
+                    viewport={{ once: true, amount: 0.15 }}
+                    variants={reduceMotion ? {} : {
+                      hidden: {},
+                      visible: { transition: { staggerChildren: 0.07 } },
+                    }}
+                  >
                     {ACCORDION_SECTIONS.map((section) => {
                         const panelId = `contact-panel-${section.id}`;
                         const isOpen = activeAccordion === section.id;
 
                         return (
-                          <AccordionRow
+                          <motion.div
                             key={section.id}
-                            id={section.id}
-                            title={section.title}
-                            subtitle={section.subtitle}
-                            isOpen={isOpen}
-                            onToggle={toggleAccordion}
-                            panelId={panelId}
+                            variants={reduceMotion ? {} : accordionRevealVariants}
                           >
-                            {section.type === 'bonus' ? (
-                              <BonusPointsFields
-                                bonusSlider={formData.bonusSlider}
-                                bonusSmallWin={formData.bonusSmallWin}
-                                bonusAwesome={formData.bonusAwesome}
-                                updateField={updateField}
-                              />
-                            ) : section.type === 'dates' ? (
-                              <TimelineDateFields
-                                scopeStart={formData.scopeStart}
-                                scopeEnd={formData.scopeEnd}
-                                deploymentDate={formData.deploymentDate}
-                                updateField={updateField}
-                              />
-                            ) : section.type === 'textarea' ? (
-                              <textarea
-                                id={`field-${section.field}`}
-                                rows={4}
-                                value={formData[section.field]}
-                                onChange={(e) => updateField(section.field, e.target.value)}
-                                placeholder={section.placeholder}
-                                className="w-full resize-y rounded-xl border border-white/10 bg-slateBg/90 px-3 py-2 text-sm text-white placeholder:text-white/60 focus:border-white/35 focus:outline-none focus:ring-1 focus:ring-white/25"
-                              />
-                            ) : (
-                              <input
-                                id={`field-${section.field}`}
-                                type="text"
-                                value={formData[section.field]}
-                                onChange={(e) => updateField(section.field, e.target.value)}
-                                placeholder={section.placeholder}
-                                className="w-full rounded-xl border border-white/10 bg-slateBg/90 px-3 py-2 text-sm text-white placeholder:text-white/60 focus:border-white/35 focus:outline-none focus:ring-1 focus:ring-white/25"
-                              />
-                            )}
-                          </AccordionRow>
+                            <AccordionRow
+                              id={section.id}
+                              title={section.title}
+                              subtitle={section.subtitle}
+                              isOpen={isOpen}
+                              onToggle={toggleAccordion}
+                              panelId={panelId}
+                            >
+                              {section.type === 'bonus' ? (
+                                <BonusPointsFields
+                                  bonusSlider={formData.bonusSlider}
+                                  bonusSmallWin={formData.bonusSmallWin}
+                                  bonusAwesome={formData.bonusAwesome}
+                                  updateField={updateField}
+                                />
+                              ) : section.type === 'dates' ? (
+                                <TimelineDateFields
+                                  scopeStart={formData.scopeStart}
+                                  scopeEnd={formData.scopeEnd}
+                                  deploymentDate={formData.deploymentDate}
+                                  updateField={updateField}
+                                />
+                              ) : section.type === 'textarea' ? (
+                                <textarea
+                                  id={`field-${section.field}`}
+                                  rows={4}
+                                  value={formData[section.field]}
+                                  onChange={(e) => updateField(section.field, e.target.value)}
+                                  placeholder={section.placeholder}
+                                  className="w-full resize-y rounded-xl border border-white/10 bg-slateBg/90 px-3 py-2 text-sm text-white placeholder:text-white/60 focus:border-white/35 focus:outline-none focus:ring-1 focus:ring-white/25"
+                                />
+                              ) : (
+                                <input
+                                  id={`field-${section.field}`}
+                                  type="text"
+                                  value={formData[section.field]}
+                                  onChange={(e) => updateField(section.field, e.target.value)}
+                                  placeholder={section.placeholder}
+                                  className="w-full rounded-xl border border-white/10 bg-slateBg/90 px-3 py-2 text-sm text-white placeholder:text-white/60 focus:border-white/35 focus:outline-none focus:ring-1 focus:ring-white/25"
+                                />
+                              )}
+                            </AccordionRow>
+                          </motion.div>
                         );
                       })}
-                  </div>
+                  </motion.div>
                 </section>
               </div>
 
