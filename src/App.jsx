@@ -14,6 +14,7 @@ import Contact from './pages/Contact';
 import Portfolio from './pages/Portfolio';
 import Resume from './pages/Resume';
 import DevTools from './pages/DevTools';
+import IkeaWork from './pages/IkeaWork';
 
 const ROUTES = [
   { path: '/accessibility', Component: Accessibility },
@@ -26,6 +27,7 @@ const ROUTES = [
   { path: '/coming-soon', Component: ComingSoon },
   { path: '/interiors', Component: Interiors },
   { path: '/dev-tools', Component: DevTools },
+  { path: '/ikea', Component: IkeaWork },
 ];
 
 function App() {

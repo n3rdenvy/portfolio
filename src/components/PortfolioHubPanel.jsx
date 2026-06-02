@@ -1,4 +1,4 @@
-import { Activity, Box, Clapperboard, Wrench } from 'lucide-react';
+import { Activity, Box, Clapperboard, Wrench, Building2 } from 'lucide-react';
 import { motion, useReducedMotion } from 'framer-motion';
 import PageShell from './PageShell';
 import PortfolioHubCard from './PortfolioHubCard';
@@ -22,6 +22,12 @@ const itemVariants = {
 };
 
 const PORTFOLIO_HUB_CARDS = [
+  {
+    to: '/ikea',
+    title: 'IKEA Design Strategy',
+    description: 'US market research, set design, range direction, and CAD production documents for national campaigns.',
+    icon: Building2,
+  },
   {
     to: '/commercials',
     title: 'Set Design + Designer Tips',
