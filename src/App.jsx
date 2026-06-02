@@ -1,5 +1,6 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { NavDepthProvider } from './context/NavDepthContext';
+import { ThemeProvider } from './context/ThemeContext';
 import RootLayout from './layouts/RootLayout';
 import TJunctionShell from './components/TJunctionShell';
 import Accessibility from './pages/Accessibility';
@@ -35,6 +36,7 @@ const ROUTES = [
 function App() {
   return (
     <BrowserRouter>
+      <ThemeProvider>
       <NavDepthProvider>
         <Routes>
           <Route element={<RootLayout />}>
@@ -48,6 +50,7 @@ function App() {
           </Route>
         </Routes>
       </NavDepthProvider>
+      </ThemeProvider>
     </BrowserRouter>
   );
 }
