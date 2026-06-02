@@ -1,5 +1,6 @@
 import * as Framer from 'framer-motion';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import {
   HUB_NAV_EDGE_PULSE_TRANSITION,
@@ -11,6 +12,49 @@ export const hubNavLinkCore =
 
 export const hubNavLabelClass =
   'font-semibold uppercase tracking-[0.2em] text-white transition-colors duration-300';
+
+// Magnetic pull toward cursor within a proximity radius — desktop pointer only
+function useMagnetic(strength = 0.30) {
+  const ref = useRef(null);
+  const reduceMotion = Framer.useReducedMotion();
+  const x = Framer.useMotionValue(0);
+  const y = Framer.useMotionValue(0);
+  const springX = Framer.useSpring(x, { stiffness: 180, damping: 16 });
+  const springY = Framer.useSpring(y, { stiffness: 180, damping: 16 });
+
+  useEffect(() => {
+    if (reduceMotion) {
+      x.set(0);
+      y.set(0);
+      return;
+    }
+    const onMove = (e) => {
+      const el = ref.current;
+      if (!el) return;
+      const rect = el.getBoundingClientRect();
+      const cx = rect.left + rect.width / 2;
+      const cy = rect.top + rect.height / 2;
+      const dx = e.clientX - cx;
+      const dy = e.clientY - cy;
+      const dist = Math.hypot(dx, dy);
+      const range = Math.max(rect.width, rect.height) * 2.2;
+      if (dist < range) {
+        const factor = (1 - dist / range) * strength;
+        x.set(dx * factor);
+        y.set(dy * factor);
+      } else {
+        x.set(0);
+        y.set(0);
+      }
+    };
+    window.addEventListener('mousemove', onMove, { passive: true });
+    return () => window.removeEventListener('mousemove', onMove);
+  }, [reduceMotion, strength, x, y]);
+
+  return { ref, style: { x: springX, y: springY } };
+}
+
+const MotionLink = Framer.motion(Link);
 
 function ResumeLinkContents({ pulseXNeg }) {
   return (
@@ -50,14 +94,14 @@ function PortfolioLinkContents({ pulseXPos }) {
 
 const navLinkRowClass = `${hubNavLinkCore} nav-amber-wrap inline-flex`;
 
-/**
- * Welcome hub nav: centered pair on tablet and below; full-width edges on large screens (see LandingHub width).
- * Optional `centerSlot`: on lg, rendered in the middle column, bottom-aligned with the two links.
- */
 export default function HubResumePortfolioNav({ centerSlot = null }) {
   const reduceMotion = Framer.useReducedMotion();
   const pulseXNeg = reduceMotion ? { x: 0 } : { x: [0, -HUB_NAV_PULSE_X, 0] };
   const pulseXPos = reduceMotion ? { x: 0 } : { x: [0, HUB_NAV_PULSE_X, 0] };
+
+  // Separate magnetic hooks — desktop links only (mobile layout omitted for pointer relevance)
+  const resumeMagnetic = useMagnetic(0.30);
+  const portfolioMagnetic = useMagnetic(0.30);
 
   const linkRow = (
     <nav
@@ -87,26 +131,35 @@ export default function HubResumePortfolioNav({ centerSlot = null }) {
 
   return (
     <div className="w-full">
+      {/* Mobile / tablet: centered stack, no magnetic (touch doesn't have hover proximity) */}
       <div className="flex flex-col gap-6 lg:hidden">
         {centerSlot}
         <div className="mt-16 w-full sm:mt-[4.5rem]">{linkRow}</div>
       </div>
+
+      {/* Desktop: 3-column with magnetic pull on Resume and Portfolio */}
       <div className="hidden w-full gap-x-12 lg:grid lg:grid-cols-3 lg:items-end xl:gap-x-16">
-        <Link
+        <MotionLink
           to="/resume"
           aria-label="Resume and links (west)"
+          ref={resumeMagnetic.ref}
+          style={{ ...resumeMagnetic.style }}
           className={`${navLinkRowClass} justify-self-start`}
         >
           <ResumeLinkContents pulseXNeg={pulseXNeg} />
-        </Link>
+        </MotionLink>
+
         <div className="flex min-w-0 justify-center self-end">{centerSlot}</div>
-        <Link
+
+        <MotionLink
           to="/portfolio"
           aria-label="Open portfolio hub (east)"
+          ref={portfolioMagnetic.ref}
+          style={{ ...portfolioMagnetic.style }}
           className={`${navLinkRowClass} justify-self-end`}
         >
           <PortfolioLinkContents pulseXPos={pulseXPos} />
-        </Link>
+        </MotionLink>
       </div>
     </div>
   );

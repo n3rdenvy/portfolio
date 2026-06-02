@@ -1,6 +1,6 @@
 import * as Framer from 'framer-motion';
 import { ChevronDown } from 'lucide-react';
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import LandingHub from './LandingHub';
 import { hubNavLinkCore, hubNavLabelClass } from './HubResumePortfolioNav';
@@ -15,6 +15,38 @@ export default function TJunctionShell() {
   const navigate = useNavigate();
   const { setHomePanelDepth } = useNavDepth();
   const reduceMotion = Framer.useReducedMotion();
+
+  // Magnetic pull for Let's Chat CTA
+  const chatRef = useRef(null);
+  const chatX = Framer.useMotionValue(0);
+  const chatY = Framer.useMotionValue(0);
+  const chatSpringX = Framer.useSpring(chatX, { stiffness: 180, damping: 16 });
+  const chatSpringY = Framer.useSpring(chatY, { stiffness: 180, damping: 16 });
+
+  useEffect(() => {
+    if (reduceMotion) return;
+    const onMove = (e) => {
+      const el = chatRef.current;
+      if (!el) return;
+      const rect = el.getBoundingClientRect();
+      const cx = rect.left + rect.width / 2;
+      const cy = rect.top + rect.height / 2;
+      const dx = e.clientX - cx;
+      const dy = e.clientY - cy;
+      const dist = Math.hypot(dx, dy);
+      const range = Math.max(rect.width, rect.height) * 2.5;
+      if (dist < range) {
+        const factor = (1 - dist / range) * 0.35;
+        chatX.set(dx * factor);
+        chatY.set(dy * factor);
+      } else {
+        chatX.set(0);
+        chatY.set(0);
+      }
+    };
+    window.addEventListener('mousemove', onMove, { passive: true });
+    return () => window.removeEventListener('mousemove', onMove);
+  }, [reduceMotion, chatX, chatY]);
 
   useEffect(() => {
     setHomePanelDepth(0);
@@ -45,24 +77,29 @@ export default function TJunctionShell() {
           aria-label="Hub navigation"
         >
           <div className="pointer-events-auto mx-auto flex w-full max-w-sm justify-center md:max-w-2xl">
-            <Link
-              to="/contact"
-              onClick={() => markHubLeavingToContact()}
-              aria-label="Contact. Open contact page"
-              className={`${hubNavLinkCore} nav-amber-wrap inline-flex flex-col items-center gap-1`}
+            <Framer.motion.div
+              ref={chatRef}
+              style={{ x: chatSpringX, y: chatSpringY }}
             >
-              <div className="relative z-10 inline-flex cursor-pointer flex-col items-center justify-center gap-1">
-                <span className={`relative z-10 ${hubNavLabelClass}`}>Let&apos;s chat</span>
-                <Framer.motion.span
-                  className="relative z-10 inline-flex text-white"
-                  animate={pulseYPos}
-                  transition={HUB_NAV_EDGE_PULSE_TRANSITION}
-                >
-                  <ChevronDown className="size-4 shrink-0" strokeWidth={2} aria-hidden />
-                </Framer.motion.span>
-                <div className="nav-amber-glow-bar" aria-hidden />
-              </div>
-            </Link>
+              <Link
+                to="/contact"
+                onClick={() => markHubLeavingToContact()}
+                aria-label="Contact. Open contact page"
+                className={`${hubNavLinkCore} nav-amber-wrap inline-flex flex-col items-center gap-1`}
+              >
+                <div className="relative z-10 inline-flex cursor-pointer flex-col items-center justify-center gap-1">
+                  <span className={`relative z-10 ${hubNavLabelClass}`}>Let&apos;s chat</span>
+                  <Framer.motion.span
+                    className="relative z-10 inline-flex text-white"
+                    animate={pulseYPos}
+                    transition={HUB_NAV_EDGE_PULSE_TRANSITION}
+                  >
+                    <ChevronDown className="size-4 shrink-0" strokeWidth={2} aria-hidden />
+                  </Framer.motion.span>
+                  <div className="nav-amber-glow-bar" aria-hidden />
+                </div>
+              </Link>
+            </Framer.motion.div>
           </div>
         </nav>
       </div>
