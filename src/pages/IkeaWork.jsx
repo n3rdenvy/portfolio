@@ -1,5 +1,5 @@
 import PageShell from '../components/PageShell';
-import ReturnToHub from '../components/ReturnToHub';
+import ReturnToPortfolioButton from '../components/ReturnToPortfolioButton';
 import HubPageHeading, { HubPageHeadingRow } from '../components/HubPageHeading';
 
 function SectionLabel({ children }) {
@@ -32,7 +32,7 @@ function CaseStudyImage({ src, alt, caption, wide = false }) {
 export default function IkeaWork() {
   return (
     <PageShell width="wide">
-      <ReturnToHub mobileLayout="pill-end" />
+      <ReturnToPortfolioButton />
 
       <div className="flex min-h-0 min-w-0 flex-1 flex-col pb-24 pt-4 max-md:pt-[3.85rem] md:pt-8">
 

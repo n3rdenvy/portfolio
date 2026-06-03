@@ -1,5 +1,5 @@
 import PageShell from '../components/PageShell';
-import ReturnToHub from '../components/ReturnToHub';
+import ReturnToPortfolioButton from '../components/ReturnToPortfolioButton';
 import HubPageHeading, { HubPageHeadingRow } from '../components/HubPageHeading';
 import AiBadge from '../components/AiBadge';
 
@@ -131,7 +131,7 @@ const TOOLS = [
 export default function DevTools() {
   return (
     <PageShell width="wide">
-      <ReturnToHub mobileLayout="pill-end" />
+      <ReturnToPortfolioButton />
 
       <div className="flex min-h-0 min-w-0 flex-1 flex-col pb-20 pt-4 max-md:pt-[3.85rem] md:pt-8">
         <HubPageHeadingRow>

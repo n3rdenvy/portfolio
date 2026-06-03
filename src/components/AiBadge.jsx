@@ -1,49 +1,44 @@
 /**
- * Small stacked AI model logo badges.
+ * Stacked AI model logo badges.
  * Usage: <AiBadge models={['claude', 'cursor', 'gemini']} />
  */
 
 const MODEL_META = {
   claude: {
     label: 'Claude (Anthropic)',
-    bg: '#C96B2C',
+    bg: '#D4541A',
+    // Anthropic starburst — 4-petal spark, recognizable at small sizes
     icon: (
-      // Simplified Anthropic starburst — 4-petal spark mark
-      <svg viewBox="0 0 24 24" fill="none" className="h-3.5 w-3.5" aria-hidden>
+      <svg viewBox="0 0 24 24" className="h-4 w-4" aria-hidden>
         <path
           fill="white"
-          d="M12 2.5Q12.6 8.5 18 12Q12.6 15.5 12 21.5Q11.4 15.5 6 12Q11.4 8.5 12 2.5Z"
-        />
-        <path
-          fill="white"
-          opacity="0.7"
-          d="M12 5Q14 10 19 12Q14 14 12 19Q10 14 5 12Q10 10 12 5Z"
+          d="M12 2.5Q13.2 9 21.5 12Q13.2 15 12 21.5Q10.8 15 2.5 12Q10.8 9 12 2.5Z"
         />
       </svg>
     ),
   },
   cursor: {
     label: 'Cursor',
-    bg: '#1A1A1A',
+    bg: '#151515',
+    // Cursor arrow — the most recognizable cursor shape
     icon: (
-      // Cursor arrow — the Cursor IDE logo approximation
-      <svg viewBox="0 0 24 24" fill="none" className="h-3.5 w-3.5" aria-hidden>
+      <svg viewBox="0 0 24 24" className="h-4 w-4" aria-hidden>
         <path
           fill="white"
-          d="M5 3L5 18L9 14L12.5 21L14.5 20L11 13L17 13Z"
+          d="M5.5 3.5L5.5 19.5L9.8 15.2L12.8 21L15 19.8L12 14L18.5 14Z"
         />
       </svg>
     ),
   },
   gemini: {
-    label: 'Gemini',
-    bg: '#1A6CC8',
+    label: 'Gemini (Google)',
+    bg: '#1A6FD4',
+    // Gemini 4-pointed star — longer vertical axis (the actual Gemini wordmark shape)
     icon: (
-      // Gemini 4-pointed star — longer vertical axis
-      <svg viewBox="0 0 24 24" fill="none" className="h-3.5 w-3.5" aria-hidden>
+      <svg viewBox="0 0 24 24" className="h-4 w-4" aria-hidden>
         <path
           fill="white"
-          d="M12 2Q12.4 9 19 12Q12.4 15 12 22Q11.6 15 5 12Q11.6 9 12 2Z"
+          d="M12 2Q12.4 9.8 20 12Q12.4 14.2 12 22Q11.6 14.2 4 12Q11.6 9.8 12 2Z"
         />
       </svg>
     ),
@@ -53,8 +48,14 @@ const MODEL_META = {
 export default function AiBadge({ models = [], className = '' }) {
   if (!models.length) return null;
 
+  const label = models.map((m) => MODEL_META[m]?.label).filter(Boolean).join(' + ');
+
   return (
-    <div className={`flex items-center gap-1 ${className}`} aria-label={`Built with: ${models.map(m => MODEL_META[m]?.label).join(', ')}`}>
+    <div
+      className={`flex items-center ${className}`}
+      role="img"
+      aria-label={`Built with: ${label}`}
+    >
       {models.map((m, i) => {
         const meta = MODEL_META[m];
         if (!meta) return null;
@@ -62,11 +63,12 @@ export default function AiBadge({ models = [], className = '' }) {
           <div
             key={m}
             title={meta.label}
-            className="relative flex h-6 w-6 items-center justify-center rounded-full border border-white/20 shadow-sm"
+            className="flex h-7 w-7 items-center justify-center rounded-full border-2 border-white/30 shadow-sm"
             style={{
               backgroundColor: meta.bg,
-              marginLeft: i > 0 ? '-6px' : '0',
+              marginLeft: i > 0 ? '-8px' : '0',
               zIndex: models.length - i,
+              position: 'relative',
             }}
           >
             {meta.icon}
