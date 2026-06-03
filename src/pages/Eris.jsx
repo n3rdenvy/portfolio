@@ -46,7 +46,7 @@ function CapabilityCard({ title, description, detail }) {
 function DecisionRow({ decision, why }) {
   return (
     <div className="flex gap-4 border-b border-white/[0.06] py-3 last:border-0">
-      <span className="mt-0.5 h-1.5 w-1.5 shrink-0 rounded-full bg-amber-400/50 mt-1.5" />
+      <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-amber-400/50" />
       <div>
         <p className="text-sm text-white">{decision}</p>
         <p className="mt-0.5 text-xs text-white/45 leading-relaxed">{why}</p>
@@ -130,7 +130,7 @@ export default function Eris() {
                 label="Model Serving"
                 items={[
                   { name: 'Ollama', detail: 'model server' },
-                  { name: 'kallisti (Gemma4 27B Q4_K_M)', detail: 'vision + tools + thinking, ~47 tok/s' },
+                  { name: 'Gemma4 27B Q4_K_M', detail: 'vision + tools + thinking, ~47 tok/s' },
                   { name: 'mxbai-embed-large', detail: 'embedding model' },
                 ]}
               />

@@ -8,7 +8,6 @@ import Process from './pages/Process';
 import ROI from './pages/ROI';
 import Commercials from './pages/Commercials';
 import ComingSoon from './pages/ComingSoon';
-import Interiors from './pages/Interiors';
 import TransitPulseAx from './pages/TransitPulseAx';
 import Visualization3D from './pages/Visualization3D';
 import Contact from './pages/Contact';
@@ -17,6 +16,7 @@ import Resume from './pages/Resume';
 import DevTools from './pages/DevTools';
 import IkeaWork from './pages/IkeaWork';
 import Eris from './pages/Eris';
+import Inhabit from './pages/Inhabit';
 
 const ROUTES = [
   { path: '/accessibility', Component: Accessibility },
@@ -27,10 +27,10 @@ const ROUTES = [
   { path: '/3d-visualization', Component: Visualization3D },
   { path: '/transit-pulse-ax', Component: TransitPulseAx },
   { path: '/coming-soon', Component: ComingSoon },
-  { path: '/interiors', Component: Interiors },
   { path: '/dev-tools', Component: DevTools },
   { path: '/ikea', Component: IkeaWork },
   { path: '/eris', Component: Eris },
+  { path: '/inhabit', Component: Inhabit },
 ];
 
 function App() {

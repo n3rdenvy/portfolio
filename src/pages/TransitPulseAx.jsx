@@ -1,353 +1,342 @@
-import * as Framer from 'framer-motion';
-import { useCallback, useEffect, useId, useState } from 'react';
-import { ChevronLeft, ChevronRight, X } from 'lucide-react';
 import ReturnToPortfolioButton from '../components/ReturnToPortfolioButton';
+import HubPageHeading, { HubPageHeadingRow } from '../components/HubPageHeading';
 import AiBadge from '../components/AiBadge';
-import {
-  TRANSIT_PULSE_CONCEPT,
-  TRANSIT_PULSE_LEARNINGS,
-  TRANSIT_PULSE_PROCESS_PLACEHOLDERS,
-  TRANSIT_PULSE_PROTOTYPE_URL,
-} from '../data/transitPulseAx';
-import {
-  HUB_NAV_EDGE_PULSE_TRANSITION,
-  HUB_NAV_PULSE_X,
-  HUB_NAV_PULSE_Y,
-} from '../utils/hubNavMotion';
+import PageShell from '../components/PageShell';
+import { TRANSIT_PULSE_PROTOTYPE_URL } from '../data/transitPulseAx';
 
-const spring = { type: 'spring', stiffness: 320, damping: 36, mass: 0.9 };
+function SectionLabel({ children }) {
+  return (
+    <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-white/40">{children}</p>
+  );
+}
 
-/** Logical phone width — iframe `src` app sees this as viewport width (mobile breakpoints). */
-const PROTOTYPE_FRAME_MAX_W_PX = 390;
-/** Cap height so the frame fits on laptop screens without stretching the UI. */
-const PROTOTYPE_FRAME_MAX_H_PX = 844;
+function PersonaCard({ name, role, age, quote, priorities }) {
+  return (
+    <div className="rounded-xl border border-white/10 bg-white/[0.03] p-5 flex flex-col gap-3">
+      <div>
+        <p className="text-sm font-semibold text-white">{name}</p>
+        <p className="text-xs text-white/45">{age} · {role}</p>
+      </div>
+      <p className="text-xs leading-relaxed text-white/60 italic">"{quote}"</p>
+      <div>
+        <p className="text-[10px] font-semibold uppercase tracking-widest text-white/30 mb-1.5">Needs first</p>
+        <ul className="space-y-1">
+          {priorities.map((p, i) => (
+            <li key={i} className="flex gap-2 text-xs text-white/55">
+              <span className="mt-1 h-1 w-1 shrink-0 rounded-full bg-amber-400/50" />
+              {p}
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  );
+}
 
-/** @typedef {'west' | 'east' | null} PanelKey */
+function PainCluster({ title, points }) {
+  return (
+    <div className="rounded-xl border border-white/10 bg-white/[0.03] p-4">
+      <p className="text-xs font-semibold text-white mb-2">{title}</p>
+      <ul className="space-y-1">
+        {points.map((p, i) => (
+          <li key={i} className="flex gap-2 text-xs text-white/50 leading-snug">
+            <span className="mt-1 h-1 w-1 shrink-0 rounded-full bg-white/20" />
+            {p}
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}
 
-const panelShell =
-  'rounded-2xl border border-white/10 bg-white/5 p-6 text-white backdrop-blur-[9.9px]';
+function DecisionRow({ decision, why }) {
+  return (
+    <div className="flex gap-4 border-b border-white/[0.06] py-3 last:border-0">
+      <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-amber-400/50" />
+      <div>
+        <p className="text-sm text-white">{decision}</p>
+        <p className="mt-0.5 text-xs text-white/45 leading-relaxed">{why}</p>
+      </div>
+    </div>
+  );
+}
 
-const panelMotion = {
-  west: {
-    initial: { x: '-108%' },
-    animate: { x: 0 },
-    exit: { x: '-108%' },
-    className: `bottom-2 left-2 top-2 w-[min(100%,26rem)] md:bottom-4 md:left-4 md:top-4 ${panelShell}`,
+const PERSONAS = [
+  {
+    name: 'Nadia W.',
+    role: 'Psychology Student',
+    age: 28,
+    quote: 'If a wait is over 15 minutes, I am out.',
+    priorities: ['Verified stop safety and lighting data', 'Low-density car selection before boarding'],
   },
-  east: {
-    initial: { x: '108%' },
-    animate: { x: 0 },
-    exit: { x: '108%' },
-    className: `bottom-2 right-2 top-2 w-[min(100%,26rem)] md:bottom-4 md:right-4 md:top-4 ${panelShell}`,
+  {
+    name: 'Marcus S.',
+    role: 'Substitute Teacher',
+    age: 29,
+    quote: 'I need to know the train is actually coming, not just that it is supposed to.',
+    priorities: ['Real-time location verification from other riders', 'Contributor reputation to trust the data'],
   },
-};
+  {
+    name: 'Theo D.',
+    role: 'Instructional Designer',
+    age: 28,
+    quote: 'If I cannot get a seat, I am turning around and going home.',
+    priorities: ['Live car density before the train arrives', 'Baseline travel time to plan departure precisely'],
+  },
+  {
+    name: 'Dana H.',
+    role: 'Graphic Designer',
+    age: 40,
+    quote: 'I walk further just to avoid a stop I know is bad.',
+    priorities: ['Block-by-block GPS tracking, not a countdown', 'Stop safety ratings from other riders'],
+  },
+];
+
+const PAIN_CLUSTERS = [
+  {
+    title: 'The Trust Gap',
+    points: [
+      'Official apps report ghost buses as real arrivals',
+      'Google Maps data trails reality by minutes',
+      'Users check 2-3 apps per trip because no single one is reliable',
+      'Peer-reported data trusted over official schedules',
+    ],
+  },
+  {
+    title: 'The Limbo Trigger',
+    points: [
+      'Frustration threshold hits at 15-20 minutes regardless of user',
+      'Useless countdown timers when the vehicle is not moving',
+      'Missing one bus on a long-cycle route is catastrophic',
+      'Block-by-block movement needed to reduce stop exposure time',
+    ],
+  },
+  {
+    title: 'Sensory and Social Load',
+    points: [
+      'Lighting at stops is a primary safety filter, especially for solo travelers',
+      'Preference for low-occupancy cars for sensory management',
+      'Immediate departure from poorly lit or crowded stops',
+      'Situational safety determines boarding decisions before arrival times',
+    ],
+  },
+  {
+    title: 'The Productivity Extension',
+    points: [
+      'Two-car trains almost guarantee no available seat',
+      'Trains used as mobile workspaces — inability to sit = commute failure',
+      'Baseline travel time display expected by default',
+      'Seat availability is a go/no-go decision factor',
+    ],
+  },
+  {
+    title: 'Accountability and Professional Impact',
+    points: [
+      'Users need verifiable proof of delay to share with employers',
+      'Transit failures collapse professional and personal schedules',
+      'Non-negotiable pickup windows require absolute certainty',
+      'Willingness to pay rideshare specifically to avoid ghosting hopelessness',
+    ],
+  },
+];
 
 export default function TransitPulseAx() {
-  const baseId = useId();
-  const [active, setActive] = useState(/** @type {PanelKey} */ (null));
-
-  const close = useCallback(() => setActive(null), []);
-
-  useEffect(() => {
-    if (!active) return undefined;
-    const onKey = (e) => {
-      if (e.key === 'Escape') close();
-    };
-    window.addEventListener('keydown', onKey);
-    return () => window.removeEventListener('keydown', onKey);
-  }, [active, close]);
-
   const hasPrototype = Boolean(TRANSIT_PULSE_PROTOTYPE_URL);
 
   return (
-    <div className="flex h-full min-h-0 flex-col overflow-hidden text-white">
+    <PageShell width="wide">
       <ReturnToPortfolioButton />
-      <div className="pointer-events-none absolute right-4 top-4 z-10 md:right-6 md:top-6">
-        <AiBadge models={['claude', 'cursor']} />
-      </div>
 
-      <div className="relative flex min-h-0 flex-1 flex-col">
-        {hasPrototype ? (
-          <div className="flex min-h-0 flex-1 items-center justify-center overflow-hidden px-3 pb-4 pt-[max(4.5rem,9svh)] md:pb-6 md:pt-[max(5rem,10svh)]">
-            <div
-              className="relative w-[min(100%,390px)] max-h-full shrink-0 overflow-hidden rounded-[2rem] border border-white/12 bg-black shadow-[0_24px_80px_-20px_rgba(0,0,0,0.65)] ring-1 ring-inset ring-white/[0.06]"
-              style={{
-                aspectRatio: `${PROTOTYPE_FRAME_MAX_W_PX} / ${PROTOTYPE_FRAME_MAX_H_PX}`,
-                maxHeight: `min(${PROTOTYPE_FRAME_MAX_H_PX}px, 100%)`,
-              }}
-            >
-              <iframe
-                title="Transit Pulse AX interactive prototype"
-                src={TRANSIT_PULSE_PROTOTYPE_URL}
-                className="absolute inset-0 h-full w-full border-0"
-                allowFullScreen
+      <div className="flex min-h-0 min-w-0 flex-1 flex-col pb-24 pt-4 max-md:pt-[3.85rem] md:pt-8">
+
+        <HubPageHeadingRow>
+          <div className="min-w-0 pl-6 sm:pl-7 md:pl-10 lg:pl-12">
+            <HubPageHeading
+              title="Transit Pulse AX"
+              subtitle="Real-time community transit app for Philadelphia. Built from user research up."
+            />
+            <div className="mt-3 pl-1">
+              <AiBadge models={['claude', 'cursor']} />
+            </div>
+          </div>
+        </HubPageHeadingRow>
+
+        <div className="mt-8 flex flex-col gap-6 md:mt-10">
+
+          {/* Fork statement */}
+          <div className="glass-hub-sheet px-6 py-5 md:px-8">
+            <p className="text-sm leading-relaxed text-white/70">
+              This started as a Springboard UX bootcamp project. I left the program when a course video on using AI for personas turned out to be three years old. At the rate AI moves, that is basically a different era. The course also wanted static 2D deliverables. I had the research done and a working concept, so I built the app instead.
+            </p>
+          </div>
+
+          {/* Prototype */}
+          <div className="glass-hub-sheet glass-hub-sheet--no-backdrop p-6 md:p-8">
+            <SectionLabel>Live prototype</SectionLabel>
+            {hasPrototype ? (
+              <div className="mt-4 flex justify-center">
+                <div
+                  className="relative w-full overflow-hidden rounded-[2rem] border border-white/12 bg-black shadow-[0_24px_80px_-20px_rgba(0,0,0,0.65)] ring-1 ring-inset ring-white/[0.06]"
+                  style={{ maxWidth: 390, aspectRatio: '390 / 844' }}
+                >
+                  <iframe
+                    title="Transit Pulse AX interactive prototype"
+                    src={TRANSIT_PULSE_PROTOTYPE_URL}
+                    className="absolute inset-0 h-full w-full border-0"
+                    allowFullScreen
+                  />
+                </div>
+              </div>
+            ) : (
+              <div className="mt-4 flex min-h-[8rem] items-center justify-center rounded-xl border border-white/[0.06] bg-white/[0.02]">
+                <p className="text-xs text-white/30">
+                  Set <code className="rounded bg-white/10 px-1.5 py-0.5">VITE_TRANSIT_PULSE_PROTOTYPE_URL</code> to embed the live prototype
+                </p>
+              </div>
+            )}
+          </div>
+
+          {/* Problem */}
+          <div className="glass-hub-sheet p-6 md:p-8">
+            <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
+              <div className="space-y-3">
+                <SectionLabel>The Problem</SectionLabel>
+                <p className="text-sm leading-relaxed text-white/70">
+                  Official transit apps provide GPS coordinates and scheduled arrival times. What they do not provide is ground truth — whether the bus is actually moving, whether the stop is safe at this hour, whether there is room to board, or whether the arrival time reflects reality at all.
+                </p>
+                <p className="text-sm leading-relaxed text-white/70">
+                  The stress of public transit is not the wait itself. It is the uncertainty. Riders cannot trust the tool they rely on, so they hedge — checking multiple apps, leaving earlier, calling rideshares preemptively. Every one of those workarounds is a failure the app caused.
+                </p>
+              </div>
+              <div className="space-y-3">
+                <SectionLabel>The Solution</SectionLabel>
+                <p className="text-sm leading-relaxed text-white/70">
+                  Transit Pulse layers community-verified reality on top of official data. Riders submit live conditions — vehicle location, occupancy, safety vibe, cleanliness — and that signal travels instantly to everyone waiting down the line.
+                </p>
+                <p className="text-sm leading-relaxed text-white/70">
+                  The schedule is a suggestion. The community is the source of truth.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          {/* Research */}
+          <div className="glass-hub-sheet p-6 md:p-8">
+            <SectionLabel>Research</SectionLabel>
+            <p className="mt-1 mb-5 text-sm text-white/50">Self-directed. January – February 2026.</p>
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
+              {[
+                { stat: '19', label: 'Screener survey respondents', detail: 'Ghost buses ranked as the #1 stress factor. "Is it actually coming?" was the most-wanted piece of information.' },
+                { stat: '5', label: 'Recorded user interviews', detail: '30-minute sessions with participants recruited from the screener. Interviews covered navigation habits, uncertainty triggers, and reporting behavior.' },
+                { stat: '4', label: 'Personas developed', detail: 'Each grounded in a real participant. Each with a documented feature priority ranking derived from their interview.' },
+              ].map(({ stat, label, detail }) => (
+                <div key={stat} className="rounded-xl border border-white/10 bg-white/[0.03] p-5">
+                  <p className="text-3xl font-bold text-white">{stat}</p>
+                  <p className="mt-1 text-xs font-semibold text-white/60">{label}</p>
+                  <p className="mt-2 text-xs leading-relaxed text-white/40">{detail}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Personas */}
+          <div className="glass-hub-sheet p-6 md:p-8">
+            <SectionLabel>User Personas</SectionLabel>
+            <p className="mt-1 mb-5 text-sm text-white/50">Names changed for privacy. Each grounded in a real interview participant.</p>
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+              {PERSONAS.map((p) => (
+                <PersonaCard key={p.name} {...p} />
+              ))}
+            </div>
+          </div>
+
+          {/* Pain clusters */}
+          <div className="glass-hub-sheet p-6 md:p-8">
+            <SectionLabel>Thematic Analysis — 5 Pain Clusters</SectionLabel>
+            <p className="mt-1 mb-5 text-sm text-white/50">Synthesized from affinity mapping across all 5 interviews. Each cluster maps to one or more design decisions.</p>
+            <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
+              {PAIN_CLUSTERS.map((c) => (
+                <PainCluster key={c.title} {...c} />
+              ))}
+            </div>
+          </div>
+
+          {/* Design Decisions */}
+          <div className="glass-hub-sheet p-6 md:p-8">
+            <SectionLabel>Design Decisions</SectionLabel>
+            <div className="mt-4">
+              <DecisionRow
+                decision="Pivot 1: The schedule is a suggestion"
+                why="Early iterations assumed SEPTA data was mostly accurate. Research proved otherwise — ghost buses, abrupt detours, and hardware latency are systemic. The UI now actively surfaces discrepancies rather than presenting official data at face value."
+              />
+              <DecisionRow
+                decision="Pivot 2: Safety is a primary metric, not a secondary filter"
+                why="Three of five interview participants named physical security as their top transit concern before timing or convenience. Stop safety ratings and safe-corridor mapping moved from optional features to top-level navigation."
+              />
+              <DecisionRow
+                decision="Pivot 3: Brutalist efficiency over clean corporate design"
+                why="If a gradient reduces legibility in direct sunlight, it is removed. The design language draws from Philly Handstyle graffiti and the kinetic visual vocabulary of Vogue and Waacking — highly visible, highly intentional, built for motion."
+              />
+              <DecisionRow
+                decision="The Two-Tap Mandate"
+                why="Any critical action — reporting a safety hazard, checking an alternate route, confirming vehicle location — must complete in a maximum of two taps. This is the governing rule of the UX. Users are moving, cold, stressed, or in low-signal environments. The interface has to earn every second."
+              />
+              <DecisionRow
+                decision="Signal Independence"
+                why="The app architecture assumes a poor connection by default. Critical UI components load without heavy assets. Data caches intelligently. An app that fails in an underground station is an app that fails its users at exactly the moment they need it most."
               />
             </div>
           </div>
-        ) : (
-          <div className="flex min-h-0 flex-1 items-center justify-center overflow-hidden p-6 pt-20 md:p-10 md:pt-24">
-            <div className="frame-theme-media max-w-md px-8 py-10 text-center">
-              <p className="text-xs font-semibold tracking-tight text-white">Prototype</p>
-              <p className="mt-3 text-sm leading-relaxed text-white">
-                Set{' '}
-                <code className="rounded bg-white/10 px-1.5 py-0.5 text-xs text-white">
-                  VITE_TRANSIT_PULSE_PROTOTYPE_URL
-                </code>{' '}
-                in your environment to embed the live Transit Pulse build (Figma embed, staging URL, etc.).
-              </p>
+
+          {/* Competitive positioning */}
+          <div className="glass-hub-sheet p-6 md:p-8">
+            <SectionLabel>Competitive Positioning</SectionLabel>
+            <div className="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-3">
+              {[
+                {
+                  name: 'Google Maps',
+                  label: 'The Generalist',
+                  gap: 'Treats a bus stop the same as a coffee shop. Reports the bus as arriving if the API says so, regardless of whether it is actually moving.',
+                },
+                {
+                  name: 'Transit App',
+                  label: 'The Specialist',
+                  gap: 'Strong routing and a clean UI, but relies entirely on official GTFS data. Does not crowdsource conditions — safety, lighting, occupancy, vibe.',
+                },
+                {
+                  name: 'Citizen',
+                  label: 'The Alarmist',
+                  gap: 'Excellent real-time safety alerts, but frames the city as a threat. High anxiety, no utility layer. Users feel worse, not better informed.',
+                },
+              ].map(({ name, label, gap }) => (
+                <div key={name} className="rounded-xl border border-white/10 bg-white/[0.03] p-4">
+                  <p className="text-sm font-semibold text-white">{name}</p>
+                  <p className="text-[10px] font-semibold uppercase tracking-widest text-white/35 mt-0.5">{label}</p>
+                  <p className="mt-2 text-xs leading-relaxed text-white/50">{gap}</p>
+                </div>
+              ))}
+            </div>
+            <div className="mt-4 rounded-xl border border-amber-400/20 bg-amber-400/[0.03] p-4">
+              <p className="text-xs font-semibold text-amber-200/80 uppercase tracking-widest">Transit Pulse</p>
+              <p className="mt-1 text-sm text-white/70">The utility of Transit App with the awareness of Citizen — but helpful rather than alarmist. Community-verified reality layered on top of official schedules, with a UI built for people who are already moving.</p>
             </div>
           </div>
-        )}
 
-        <nav
-          className="pointer-events-none absolute inset-0 z-[100]"
-          aria-label="Transit Pulse case study navigation"
-        >
-          <div className="absolute left-3 top-1/2 z-[101] -translate-y-1/2 md:left-5">
-            <DirectionTrigger
-              edge="west"
-              label="Concept & Why"
-              icon={ChevronLeft}
-              isOpen={active === 'west'}
-              controlsId={`${baseId}-west`}
-              onClick={() => setActive((p) => (p === 'west' ? null : 'west'))}
-            />
+          {/* Tags */}
+          <div className="flex flex-wrap gap-2 px-1">
+            {[
+              'React Native', 'SEPTA API', 'Geospatial', 'User Research',
+              'Personas', 'Gamification', 'WCAG', 'Accessibility',
+              'Chronopsychology', 'Real-Time Data', 'Community Validation',
+            ].map((t) => (
+              <span key={t} className="inline-flex items-center rounded-full border border-white/15 bg-white/5 px-2.5 py-0.5 text-[11px] font-medium tracking-wide text-white/60">
+                {t}
+              </span>
+            ))}
           </div>
 
-          <div className="absolute right-3 top-1/2 z-[101] -translate-y-1/2 md:right-5">
-            <DirectionTrigger
-              edge="east"
-              iconPosition="end"
-              label="Learnings & Process"
-              icon={ChevronRight}
-              isOpen={active === 'east'}
-              controlsId={`${baseId}-east`}
-              onClick={() => setActive((p) => (p === 'east' ? null : 'east'))}
-            />
-          </div>
-        </nav>
-
-        <Framer.AnimatePresence>
-          {active && (
-            <>
-              <Framer.motion.button
-                type="button"
-                key="backdrop"
-                aria-label="Close panel"
-                className="absolute inset-0 z-[105] bg-black/45 backdrop-blur-[1.35px]"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 0.2 }}
-                onClick={close}
-              />
-              {active === 'west' && (
-                <SlidePanel
-                  key="west"
-                  panelKey="west"
-                  ariaLabel={TRANSIT_PULSE_CONCEPT.title}
-                  onClose={close}
-                  id={`${baseId}-west`}
-                >
-                  <p className="text-xs font-semibold tracking-tight text-white">
-                    {TRANSIT_PULSE_CONCEPT.title}
-                  </p>
-                  <div className="mt-4 space-y-3 text-sm leading-relaxed text-white">
-                    {TRANSIT_PULSE_CONCEPT.body.map((paragraph, i) => (
-                      <p key={i}>{paragraph}</p>
-                    ))}
-                  </div>
-                </SlidePanel>
-              )}
-              {active === 'east' && (
-                <SlidePanel
-                  key="east"
-                  panelKey="east"
-                  ariaLabel={TRANSIT_PULSE_LEARNINGS.title}
-                  onClose={close}
-                  id={`${baseId}-east`}
-                >
-                  <p className="text-xs font-semibold tracking-tight text-white">
-                    {TRANSIT_PULSE_LEARNINGS.title}
-                  </p>
-                  <ul className="mt-4 list-disc space-y-2 pl-4 text-sm leading-relaxed text-white">
-                    {TRANSIT_PULSE_LEARNINGS.items.map((item, i) => (
-                      <li key={i}>{item}</li>
-                    ))}
-                  </ul>
-                  <TransitProcessImageCarousel items={TRANSIT_PULSE_PROCESS_PLACEHOLDERS} />
-                </SlidePanel>
-              )}
-            </>
-          )}
-        </Framer.AnimatePresence>
-      </div>
-    </div>
-  );
-}
-
-/**
- * @param {{ items: { label: string; src: string; hint: string }[] }} props
- */
-function TransitProcessImageCarousel({ items }) {
-  const [index, setIndex] = useState(0);
-  const [imgFailed, setImgFailed] = useState(false);
-  const n = items.length;
-
-  useEffect(() => {
-    setImgFailed(false);
-  }, [index]);
-
-  if (n === 0) return null;
-
-  const item = items[index];
-  const go = (delta) => setIndex((i) => (i + delta + n) % n);
-
-  return (
-    <div
-      className="mt-6 border-t border-white/10 pt-5"
-      role="region"
-      aria-roledescription="carousel"
-      aria-label="Process images"
-    >
-      <p className="text-xs font-semibold tracking-tight text-white">Process images</p>
-      <p className="mt-1 text-[11px] leading-snug text-white/75">
-        Drop assets into the paths on each slide, or replace with real imagery.
-      </p>
-      <div className="relative mt-3 aspect-[4/3] w-full overflow-hidden rounded-xl border border-white/12 bg-black/30">
-        {item.src && !imgFailed ? (
-          <img
-            src={item.src}
-            alt={item.label}
-            className="h-full w-full object-contain object-center"
-            onError={() => setImgFailed(true)}
-            draggable={false}
-          />
-        ) : (
-          <div className="flex h-full min-h-[8rem] w-full flex-col justify-end bg-white/[0.06] p-3">
-            <span className="text-xs font-medium text-white">{item.label}</span>
-            <span className="mt-1 font-mono text-[10px] leading-snug text-white/65">{item.hint}</span>
-          </div>
-        )}
-      </div>
-      <div className="mt-3 flex items-center justify-between gap-2">
-        <button
-          type="button"
-          className="btn-theme btn-theme-compact shrink-0 p-2"
-          aria-label="Previous process image"
-          onClick={() => go(-1)}
-        >
-          <ChevronLeft className="size-4" strokeWidth={2} aria-hidden />
-        </button>
-        <div className="flex flex-1 justify-center gap-2" role="tablist" aria-label="Carousel slides">
-          {items.map((slide, i) => (
-            <button
-              key={slide.label}
-              type="button"
-              role="tab"
-              aria-selected={i === index}
-              aria-label={`Show slide ${i + 1} of ${n}: ${slide.label}`}
-              className={`h-2 rounded-full transition-[width,background] duration-200 ${
-                i === index ? 'w-6 bg-white' : 'w-2 bg-white/35 hover:bg-white/50'
-              }`}
-              onClick={() => setIndex(i)}
-            />
-          ))}
         </div>
-        <button
-          type="button"
-          className="btn-theme btn-theme-compact shrink-0 p-2"
-          aria-label="Next process image"
-          onClick={() => go(1)}
-        >
-          <ChevronRight className="size-4" strokeWidth={2} aria-hidden />
-        </button>
       </div>
-    </div>
-  );
-}
-
-function DirectionTrigger({
-  edge,
-  iconPosition = 'start',
-  label,
-  icon,
-  isOpen,
-  controlsId,
-  onClick,
-}) {
-  const Glyph = icon;
-  const reduceMotion = Framer.useReducedMotion();
-  const pulseAnim = reduceMotion
-    ? { x: 0, y: 0 }
-    : edge === 'east'
-      ? { x: [0, HUB_NAV_PULSE_X, 0] }
-      : edge === 'west'
-        ? { x: [0, -HUB_NAV_PULSE_X, 0] }
-        : { y: [0, HUB_NAV_PULSE_Y, 0] };
-  const transition = reduceMotion ? { duration: 0 } : HUB_NAV_EDGE_PULSE_TRANSITION;
-
-  const iconEl = (
-    <Framer.motion.span
-      className="inline-flex shrink-0 opacity-90"
-      animate={pulseAnim}
-      transition={transition}
-    >
-      <Glyph className="size-4 shrink-0" strokeWidth={2} aria-hidden />
-    </Framer.motion.span>
-  );
-  const labelEl = (
-    <span className="max-w-[10rem] leading-tight md:max-w-none">{label}</span>
-  );
-
-  return (
-    <button
-      type="button"
-      onClick={onClick}
-      aria-expanded={isOpen}
-      aria-controls={controlsId}
-      className={`pointer-events-auto flex items-center gap-2 btn-theme py-2.5 text-xs font-medium tracking-tight md:text-sm ${
-        iconPosition === 'end' ? 'pl-4 pr-3 text-right' : 'pl-3 pr-4 text-left'
-      }`}
-    >
-      {iconPosition === 'end' ? (
-        <>
-          {labelEl}
-          {iconEl}
-        </>
-      ) : (
-        <>
-          {iconEl}
-          {labelEl}
-        </>
-      )}
-    </button>
-  );
-}
-
-function SlidePanel({ children, panelKey, ariaLabel, onClose, id }) {
-  const cfg = panelMotion[panelKey];
-  return (
-    <Framer.motion.div
-      id={id}
-      role="dialog"
-      aria-modal="true"
-      aria-label={ariaLabel}
-      className={`pointer-events-auto absolute z-[110] overflow-y-auto overflow-x-hidden pr-1 scrollbar-none ${cfg.className}`}
-      initial={cfg.initial}
-      animate={cfg.animate}
-      exit={cfg.initial}
-      transition={spring}
-    >
-      <button
-        type="button"
-        onClick={onClose}
-        className="btn-theme absolute right-3 top-3 z-[1] p-2.5"
-        aria-label="Close panel"
-      >
-        <X className="size-4" strokeWidth={2} aria-hidden />
-      </button>
-      <div className="pt-1 pr-12">{children}</div>
-    </Framer.motion.div>
+    </PageShell>
   );
 }

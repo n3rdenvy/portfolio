@@ -1,6 +1,7 @@
 import FlipFeatureCard from '../components/FlipFeatureCard';
 import PageShell from '../components/PageShell';
-import ReturnToHub from '../components/ReturnToHub';
+import ReturnToPortfolioButton from '../components/ReturnToPortfolioButton';
+import HubPageHeading, { HubPageHeadingRow } from '../components/HubPageHeading';
 
 const CARDS = [
   {
@@ -28,20 +29,27 @@ const CARDS = [
 export default function Accessibility() {
   return (
     <PageShell>
-      <ReturnToHub />
-      <header className="glass mb-10 rounded-2xl p-8">
-        <h1 className="text-2xl font-semibold tracking-tight text-white md:text-3xl">
-          Accessibility strategy
-        </h1>
-        <p className="mt-3 max-w-2xl text-sm leading-relaxed text-white">
-          Five capability lenses<span className="text-white/90"> · </span>
-          flip each card to read the thesis. Keyboard: Tab to focus, Enter or Space to flip.
-        </p>
-      </header>
-      <div className="grid gap-6 sm:grid-cols-2 xl:grid-cols-3">
-        {CARDS.map((c) => (
-          <FlipFeatureCard key={c.title} title={c.title} body={c.body} />
-        ))}
+      <ReturnToPortfolioButton />
+
+      <div className="flex min-h-0 min-w-0 flex-1 flex-col pb-24 pt-4 max-md:pt-[3.85rem] md:pt-8">
+        <HubPageHeadingRow>
+          <div className="min-w-0 pl-6 sm:pl-7 md:pl-10 lg:pl-12">
+            <HubPageHeading
+              title="Accessibility strategy"
+              subtitle="Five capability lenses — flip each card to read the thesis. Keyboard: Tab to focus, Enter or Space to flip."
+            />
+          </div>
+        </HubPageHeadingRow>
+
+        <div className="mt-8 md:mt-10">
+          <div className="glass-hub-sheet p-6 md:p-8">
+            <div className="grid gap-6 sm:grid-cols-2 xl:grid-cols-3">
+              {CARDS.map((c) => (
+                <FlipFeatureCard key={c.title} title={c.title} body={c.body} />
+              ))}
+            </div>
+          </div>
+        </div>
       </div>
     </PageShell>
   );
