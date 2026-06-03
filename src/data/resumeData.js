@@ -4,7 +4,9 @@ export const resumeData = {
     email: 'n3rdenvy@gmail.com',
     phone: '4109030919',
     linkedin: 'www.linkedin.com/in/n3rdenvy',
+    portfolio: 'erik-portfolio-eta.vercel.app',
   },
+  summary: "I've spent the last five years as an interior design leader at IKEA, thinking about how people move through spaces, what they're actually trying to do, and which products earn their place in a room. Late 2025 I started taking UX seriously as a career direction and got into it the way I tend to get into things: by building. Since then I've shipped a real-time transit app backed by actual user research, built a fully local AI stack to try and reduce my impact regarding cloud infrastructure ethics, and made a few tools that improve my daily workflow. Most of that is in this portfolio.",
   education: [
     {
       degree: 'B.S of Interior Design',
@@ -18,7 +20,7 @@ export const resumeData = {
     {
       category: 'Design & Product Strategy',
       items:
-        'UX/UI Design, Service Design, Systems Thinking, Behavioral UX, Accessibility, Localization.',
+        'UX/UI Design, User Research, Journey Mapping, Wireframing, Prototyping, Service Design, Systems Thinking, Behavioral UX, Accessibility, Localization.',
     },
     {
       category: 'Business & Leadership',
@@ -28,7 +30,7 @@ export const resumeData = {
     {
       category: 'Technical Architecture',
       items:
-        'Artificial Intelligence, Agentic UX, Multi Agent Orchestration, RAG Patterns, REST APIs, 3D Visualization.',
+        'Artificial Intelligence, Agentic UX, Multi Agent Orchestration, RAG Patterns, REST APIs, 3D Visualization, AR/XR.',
     },
     {
       category: 'Technical Platforms & Tools',
@@ -36,41 +38,38 @@ export const resumeData = {
         'Cursor, Claude Code, Google Gemini Pro, Figma, AutoCAD, Autodesk Revit, 3ds Max, ElevenLabs, Adobe Firefly.',
     },
   ],
-  projects: [
-    {
-      name: 'TransitPulse',
-      dates: '02/2026 - 03/2026',
-      bullets: [
-        'Directed the zero to one build of a real time transit app. Integrated live geospatial APIs and a reporting network to build trust through peer to peer validation rather than algorithmic schedules.',
-        'Architected a WCAG compliant design system featuring chronopsychology driven UI themes with strict opt in controls for sensory shaping.',
-        'Gamified the app to drive daily retention. Users unlock specific UI adjustments that act as visual trophies in passive community settings.',
-        'Engineered native localization for Spanish, French, and Chinese alongside specialized accessibility modes optimized for dyslexia.',
-      ],
-    },
-  ],
   experience: [
     {
       title: 'Country Interior Design Leader',
       company: 'IKEA US',
-      dates: '02/2022 - Present',
+      dates: '01/2022 - Present',
       location: 'Conshohocken, PA',
       bullets: [
-        'Enterprise Strategy: Identified resource shortages in 3D visualization and tools management. Self assembled and led a SME workgroup to scale local fixes into enterprise wide standards.',
-        'Data Governance: Utilized post implementation sales metrics to build ROI backed business cases for standardized design solutions. Successfully mitigated rogue executions.',
-        'Behavioral UX: Helped lead the nationwide rollout of Trauma Informed Design frameworks. Navigated strict corporate compliance to deploy psychologically safe environments.',
-        'AI Technical Pilot: Architected a multimodal sensory experience using ElevenLabs and Adobe Firefly. Engineered a distributed audio mesh for market relevant US Hispanic and African American voice models.',
-        'Technical Strategy: Authored the Enterprise Business Case for Unity and Reflect to establish a live sync 3D to AR pipeline. Served as Lead Interior Designer for three national commercials.',
+        'Co-led the nationwide rollout of Trauma-Informed Design principles. Navigated corporate compliance to deploy psychologically safe retail environments across every store in the US portfolio.',
+        'Built a multimodal sensory experience with ElevenLabs and Adobe Firefly. Deployed market-specific voice models targeting US Hispanic and African American audiences at the store level.',
+        'Wrote the enterprise business case for a Unity and Reflect 3D-to-AR pipeline that moved design from static renders to live spatial preview. Lead Interior Designer on three national commercials.',
+        'Found a 3D visualization gap and built a cross-functional expert workgroup to close it. Scaled a local workaround into a repeatable enterprise-wide standard deployed across all US markets.',
+        'Used post-launch sales data to make the ROI case for design standardization. Reduced inconsistent market executions by surfacing the cost of deviation clearly across all US regions.',
       ],
     },
     {
-      title: 'Guideshop & Sales Manager',
+      title: 'Interior Design Co-worker',
+      company: 'IKEA US',
+      dates: '02/2021 - 02/2022',
+      location: 'Conshohocken, PA',
+      bullets: [
+        'Executed room settings and vignettes across the full IKEA range, focused on visual storytelling, spatial tempo, and distinct impressions across styles and price points.',
+      ],
+    },
+    {
+      title: 'General Manager',
       company: 'Interior Define',
       dates: '07/2019 - 10/2020',
-      location: 'Boston, MA',
+      location: 'Greater Boston Area / Philadelphia, PA',
       bullets: [
-        'Market Launch: Promoted to open the Philadelphia market. Engineered custom Salesforce reporting to track KPIs and outreach cadences for local staff and new hires.',
-        'Sales Strategy: Generated $685,242 in gross sales in six months using customer data to deploy custom visual consultations and build long term connections.',
-        'Technical Onboarding: Led technical training for the whole team. Translated complex fiber science and ergonomic specs into simple stories that helped close deals.',
+        'Promoted from Design Specialist to open the Philadelphia market. Built Salesforce reporting from scratch to track individual KPIs, outreach cadence, and onboarding milestones across the full local team.',
+        'Generated $685,242 in gross sales in six months. Used customer preference data to design visual consultations that turned first-time walk-ins into long-term clients.',
+        'Ran technical training for the full team. Translated complex fiber science and ergonomic specs into plain language that helped close deals.',
       ],
     },
   ],

@@ -424,7 +424,7 @@ export default function Contact() {
         Below nav anchor (matches .site-fixed-nav-tl top offset).
       */}
       <div
-        className="pointer-events-none fixed inset-x-0 z-[58] hidden h-28 bg-gradient-to-b from-slateBg via-slateBg/85 to-transparent lg:block"
+        className="contact-scroll-mask pointer-events-none fixed inset-x-0 z-[58] hidden h-28 bg-gradient-to-b from-slateBg via-slateBg/85 to-transparent lg:block"
         style={{
           top: 'calc(2rem + env(safe-area-inset-top, 0px))',
         }}

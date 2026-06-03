@@ -113,12 +113,12 @@ export default function IkeaWork() {
               <div className="space-y-3">
                 <SectionLabel>Research — US Architectural Context</SectionLabel>
                 <p className="text-sm leading-relaxed text-white/70">
-                  Conducted home visits across US dwelling types — urban brownstones, row houses, repurposed lofts, suburban ranch homes, bungalows, Cape Cods. Documented what is structurally real in American homes vs. what reads as foreign or inauthentic: hardwood floors and double-hung windows are universal; vaulted ceilings, ornate fireplaces, and tile floors are not.
+                  Range selection and set direction started with IKEA's countrywide consumer research — identifying which US architectural features would feel genuinely familiar to our customers rather than aspirationally foreign, while still leaving room for that "this could be my dream home" reaction. That baseline shaped every spatial decision that followed.
                 </p>
                 <CaseStudyImage
                   src="/ikea/gb_arch_urban.png"
-                  alt="Architectural research — US urban dwelling types documented from home visits"
-                  caption="Home visit documentation: urban dwelling types across the US market"
+                  alt="Architectural research — US urban dwelling types"
+                  caption="Architectural context research: US urban dwelling types across the market"
                   wide
                 />
               </div>

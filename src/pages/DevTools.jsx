@@ -5,18 +5,50 @@ import AiBadge from '../components/AiBadge';
 
 function Tag({ children }) {
   return (
-    <span className="inline-flex items-center rounded-full border border-white/15 bg-white/5 px-2.5 py-0.5 text-[11px] font-medium tracking-wide text-white/70">
+    <span className="inline-flex items-center rounded-full border border-white/15 bg-white/5 px-2.5 py-0.5 text-[11px] font-medium tracking-wide text-white/60">
       {children}
     </span>
   );
 }
 
-function ToolCard({ name, tagline, screenshot, screenshotAlt, logo, why, decisions, tags, githubUrl, aiTools = [], flip = false }) {
+const MOTIONS = [
+  { gif: '/devtools/nt_motions/pulse_compact.gif',  label: 'Pulse',        desc: 'Arc glow breathes in and out on a slow cycle' },
+  { gif: '/devtools/nt_motions/hum_compact.gif',    label: 'Engine Hum',   desc: 'Needle jitters at the arc tip like an analog gauge under load' },
+  { gif: '/devtools/nt_motions/sweep_compact.gif',  label: 'Radar Sweep',  desc: 'Three ghost segments scan across the filled portion' },
+  { gif: '/devtools/nt_motions/drift_compact.gif',  label: 'Live Drift',   desc: 'Fill percentage slowly oscillates around the true value' },
+  { gif: '/devtools/nt_motions/charge_compact.gif', label: 'Charge Cycle', desc: 'Expanding ring radiates outward from center and fades' },
+];
+
+function MotionGrid() {
+  return (
+    <div className="mt-6 flex flex-col gap-3">
+      <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-white/40">Always-on gauge motion styles</p>
+      <p className="text-xs text-white/50 leading-relaxed">Each floating meter widget is randomly assigned one motion on open — so five open at once look like five different instruments, not five copies of the same thing.</p>
+      <div className="mt-1 grid grid-cols-5 gap-3">
+        {MOTIONS.map(({ gif, label, desc }) => (
+          <div key={label} className="flex flex-col gap-2">
+            <div className="overflow-hidden rounded-xl border border-white/10 bg-black/40 shadow-[0_6px_20px_rgba(0,0,0,0.6)]">
+              <img src={gif} alt={`${label} motion`} className="w-full" draggable={false} />
+            </div>
+            <p className="text-[11px] font-semibold text-white/80">{label}</p>
+            <p className="text-[10px] leading-snug text-white/40">{desc}</p>
+          </div>
+        ))}
+      </div>
+      <div className="mt-2 overflow-hidden rounded-xl border border-white/10 shadow-[0_6px_20px_rgba(0,0,0,0.5)]">
+        <img src="/devtools/nt_motions/sweep_expanded.gif" alt="Expanded meter detail panel showing usage breakdown" className="w-full max-w-[260px]" draggable={false} />
+      </div>
+      <p className="text-[10px] text-white/35 leading-snug">Hover or pin any meter to reveal the detail panel — usage breakdown, input/output split, reset date, and model-level quotas for Google Gemini.</p>
+    </div>
+  );
+}
+
+function ToolCard({ name, tagline, screenshot, screenshotAlt, screenshotSecondary, screenshotSecondaryAlt, logo, targetUser, why, decisions, tags, githubUrl, aiTools = [], flip = false }) {
   return (
     <div className="glass-hub-sheet p-6 md:p-8">
       <div className={`flex flex-col gap-8 lg:flex-row lg:items-start ${flip ? 'lg:flex-row-reverse' : ''}`}>
 
-        {/* Screenshot */}
+        {/* Screenshot(s) */}
         <div className="w-full shrink-0 lg:w-[340px]">
           {logo && (
             <div className="mb-4 flex items-center justify-between gap-3">
@@ -33,14 +65,20 @@ function ToolCard({ name, tagline, screenshot, screenshotAlt, logo, why, decisio
               <AiBadge models={aiTools} />
             </div>
           )}
-          <div className="overflow-hidden rounded-2xl border border-white/10 shadow-[0_12px_40px_rgba(0,0,0,0.5)]">
-            <img
-              src={screenshot}
-              alt={screenshotAlt}
-              className="w-full object-cover"
-              draggable={false}
-            />
-          </div>
+          {screenshotSecondary ? (
+            <div className="grid grid-cols-2 gap-2">
+              <div className="overflow-hidden rounded-xl border border-white/10 shadow-[0_8px_24px_rgba(0,0,0,0.5)]">
+                <img src={screenshot} alt={screenshotAlt} className="w-full object-cover" draggable={false} />
+              </div>
+              <div className="overflow-hidden rounded-xl border border-white/10 shadow-[0_8px_24px_rgba(0,0,0,0.5)]">
+                <img src={screenshotSecondary} alt={screenshotSecondaryAlt} className="w-full object-cover" draggable={false} />
+              </div>
+            </div>
+          ) : (
+            <div className="overflow-hidden rounded-2xl border border-white/10 shadow-[0_12px_40px_rgba(0,0,0,0.5)]">
+              <img src={screenshot} alt={screenshotAlt} className="w-full object-cover" draggable={false} />
+            </div>
+          )}
         </div>
 
         {/* Content */}
@@ -51,6 +89,13 @@ function ToolCard({ name, tagline, screenshot, screenshotAlt, logo, why, decisio
           <h3 className="text-xl font-bold leading-snug tracking-tight text-white md:text-2xl">
             {tagline}
           </h3>
+
+          {targetUser && (
+            <div className="space-y-1">
+              <p className="font-semibold text-white/50 uppercase tracking-widest text-[10px]">Built for</p>
+              <p className="text-sm leading-relaxed text-white/70">{targetUser}</p>
+            </div>
+          )}
 
           <div className="space-y-3 text-sm leading-relaxed text-white/70">
             <p className="font-semibold text-white/50 uppercase tracking-widest text-[10px]">Why it exists</p>
@@ -97,6 +142,7 @@ const TOOLS = [
     name: 'NitrousToken',
     aiTools: ['claude', 'cursor'],
     tagline: 'Real-time token quota gauges for every AI tool you run.',
+    targetUser: 'Anyone running multiple AI services daily who needs quota visibility without opening a browser tab.',
     screenshot: '/devtools/nitroustoken.png',
     screenshotAlt: 'NitrousToken panel showing Anthropic, Cursor, and Google quota gauges',
     why: "When you're running 5–10 AI services daily, quota limits are invisible until you slam into them mid-task. I needed always-on visibility — not buried in a settings page, but in the menu bar where I actually work.",
@@ -112,6 +158,7 @@ const TOOLS = [
     name: 'Ignus',
     aiTools: ['claude', 'cursor'],
     tagline: 'One-click launcher for local AI image generation.',
+    targetUser: 'Local AI practitioners who want InvokeAI and ComfyUI to start and stop with one click instead of terminal commands.',
     screenshot: '/devtools/ignus.png',
     screenshotAlt: 'Ignus launcher panel showing InvokeAI running and ComfyUI ready to start',
     logo: '/devtools/ignus_logo.png',
@@ -125,6 +172,24 @@ const TOOLS = [
     tags: ['Electron', 'launchd', 'InvokeAI', 'ComfyUI', 'Local AI'],
     githubUrl: 'https://github.com/n3rdenvy/Ignus',
     flip: true,
+  },
+  {
+    name: 'Kallisti',
+    aiTools: ['claude', 'cursor'],
+    tagline: 'A job pipeline that surfaces high-fit roles and lets Eris brief you on each one.',
+    targetUser: 'Job seekers who want AI-assisted role discovery without losing track of their pipeline or switching context to a browser.',
+    screenshot: '/devtools/kallisti.png',
+    screenshotAlt: 'Kallisti Today view showing high-fit UX job listings and Eris connection status',
+    screenshotSecondary: '/devtools/kallisti_detail.png',
+    screenshotSecondaryAlt: 'Kallisti role detail showing Eris 10/10 fit score with reasoning and Talk to Eris button',
+    why: "Job searching while working full-time means roles slip through or get stale. I needed something that ran in the background, scored fits against my actual profile, and let me loop Eris in on any role in one click — without switching context to a browser tab.",
+    decisions: [
+      'Eris integration built in — one click opens a briefing chat with full role context pre-loaded',
+      'Drift scoring surfaces roles that match your trajectory, not just your keywords',
+      'Menu bar only, no dock icon — present when you need it, invisible when you don\'t',
+      'File-watcher architecture so the radar runs in background and the UI updates live when new roles land',
+    ],
+    tags: ['Electron', 'React', 'Menu Bar', 'Job Search', 'AI Integration'],
   },
 ];
 

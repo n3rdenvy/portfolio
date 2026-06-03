@@ -14,7 +14,7 @@ const glassCard =
 
 /** Shared chrome for mobile + overlap (tablet) resume nav pills. */
 const resumeNavPillShell =
-  'pointer-events-auto flex min-h-10 w-fit max-w-full min-w-0 shrink-0 items-center justify-center gap-4 rounded-full border border-white/15 bg-slateBg/92 px-3 py-1.5 shadow-[0_8px_30px_rgba(0,0,0,0.35)] backdrop-blur-[9.9px] min-[400px]:gap-6 min-[400px]:px-4';
+  'resume-nav-pill-shell pointer-events-auto flex min-h-10 w-fit max-w-full min-w-0 shrink-0 items-center justify-center gap-4 rounded-full border border-white/15 bg-slateBg/92 px-3 py-1.5 shadow-[0_8px_30px_rgba(0,0,0,0.35)] backdrop-blur-[9.9px] min-[400px]:gap-6 min-[400px]:px-4';
 
 /** Emphasis for primary nav words (Home, Resume, LinkedIn) — title case in markup, no all-caps. */
 const navLinkEmphasis = 'font-semibold tracking-tight text-white';
@@ -83,7 +83,7 @@ const TOP_BAR_RELEASE_MIN_LEFT = 216;
 const NAV_CONTENT_GAP = 10;
 
 export default function Resume() {
-  const { personal, education, skills, projects, experience } = resumeData;
+  const { personal, summary, education, skills, experience } = resumeData;
   const rootRef = useRef(null);
   const navRef = useRef(null);
   const scrollRef = useRef(null);
@@ -410,22 +410,17 @@ export default function Resume() {
                 <h1 className="text-3xl font-bold tracking-tight text-white md:text-4xl">{personal.name}</h1>
                 <ul className="mt-4 flex flex-col gap-1.5 text-sm text-white md:text-base">
                   <li>
-                    <a
-                      className="text-white underline-offset-2 hover:underline"
-                      href={`mailto:${personal.email}`}
-                    >
-                      {personal.email}
-                    </a>
+                    <a className="text-white underline-offset-2 hover:underline" href={`mailto:${personal.email}`}>{personal.email}</a>
                   </li>
                   <li>
-                    <a
-                      className="text-white underline-offset-2 hover:underline"
-                      href={`tel:+1${personal.phone}`}
-                    >
-                      {personal.phone}
-                    </a>
+                    <a className="text-white underline-offset-2 hover:underline" href={`tel:+1${personal.phone}`}>{personal.phone}</a>
                   </li>
                   <li className="text-white">{personal.linkedin}</li>
+                  {personal.portfolio && (
+                    <li>
+                      <a className="text-white underline-offset-2 hover:underline" href={`https://${personal.portfolio}`} target="_blank" rel="noopener noreferrer">{personal.portfolio}</a>
+                    </li>
+                  )}
                 </ul>
               </div>
             ) : (
@@ -433,20 +428,30 @@ export default function Resume() {
                 <h1 className="text-3xl font-bold tracking-tight text-white md:text-4xl">{personal.name}</h1>
                 <ul className="mt-4 flex flex-col gap-1.5 text-sm text-white md:text-base">
                   <li>
-                    <a className="text-white underline-offset-2 hover:underline" href={`mailto:${personal.email}`}>
-                      {personal.email}
-                    </a>
+                    <a className="text-white underline-offset-2 hover:underline" href={`mailto:${personal.email}`}>{personal.email}</a>
                   </li>
                   <li>
-                    <a className="text-white underline-offset-2 hover:underline" href={`tel:+1${personal.phone}`}>
-                      {personal.phone}
-                    </a>
+                    <a className="text-white underline-offset-2 hover:underline" href={`tel:+1${personal.phone}`}>{personal.phone}</a>
                   </li>
                   <li className="text-white">{personal.linkedin}</li>
+                  {personal.portfolio && (
+                    <li>
+                      <a className="text-white underline-offset-2 hover:underline" href={`https://${personal.portfolio}`} target="_blank" rel="noopener noreferrer">{personal.portfolio}</a>
+                    </li>
+                  )}
                 </ul>
               </>
             )}
           </header>
+
+          {summary && (
+            <section className="mb-10" aria-labelledby="resume-summary">
+              <h2 id="resume-summary" className="text-xs font-semibold tracking-tight text-white">
+                Summary
+              </h2>
+              <p className="mt-4 text-sm leading-relaxed text-white">{summary}</p>
+            </section>
+          )}
 
           <section className="mb-10" aria-labelledby="resume-education">
             <h2 id="resume-education" className="text-xs font-semibold tracking-tight text-white">
@@ -480,27 +485,6 @@ export default function Resume() {
                 </li>
               ))}
             </ul>
-          </section>
-
-          <section className="mb-10" aria-labelledby="resume-projects">
-            <h2 id="resume-projects" className="text-xs font-semibold tracking-tight text-white">
-              Projects
-            </h2>
-            <div className="mt-4 flex flex-col gap-5">
-              {projects.map((p) => (
-                <article key={p.name} className={glassCard}>
-                  <div className="flex flex-col gap-1 sm:flex-row sm:items-baseline sm:justify-between">
-                    <h3 className="text-lg font-semibold text-white">{p.name}</h3>
-                    <p className="text-sm text-white">{p.dates}</p>
-                  </div>
-                  <ul className="mt-4 list-disc space-y-2 pl-5 text-sm leading-relaxed text-white">
-                    {p.bullets.map((b, i) => (
-                      <li key={`${p.name}-b-${i}`}>{b}</li>
-                    ))}
-                  </ul>
-                </article>
-              ))}
-            </div>
           </section>
 
           <section className="mb-6" aria-labelledby="resume-experience">

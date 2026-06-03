@@ -12,8 +12,7 @@ export default function SpatialAnimatedOutlet() {
     document.documentElement.dataset.bgDepth = String(depth);
   }, [pathname]);
 
-  const viewportLocked =
-    pathname === '/resume' || pathname === '/transit-pulse-ax';
+  const viewportLocked = pathname === '/resume';
 
   return (
     <Framer.AnimatePresence mode="wait">

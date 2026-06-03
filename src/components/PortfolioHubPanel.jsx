@@ -1,4 +1,4 @@
-import { Activity, Box, Clapperboard, Wrench, Building2, Cpu } from 'lucide-react';
+import { Activity, Box, Clapperboard, Wrench, Building2, Cpu, Smartphone } from 'lucide-react';
 import { motion, useReducedMotion } from 'framer-motion';
 import PageShell from './PageShell';
 import PortfolioHubCard from './PortfolioHubCard';
@@ -61,6 +61,13 @@ const PORTFOLIO_HUB_CARDS = [
     description:
       'Electron menu bar apps built for the AI-heavy workflow. NitrousToken and Ignus.',
     icon: Wrench,
+    aiTools: ['claude', 'cursor'],
+  },
+  {
+    to: '/inhabit',
+    title: 'Inhabit — AR Furniture',
+    description: 'Android AR app for placing IKEA furniture in your actual space. TripoSR to GLB to ARCore pipeline.',
+    icon: Smartphone,
     aiTools: ['claude', 'cursor'],
   },
 ];
