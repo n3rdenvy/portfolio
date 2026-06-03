@@ -46,14 +46,12 @@ const PORTFOLIO_HUB_CARDS = [
     description:
       'Real-time agentic navigation and proactive routing systems for the modern commuter.',
     icon: Activity,
-    aiTools: ['claude', 'cursor'],
   },
   {
     to: '/eris',
     title: 'Eris — AI Infrastructure',
     description: 'Fully local always-on AI system. Custom stack: Letta memory, Ollama, ambient awareness, 17 autonomous agents.',
     icon: Cpu,
-    aiTools: ['claude', 'gemini'],
   },
   {
     to: '/dev-tools',
@@ -61,14 +59,12 @@ const PORTFOLIO_HUB_CARDS = [
     description:
       'Electron menu bar apps built for the AI-heavy workflow. NitrousToken and Ignus.',
     icon: Wrench,
-    aiTools: ['claude', 'cursor'],
   },
   {
     to: '/inhabit',
     title: 'Inhabit — AR Furniture',
     description: 'Android AR app for placing IKEA furniture in your actual space. TripoSR to GLB to ARCore pipeline.',
     icon: Smartphone,
-    aiTools: ['claude', 'cursor'],
   },
 ];
 
