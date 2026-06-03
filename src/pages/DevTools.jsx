@@ -358,6 +358,7 @@ function KallistiCard() {
           <div className="flex flex-wrap gap-2 pt-1">
             {['Electron', 'React', 'Menu Bar', 'Job Search', 'AI Integration'].map(t => <Tag key={t}>{t}</Tag>)}
           </div>
+          <GitHubLink href="https://github.com/n3rdenvy/Kallisti" />
         </div>
       </div>
     </div>
