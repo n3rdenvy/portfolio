@@ -60,9 +60,9 @@ export default function CeramicShell() {
     }
 
     groupRef.current.position.lerp(targetPosition.current, Math.min(1, delta * 1.55));
-    // Slow rotation — ceramic piece on display, no tilt response to cursor
-    groupRef.current.rotation.x += delta * 0.055;
-    groupRef.current.rotation.y += delta * 0.085;
+    // Heavier, slower rotation — ceramic piece on display, not a liquid
+    groupRef.current.rotation.x += delta * 0.018;
+    groupRef.current.rotation.y += delta * 0.028;
   });
 
   return (
@@ -80,24 +80,25 @@ export default function CeramicShell() {
       <group ref={groupRef}>
         {/* Stronger amber inner glow so the shell bleeds through the frosted warm glass */}
         <pointLight color="#f09030" intensity={18} distance={12} decay={1.4} />
-        <Sphere args={[1.83, 144, 144]}>
+        <Sphere args={[2.1, 144, 144]}>
           <MeshDistortMaterial
             color="#8B3A18"
             emissive="#e06820"
             emissiveIntensity={0.9}
-            roughness={0.62}
-            metalness={0.05}
-            envMapIntensity={0.32}
-            ior={1.45}
-            specularIntensity={1.4}
+            transparent
+            opacity={0.78}
+            roughness={0.55}
+            metalness={0.02}
+            envMapIntensity={0.28}
+            specularIntensity={1.1}
             specularColor="#ffb870"
-            clearcoat={0.12}
-            clearcoatRoughness={0.80}
-            sheen={0.92}
+            clearcoat={0.08}
+            clearcoatRoughness={0.85}
+            sheen={0.85}
             sheenColor="#d08040"
-            sheenRoughness={0.52}
-            distort={0.88}
-            speed={0.65}
+            sheenRoughness={0.58}
+            distort={0.22}
+            speed={0.28}
             side={THREE.DoubleSide}
           />
         </Sphere>
