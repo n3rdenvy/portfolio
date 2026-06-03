@@ -28,7 +28,7 @@ export default function ReturnToPortfolioButton() {
         className="return-to-hub-link site-fixed-nav-tl btn-theme glass-hub-pill pointer-events-auto flex shrink-0 items-center gap-2 no-underline px-4 py-2.5 text-xs font-semibold tracking-tight md:text-sm max-md:min-h-10 max-md:w-fit max-md:rounded-full max-md:px-3 max-md:py-1.5"
       >
         <Home className="size-4 shrink-0" strokeWidth={2} aria-hidden />
-        Home
+        Return to portfolio
       </Link>
     </nav>
   );
