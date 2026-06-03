@@ -513,15 +513,15 @@ html[data-theme="warm"] .bg-white\/\[0\.05\] { background-color: rgba(140,90,40,
 
 /* Glass surfaces — warm frosted light */
 html[data-theme="warm"] .glass-hub-sheet {
-  border: 1px solid rgba(180,130,60,0.18) !important;
-  background: linear-gradient(to bottom, rgba(255,250,242,0.68) 0%, rgba(255,246,234,0.58) 50%, rgba(255,248,237,0.62) 100%) !important;
-  box-shadow: 0 8px 32px -8px rgba(100,60,20,0.14), inset 0 1px 0 0 rgba(255,255,255,0.75), inset 0 0 0 1px rgba(200,150,80,0.06) !important;
+  border: 1px solid rgba(180,130,60,0.22) !important;
+  background: linear-gradient(to bottom, rgba(255,250,242,0.80) 0%, rgba(255,246,234,0.72) 50%, rgba(255,248,237,0.76) 100%) !important;
+  box-shadow: 0 8px 32px -8px rgba(100,60,20,0.18), inset 0 1px 0 0 rgba(255,255,255,0.85), inset 0 0 0 1px rgba(200,150,80,0.08) !important;
 }
 
 html[data-theme="warm"] .glass-hub-pill {
-  border: 1px solid rgba(180,130,60,0.18) !important;
-  background: linear-gradient(to bottom, rgba(255,250,242,0.75) 0%, rgba(255,246,234,0.65) 50%, rgba(255,248,237,0.70) 100%) !important;
-  box-shadow: 0 8px 32px -8px rgba(100,60,20,0.14), inset 0 1px 0 0 rgba(255,255,255,0.75), inset 0 0 0 1px rgba(200,150,80,0.06) !important;
+  border: 1px solid rgba(180,130,60,0.22) !important;
+  background: linear-gradient(to bottom, rgba(255,250,242,0.82) 0%, rgba(255,246,234,0.74) 50%, rgba(255,248,237,0.78) 100%) !important;
+  box-shadow: 0 8px 32px -8px rgba(100,60,20,0.18), inset 0 1px 0 0 rgba(255,255,255,0.85), inset 0 0 0 1px rgba(200,150,80,0.08) !important;
 }
 
 html[data-theme="warm"] .return-to-hub-bar--surface {

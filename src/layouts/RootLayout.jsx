@@ -21,7 +21,7 @@ const V2 = {
   bg: '#EDE0D0',
   border: 'border-[rgba(180,130,70,0.20)]',
   shadow: '0 28px 90px -24px rgba(100,60,20,0.22), inset 0 1px 0 0 rgba(255,255,255,0.85), inset 0 0 0 1px rgba(200,150,80,0.08)',
-  glass: 'linear-gradient(to bottom, rgba(255,250,243,0.78), rgba(255,247,237,0.70), rgba(255,248,239,0.74))',
+  glass: 'linear-gradient(to bottom, rgba(255,250,243,0.52), rgba(255,247,237,0.44), rgba(255,248,239,0.48))',
   spec1: 'linear-gradient(125deg, rgba(255,255,255,0.55) 0%, rgba(255,248,235,0.30) 14%, rgba(255,240,220,0.10) 26%, transparent 46%)',
   spec2: 'rgba(255,255,255,0.45) 0%, rgba(255,248,235,0.12) 22%, transparent 55%',
   spec3: 'linear-gradient(305deg, transparent 62%, rgba(255,240,210,0.08) 82%, rgba(255,255,255,0.18) 100%)',

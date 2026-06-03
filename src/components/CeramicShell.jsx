@@ -79,12 +79,12 @@ export default function CeramicShell() {
       {/* Group keeps the inner point light co-located with the sphere at all times */}
       <group ref={groupRef}>
         {/* Stronger amber inner glow so the shell bleeds through the frosted warm glass */}
-        <pointLight color="#f09030" intensity={14} distance={8} decay={1.8} />
+        <pointLight color="#f09030" intensity={18} distance={12} decay={1.4} />
         <Sphere args={[1.83, 144, 144]}>
           <MeshDistortMaterial
             color="#8B3A18"
             emissive="#e06820"
-            emissiveIntensity={0.55}
+            emissiveIntensity={0.9}
             roughness={0.62}
             metalness={0.05}
             envMapIntensity={0.32}
