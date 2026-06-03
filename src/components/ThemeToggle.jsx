@@ -45,7 +45,14 @@ export default function ThemeToggle() {
     <motion.button
       onClick={() => setTheme(isV2 ? 'v1' : 'v2')}
       aria-label={`Switch to ${isV2 ? 'V1 dark mode' : 'V2 warm mode'}`}
-      className="fixed bottom-6 right-6 z-[80] flex h-11 w-11 items-center justify-center rounded-full border border-white/20 bg-black/50 text-white shadow-[0_4px_24px_rgba(0,0,0,0.5)] backdrop-blur-md transition-[border-color,background-color] duration-300 hover:border-white/40 hover:bg-black/70 md:bottom-8 md:right-8"
+      className={[
+        'fixed bottom-6 right-6 z-[80] flex h-11 w-11 items-center justify-center rounded-full',
+        'backdrop-blur-md transition-[border-color,background-color,color] duration-300',
+        'md:bottom-8 md:right-8',
+        isV2
+          ? 'border border-[rgba(140,90,40,0.30)] bg-[rgba(255,248,238,0.90)] text-[#2A1A08] shadow-[0_4px_24px_rgba(100,60,20,0.18)] hover:bg-[rgba(255,243,228,0.96)]'
+          : 'border border-white/20 bg-black/50 text-white shadow-[0_4px_24px_rgba(0,0,0,0.5)] hover:border-white/40 hover:bg-black/70',
+      ].join(' ')}
       whileHover={reduceMotion ? {} : { scale: 1.1 }}
       whileTap={reduceMotion ? {} : { scale: 0.9 }}
       transition={{ type: 'spring', stiffness: 400, damping: 25 }}

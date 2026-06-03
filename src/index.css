@@ -581,3 +581,22 @@ html[data-theme="warm"] .resume-nav-pill-shell {
   border-color: rgba(160, 110, 50, 0.22) !important;
   box-shadow: 0 8px 30px rgba(80, 50, 20, 0.18) !important;
 }
+
+/* bg-white/[0.04] gets a warm tint in light mode */
+html[data-theme="warm"] .bg-white\/\[0\.04\] {
+  background-color: rgba(180, 120, 50, 0.07) !important;
+}
+
+/* Carousel checkboxes (Commercials page) */
+html[data-theme="warm"] input[type="checkbox"] {
+  background-color: rgba(255, 252, 246, 0.80) !important;
+  border-color: rgba(140, 90, 40, 0.30) !important;
+  accent-color: #c97020 !important;
+}
+
+/* Contact bonus "Make me laugh" link — anchor using bg-slateBg/90 */
+html[data-theme="warm"] .bonus-laugh-link {
+  background-color: rgba(255, 252, 246, 0.80) !important;
+  border-color: rgba(140, 90, 40, 0.22) !important;
+  color: #2A1A08 !important;
+}

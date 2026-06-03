@@ -22,7 +22,7 @@ const bonusFullWidthShell =
 
 const bonusTextInputClass = `${bonusFullWidthShell} text-white placeholder:text-white/45 focus:border-white/35 focus:outline-none focus:ring-1 focus:ring-white/25`;
 
-const bonusLaughLinkClass = `${bonusFullWidthShell} flex items-center justify-center gap-2 font-medium text-white no-underline transition-colors hover:border-white/20 hover:bg-white/[0.06] hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white/45`;
+const bonusLaughLinkClass = `bonus-laugh-link ${bonusFullWidthShell} flex items-center justify-center gap-2 font-medium text-white no-underline transition-colors hover:border-white/20 hover:bg-white/[0.06] hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white/45`;
 
 function formatIsoDateForMessage(iso) {
   if (!iso || typeof iso !== 'string') return '';

@@ -78,22 +78,24 @@ export default function CeramicShell() {
 
       {/* Group keeps the inner point light co-located with the sphere at all times */}
       <group ref={groupRef}>
-        {/* Amber point light positioned at the sphere center — simulates the inner cavity glow */}
-        <pointLight color="#e89030" intensity={5.5} distance={5.5} decay={2} />
+        {/* Stronger amber inner glow so the shell bleeds through the frosted warm glass */}
+        <pointLight color="#f09030" intensity={14} distance={8} decay={1.8} />
         <Sphere args={[1.83, 144, 144]}>
           <MeshDistortMaterial
-            color="#7a3018"
-            roughness={0.70}
+            color="#8B3A18"
+            emissive="#e06820"
+            emissiveIntensity={0.55}
+            roughness={0.62}
             metalness={0.05}
             envMapIntensity={0.32}
             ior={1.45}
-            specularIntensity={1.15}
-            specularColor="#f5b870"
-            clearcoat={0.10}
-            clearcoatRoughness={0.88}
+            specularIntensity={1.4}
+            specularColor="#ffb870"
+            clearcoat={0.12}
+            clearcoatRoughness={0.80}
             sheen={0.92}
-            sheenColor="#c87040"
-            sheenRoughness={0.58}
+            sheenColor="#d08040"
+            sheenRoughness={0.52}
             distort={0.88}
             speed={0.65}
             side={THREE.DoubleSide}
