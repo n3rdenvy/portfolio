@@ -9,6 +9,11 @@ export function ThemeProvider({ children }) {
 
   useEffect(() => {
     try { localStorage.setItem('portfolio-theme', theme); } catch {}
+    if (theme === 'v2') {
+      document.documentElement.dataset.theme = 'warm';
+    } else {
+      delete document.documentElement.dataset.theme;
+    }
   }, [theme]);
 
   return <ThemeContext.Provider value={{ theme, setTheme }}>{children}</ThemeContext.Provider>;
