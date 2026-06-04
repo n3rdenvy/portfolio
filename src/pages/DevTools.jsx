@@ -231,6 +231,40 @@ function NitrousTokenCard() {
         </div>
       </div>
 
+      {/* Theme system */}
+      <div>
+        <SectionLabel>6 themes, all WCAG 2.1 AA verified</SectionLabel>
+        <p className="mb-4 text-xs leading-relaxed text-white/50">
+          Every gauge color in every theme was checked against its background at 4.5:1 minimum contrast. The palette was designed first, then verified — not the other way around.
+        </p>
+        <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-6">
+          {[
+            { name: 'Asphalt',   bg: '#09090B', light: false, accents: ['#FFD700','#4AB8FF','#F58220','#34D399','#FB923C','#C084FC'] },
+            { name: 'Carbon',    bg: '#000000', light: false, accents: ['#FF8C00','#4AB8FF','#F58220','#4ADE80','#FDA958','#C084FC'] },
+            { name: 'NOS',       bg: '#0A192F', light: false, accents: ['#38BDF8','#34D399','#FB923C','#4ADE80','#FCA5A5','#D8B4FE'] },
+            { name: 'Ghost',     bg: '#0A0A0A', light: false, accents: ['#FFFFFF','#AAAAAA','#888888','#BBBBBB','#CCCCCC','#D0D0D0'] },
+            { name: 'Burnout',   bg: '#FFF0E5', light: true,  accents: ['#9E5800','#0070A8','#A34A00','#166534','#B45309','#7E22CE'] },
+            { name: 'Track Day', bg: '#F8FAFC', light: true,  accents: ['#9A5C00','#005F8A','#B85000','#15803D','#C2410C','#7E22CE'] },
+          ].map(({ name, bg, light, accents }) => (
+            <div key={name} className="flex flex-col gap-2">
+              <div
+                className="rounded-xl border border-white/10 p-3 shadow-[0_4px_16px_rgba(0,0,0,0.4)]"
+                style={{ background: bg }}
+              >
+                <p className={`mb-2.5 text-[10px] font-semibold tracking-wide ${light ? 'text-black/50' : 'text-white/40'}`}>
+                  {name.toUpperCase()}
+                </p>
+                <div className="flex flex-wrap gap-1">
+                  {accents.map((c, i) => (
+                    <span key={i} className="h-3 w-3 rounded-full" style={{ background: c }} />
+                  ))}
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
       <CardFooter models={['claude', 'cursor']} />
     </div>
   );
@@ -353,13 +387,16 @@ function KallistiCard() {
 
       {/* Screenshots + why */}
       <div className="flex flex-col gap-6 lg:flex-row lg:items-start">
-        <div className="shrink-0 lg:w-[340px]">
+        <div className="shrink-0 lg:w-[460px] flex flex-col gap-2">
+          <div className="overflow-hidden rounded-xl border border-white/10 shadow-[0_8px_24px_rgba(0,0,0,0.5)]">
+            <Img src="/devtools/kallisti_pipeline.png" alt="Kallisti Pipeline view — all active roles with fit scores and status" className="w-full block" />
+          </div>
           <div className="grid grid-cols-2 gap-2">
             <div className="overflow-hidden rounded-xl border border-white/10 shadow-[0_8px_24px_rgba(0,0,0,0.5)]">
-              <Img src="/devtools/kallisti.png" alt="Kallisti Today view showing high-fit job listings" className="w-full block" />
+              <Img src="/devtools/kallisti.png" alt="Kallisti Today view — follow-up flags and new high-fit roles" className="w-full block" />
             </div>
             <div className="overflow-hidden rounded-xl border border-white/10 shadow-[0_8px_24px_rgba(0,0,0,0.5)]">
-              <Img src="/devtools/kallisti_detail.png" alt="Kallisti role detail with Eris 10/10 fit score" className="w-full block" />
+              <Img src="/devtools/kallisti_detail.png" alt="Kallisti role detail — Eris 10/10 fit score and briefing" className="w-full block" />
             </div>
           </div>
         </div>
