@@ -114,25 +114,22 @@ export default function LandingHub() {
             >
               <div className="mx-auto flex w-full max-w-xl flex-col gap-5 px-1 text-sm leading-relaxed sm:px-2 md:px-3 md:text-base">
                 <p className="indent-4 md:indent-6">
-                  I have spent the last few years leading interior{' '}
-                  <strong className="font-black">design strategy</strong> at IKEA,
-                  where I learned that the most complex problems usually require
-                  the{' '}
-                  <strong className="font-black">
-                    simplest, most clear answers.
-                  </strong>{' '}
-                  I enjoy getting to the root of a problem and finding a reason
-                  to laugh along the way.
+                  I spent the last five years as an{' '}
+                  <strong className="font-black">interior design leader</strong>{' '}
+                  at IKEA, thinking about how people move through spaces, what
+                  they actually need from a room, and which products earn their
+                  place in it. Late 2025 I started taking{' '}
+                  <strong className="font-black">UX seriously</strong>, and got
+                  into it the way I tend to get into things: by building.
                 </p>
                 <p className="indent-4 md:indent-6">
-                  My career has{' '}
-                  <strong className="font-black">focused on user experience</strong>{' '}
-                  across multiple industries, so moving into{' '}
-                  <strong className="font-black">UX</strong> and{' '}
-                  <strong className="font-black">Agentic Design</strong> is the
-                  natural next step. When I am not auditing design systems, I am
-                  usually participating in a D&amp;D campaign, skating ten miles,
-                  or destressing with my cats.
+                  Since then I have shipped a real-time transit app backed by
+                  actual user research, built a{' '}
+                  <strong className="font-black">fully local AI stack</strong>,
+                  and made a few tools that improve my daily workflow. When I am
+                  not working through a design problem, I am usually
+                  participating in a D&amp;D campaign, skating ten miles, or
+                  destressing with my cats.
                 </p>
               </div>
 
