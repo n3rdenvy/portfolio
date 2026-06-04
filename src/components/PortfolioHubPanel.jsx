@@ -87,7 +87,7 @@ export default function PortfolioHubPanel() {
 
         <div className="mt-6 flex min-h-0 min-w-0 flex-1 flex-col justify-center max-md:mt-5 md:mt-8 lg:mt-6">
           <motion.ul
-            className="mx-auto grid w-full max-w-[min(100%,40rem)] grid-cols-1 gap-y-5 md:max-w-[min(100%,42rem)] md:grid-cols-2 md:gap-x-8 md:gap-y-5 md:items-stretch lg:max-w-[min(100%,44rem)] lg:gap-x-10"
+            className="mx-auto grid w-full max-w-[min(100%,40rem)] grid-cols-1 gap-y-5 md:max-w-none md:grid-cols-2 md:gap-x-6 md:gap-y-5 md:items-stretch lg:grid-cols-3 lg:gap-x-6 xl:grid-cols-4 xl:gap-x-6"
             variants={listVariants}
             custom={reduceMotion}
             initial={reduceMotion ? false : 'hidden'}

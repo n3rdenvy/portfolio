@@ -90,30 +90,41 @@ function GitHubLink({ href }) {
 function StatusBadge({ status }) {
   const styles = {
     'Active':        'border-emerald-500/40 bg-emerald-500/10 text-emerald-400',
-    'Personal use':  'border-white/20 bg-white/5 text-white/50',
     'In development':'border-amber-500/40 bg-amber-500/10 text-amber-400',
   };
   const dot = {
     'Active':        'bg-emerald-400',
-    'Personal use':  'bg-white/30',
     'In development':'bg-amber-400',
   };
   return (
-    <span className={`inline-flex items-center gap-1.5 rounded-full border px-2.5 py-0.5 text-[11px] font-medium ${styles[status] || styles['Personal use']}`}>
-      <span className={`h-1.5 w-1.5 rounded-full ${dot[status] || dot['Personal use']}`} />
+    <span className={`inline-flex items-center gap-1.5 rounded-full border px-2.5 py-0.5 text-[11px] font-medium ${styles[status] || styles['In development']}`}>
+      <span className={`h-1.5 w-1.5 rounded-full ${dot[status] || dot['In development']}`} />
       {status}
     </span>
   );
 }
 
-function CardFooter({ models = [], github_href = null }) {
+// CardFooter — single consistent bottom bar: tags + models + github
+function CardFooter({ models = [], github_href = null, tags = [] }) {
   return (
-    <div className="flex flex-wrap items-center justify-between gap-3 border-t border-white/8 pt-4">
-      <div className="flex flex-col gap-1.5">
-        <p className="text-[9px] font-semibold uppercase tracking-[0.18em] text-white/30">Models used during creation</p>
-        <AiBadge models={models} />
+    <div className="flex flex-col gap-3 border-t border-white/8 pt-4">
+      {tags.length > 0 && (
+        <div className="flex flex-col gap-1.5">
+          <p className="text-[9px] font-semibold uppercase tracking-[0.18em] text-white/30">Stack</p>
+          <div className="flex flex-wrap gap-1.5">
+            {tags.map(t => <Tag key={t}>{t}</Tag>)}
+          </div>
+        </div>
+      )}
+      <div className="flex flex-wrap items-center justify-between gap-3">
+        {models.length > 0 && (
+          <div className="flex flex-col gap-1.5">
+            <p className="text-[9px] font-semibold uppercase tracking-[0.18em] text-white/30">AI models used</p>
+            <AiBadge models={models} />
+          </div>
+        )}
+        {github_href && <GitHubLink href={github_href} />}
       </div>
-      {github_href && <GitHubLink href={github_href} />}
     </div>
   );
 }
@@ -132,20 +143,17 @@ function MotionTile({ gif, label, desc }) {
   const [hovered, setHovered] = useState(false);
   return (
     <div
-      className="relative flex flex-col gap-0"
+      className="flex flex-col gap-0"
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
     >
       <div className="aspect-square overflow-hidden rounded-xl border border-white/10 bg-white/[0.04] shadow-[0_6px_20px_rgba(0,0,0,0.4)]">
         <img src={gif} alt={`${label} motion style`} draggable={false} className="h-full w-full object-cover" />
-        {hovered && (
-          <div className="absolute inset-0 rounded-xl bg-black/70 flex flex-col justify-end p-3 gap-1">
-            <p className="text-[11px] font-semibold text-white leading-tight">{label}</p>
-            <p className="text-[10px] leading-snug text-white/70">{desc}</p>
-          </div>
-        )}
       </div>
-      <p className="mt-2 inline-flex self-start rounded-full bg-black/40 px-2 py-0.5 text-[10px] font-semibold text-white/80 backdrop-blur-sm">{label}</p>
+      <p className="mt-2 text-[10px] font-semibold text-white/80">{label}</p>
+      {hovered && (
+        <p className="mt-0.5 text-[10px] leading-snug text-white/45">{desc}</p>
+      )}
     </div>
   );
 }
@@ -159,10 +167,7 @@ function NitrousTokenCard() {
         <div className="flex items-center gap-3">
           <img src="/devtools/nitroustoken_logo.png" alt="NitrousToken logo" className="h-14 w-auto shrink-0 object-contain drop-shadow-lg cursor-zoom-in" />
           <div>
-            <div className="mb-1 flex items-center gap-2">
-              <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-white/40">NitrousToken</p>
-              <StatusBadge status="Personal use" />
-            </div>
+            <p className="mb-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-white/40">NitrousToken</p>
             <h3 className="text-xl font-bold leading-snug tracking-tight text-white md:text-2xl">
               Real-time token quota gauges for every AI tool you run.
             </h3>
@@ -175,13 +180,13 @@ function NitrousTokenCard() {
         <div className="shrink-0">
           <div
             className="overflow-hidden rounded-2xl border border-white/10 shadow-[0_12px_40px_rgba(0,0,0,0.6)]"
-            style={{ width: 560, height: 480 }}
+            style={{ width: 560, height: 386, backgroundColor: '#09090B' }}
           >
             <iframe
               src="/nt-embed/index.html"
               title="NitrousToken live demo"
               width="560"
-              height="480"
+              height="386"
               scrolling="no"
               style={{ display: 'block', border: 'none', borderRadius: '14px' }}
             />
@@ -204,7 +209,7 @@ function NitrousTokenCard() {
                 'Burn rate forecasting shows days remaining and projected exhaust date per service',
                 'Cursor auth is zero-config. Reads local SQLite without an API key',
                 'Google Gemini uses OAuth credentials already on disk from the Gemini CLI',
-                'Local model tracked separately. Eris token usage appears as a dashed line so cloud cost is always visible against what runs free',
+                'Local model tracked separately with a dashed line so cloud cost is always visible against what runs free',
               ].map((d, i) => (
                 <li key={i} className="flex gap-2">
                   <span className="mt-1.5 h-1 w-1 shrink-0 rounded-full bg-amber-400/60" />
@@ -212,9 +217,6 @@ function NitrousTokenCard() {
                 </li>
               ))}
             </ul>
-          </div>
-          <div className="flex flex-wrap gap-2 pt-1">
-            {['Electron', 'React', 'Menu Bar', 'API Integrations', 'Data Viz', 'macOS'].map(t => <Tag key={t}>{t}</Tag>)}
           </div>
         </div>
       </div>
@@ -239,19 +241,19 @@ function NitrousTokenCard() {
         </p>
         <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-6">
           {[
-            { name: 'Asphalt',   bg: '#09090B', light: false, accents: ['#FFD700','#4AB8FF','#F58220','#34D399','#FB923C','#C084FC'] },
-            { name: 'Carbon',    bg: '#000000', light: false, accents: ['#FF8C00','#4AB8FF','#F58220','#4ADE80','#FDA958','#C084FC'] },
-            { name: 'NOS',       bg: '#0A192F', light: false, accents: ['#38BDF8','#34D399','#FB923C','#4ADE80','#FCA5A5','#D8B4FE'] },
-            { name: 'Ghost',     bg: '#0A0A0A', light: false, accents: ['#FFFFFF','#AAAAAA','#888888','#BBBBBB','#CCCCCC','#D0D0D0'] },
-            { name: 'Burnout',   bg: '#FFF0E5', light: true,  accents: ['#9E5800','#0070A8','#A34A00','#166534','#B45309','#7E22CE'] },
-            { name: 'Track Day', bg: '#F8FAFC', light: true,  accents: ['#9A5C00','#005F8A','#B85000','#15803D','#C2410C','#7E22CE'] },
-          ].map(({ name, bg, light, accents }) => (
+            { name: 'Asphalt',   bg: '#09090B', textColor: 'rgba(255,255,255,0.55)', accents: ['#FFD700','#4AB8FF','#F58220','#34D399','#60A5FA','#818CF8','#C084FC'] },
+            { name: 'Carbon',    bg: '#000000', textColor: 'rgba(255,255,255,0.55)', accents: ['#FF8C00','#4AB8FF','#F58220','#4ADE80','#7DD3FC','#818CF8','#C084FC'] },
+            { name: 'NOS',       bg: '#0A192F', textColor: 'rgba(255,255,255,0.55)', accents: ['#38BDF8','#34D399','#FB923C','#4ADE80','#7DD3FC','#E879F9','#D8B4FE'] },
+            { name: 'Ghost',     bg: '#0A0A0A', textColor: 'rgba(255,255,255,0.55)', accents: ['#FFFFFF','#AAAAAA','#888888','#BBBBBB','#CCCCCC','#D0D0D0'] },
+            { name: 'Burnout',   bg: '#FFF0E5', textColor: 'rgba(0,0,0,0.55)',       accents: ['#9E5800','#0070A8','#A34A00','#166534','#1D4ED8','#6D28D9','#7E22CE'] },
+            { name: 'Track Day', bg: '#F8FAFC', textColor: 'rgba(0,0,0,0.55)',       accents: ['#9A5C00','#005F8A','#B85000','#15803D','#1E40AF','#6D28D9','#7E22CE'] },
+          ].map(({ name, bg, textColor, accents }) => (
             <div key={name} className="flex flex-col gap-2">
               <div
-                className="rounded-xl border border-white/10 p-3 shadow-[0_4px_16px_rgba(0,0,0,0.4)]"
-                style={{ background: bg }}
+                className="rounded-xl p-3 shadow-[0_4px_16px_rgba(0,0,0,0.4)]"
+                style={{ background: bg, border: '1px solid rgba(128,128,128,0.2)' }}
               >
-                <p className={`mb-2.5 text-[10px] font-semibold tracking-wide ${light ? 'text-black/50' : 'text-white/40'}`}>
+                <p className="mb-2.5 text-[10px] font-semibold tracking-wide truncate" style={{ color: textColor }}>
                   {name.toUpperCase()}
                 </p>
                 <div className="flex flex-wrap gap-1">
@@ -265,7 +267,10 @@ function NitrousTokenCard() {
         </div>
       </div>
 
-      <CardFooter models={['claude', 'cursor']} />
+      <CardFooter
+        models={['claude', 'cursor']}
+        tags={['Electron', 'React', 'Menu Bar', 'API Integrations', 'Data Viz', 'macOS']}
+      />
     </div>
   );
 }
@@ -287,10 +292,7 @@ function IgnusCard() {
         <div className="flex items-center gap-3">
           <img src="/devtools/ignus/ignus_dark.png" alt="Ignus logo" className="h-10 w-10 shrink-0 rounded-xl object-cover" />
           <div>
-            <div className="mb-1 flex items-center gap-2">
-              <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-white/40">Ignus</p>
-              <StatusBadge status="Personal use" />
-            </div>
+            <p className="mb-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-white/40">Ignus</p>
             <h3 className="text-xl font-bold leading-snug tracking-tight text-white md:text-2xl">
               One-click launcher for local AI image generation.
             </h3>
@@ -302,7 +304,6 @@ function IgnusCard() {
       <div className="flex flex-col gap-6 lg:flex-row lg:items-start">
         <div className="flex shrink-0 flex-col gap-4 lg:w-[340px]">
 
-          {/* 5-stage flame identity: wireframe mesh morphs into full fire via xfade */}
           <div className="relative overflow-hidden rounded-2xl border border-white/10 shadow-[0_12px_40px_rgba(0,0,0,0.8)] bg-black" style={{ aspectRatio: '1/1' }}>
             <video
               autoPlay loop muted playsInline
@@ -314,7 +315,6 @@ function IgnusCard() {
             </video>
           </div>
 
-          {/* Stage shots */}
           <div>
             <SectionLabel>All states</SectionLabel>
             <div className="grid grid-cols-3 gap-2">
@@ -352,13 +352,14 @@ function IgnusCard() {
               ))}
             </ul>
           </div>
-          <div className="flex flex-wrap gap-2 pt-1">
-            {['Electron', 'launchd', 'InvokeAI', 'ComfyUI', 'Local AI'].map(t => <Tag key={t}>{t}</Tag>)}
-          </div>
         </div>
       </div>
 
-      <CardFooter models={['claude', 'cursor']} github_href="https://github.com/n3rdenvy/Ignus" />
+      <CardFooter
+        models={['claude', 'cursor']}
+        tags={['Electron', 'launchd', 'InvokeAI', 'ComfyUI', 'Local AI']}
+        github_href="https://github.com/n3rdenvy/Ignus"
+      />
     </div>
   );
 }
@@ -379,37 +380,42 @@ function KallistiCard() {
               <StatusBadge status="In development" />
             </div>
             <h3 className="text-xl font-bold leading-snug tracking-tight text-white md:text-2xl">
-              A job pipeline that surfaces high-fit roles and lets Eris brief you on each one.
+              An AI-powered job pipeline that scores fit, tracks every opportunity, and briefs you on demand.
             </h3>
           </div>
         </div>
       </div>
 
-      {/* Screenshots + why */}
+      {/* Live embed + why */}
       <div className="flex flex-col gap-6 lg:flex-row lg:items-start">
-        <div className="shrink-0 lg:w-[460px] flex flex-col gap-2">
-          <div className="overflow-hidden rounded-xl border border-white/10 shadow-[0_8px_24px_rgba(0,0,0,0.5)]">
-            <Img src="/devtools/kallisti_pipeline.png" alt="Kallisti Pipeline view — all active roles with fit scores and status" className="w-full block" />
+        <div className="shrink-0">
+          <div
+            className="overflow-hidden rounded-2xl border border-white/10 shadow-[0_12px_40px_rgba(0,0,0,0.6)]"
+            style={{ width: 560, height: 520, backgroundColor: '#0F172A' }}
+          >
+            <iframe
+              src="/kallisti-embed/index.html"
+              title="Kallisti live demo"
+              width="560"
+              height="520"
+              scrolling="no"
+              style={{ display: 'block', border: 'none', borderRadius: '14px' }}
+            />
           </div>
-          <div className="grid grid-cols-2 gap-2">
-            <div className="overflow-hidden rounded-xl border border-white/10 shadow-[0_8px_24px_rgba(0,0,0,0.5)]">
-              <Img src="/devtools/kallisti.png" alt="Kallisti Today view — follow-up flags and new high-fit roles" className="w-full block" />
-            </div>
-            <div className="overflow-hidden rounded-xl border border-white/10 shadow-[0_8px_24px_rgba(0,0,0,0.5)]">
-              <Img src="/devtools/kallisti_detail.png" alt="Kallisti role detail — Eris 10/10 fit score and briefing" className="w-full block" />
-            </div>
-          </div>
+          <p className="mt-2 text-[10px] text-white/30 text-center">
+            Live app. Click any role to open the detail view.
+          </p>
         </div>
         <div className="flex flex-col gap-5 text-sm leading-relaxed text-white/70">
           <div>
             <SectionLabel>Why it exists</SectionLabel>
-            <p>Job searching while working full-time means roles slip through or go stale. I needed something that ran in the background, scored fits against my actual profile, and let me pull Eris into any role briefing in one click. No browser tab context switch.</p>
+            <p>Job searching while working full-time means roles slip through or go stale. The app runs in the background, scores every role against your actual profile, and lets you pull an AI briefing on any opportunity in one click. No browser tab context switch required.</p>
           </div>
           <div>
             <SectionLabel>Design decisions</SectionLabel>
             <ul className="space-y-1.5">
               {[
-                'Eris integration built in. One click opens a briefing chat with the full role context already loaded',
+                'AI briefing built in. One click opens a role briefing session with the full job context already loaded',
                 'Drift scoring surfaces roles that match your trajectory, not just your keywords',
                 'Menu bar only, no dock icon. Present when you need it, gone when you don\'t',
                 'File-watcher architecture so the radar runs in background and the UI updates live when new roles land',
@@ -421,13 +427,14 @@ function KallistiCard() {
               ))}
             </ul>
           </div>
-          <div className="flex flex-wrap gap-2 pt-1">
-            {['Electron', 'React', 'Menu Bar', 'Job Search', 'AI Integration'].map(t => <Tag key={t}>{t}</Tag>)}
-          </div>
         </div>
       </div>
 
-      <CardFooter models={['claude', 'cursor']} github_href="https://github.com/n3rdenvy/Kallisti" />
+      <CardFooter
+        models={['claude', 'cursor']}
+        tags={['Electron', 'React', 'Menu Bar', 'Job Search', 'AI Integration']}
+        github_href="https://github.com/n3rdenvy/Kallisti"
+      />
     </div>
   );
 }

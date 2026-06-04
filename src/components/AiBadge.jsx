@@ -1,11 +1,9 @@
 /**
- * Stacked AI model logo badges.
+ * Stacked AI model logo badges — no overlap, individual hover tooltips.
  * Usage: <AiBadge models={['claude', 'cursor', 'gemini']} />
- *
- * Claude: Bootstrap Icons path (official Claude mark — the organic splat)
- * Cursor: Official brand mark — hexagon cube with cursor arrow, orange #F54E00
- * Gemini: Google Gemini four-pointed star with the real rainbow gradient
  */
+
+import { useState } from 'react';
 
 const MODEL_META = {
   claude: {
@@ -53,36 +51,42 @@ const MODEL_META = {
   },
 };
 
-export default function AiBadge({ models = [], className = '' }) {
-  if (!models.length) return null;
-
-  const label = models.map((m) => MODEL_META[m]?.label).filter(Boolean).join(' + ');
-
+function Badge({ model }) {
+  const [hovered, setHovered] = useState(false);
+  const meta = MODEL_META[model];
+  if (!meta) return null;
   return (
     <div
-      className={`flex items-center ${className}`}
+      className="relative"
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+    >
+      <div
+        className="flex h-7 w-7 items-center justify-center rounded-full border-2 border-white/30 shadow-sm"
+        style={{ backgroundColor: meta.bg }}
+        aria-label={meta.label}
+      >
+        {meta.icon}
+      </div>
+      {hovered && (
+        <div className="pointer-events-none absolute bottom-full left-1/2 z-50 mb-2 -translate-x-1/2 whitespace-nowrap rounded-md bg-black/90 px-2 py-1 text-[10px] font-medium text-white shadow-lg">
+          {meta.label}
+        </div>
+      )}
+    </div>
+  );
+}
+
+export default function AiBadge({ models = [], className = '' }) {
+  if (!models.length) return null;
+  const label = models.map((m) => MODEL_META[m]?.label).filter(Boolean).join(' + ');
+  return (
+    <div
+      className={`flex items-center gap-2 ${className}`}
       role="img"
       aria-label={`Built with: ${label}`}
     >
-      {models.map((m, i) => {
-        const meta = MODEL_META[m];
-        if (!meta) return null;
-        return (
-          <div
-            key={m}
-            title={meta.label}
-            className="flex h-7 w-7 items-center justify-center rounded-full border-2 border-white/30 shadow-sm"
-            style={{
-              backgroundColor: meta.bg,
-              marginLeft: i > 0 ? '-8px' : '0',
-              zIndex: models.length - i,
-              position: 'relative',
-            }}
-          >
-            {meta.icon}
-          </div>
-        );
-      })}
+      {models.map((m) => <Badge key={m} model={m} />)}
     </div>
   );
 }

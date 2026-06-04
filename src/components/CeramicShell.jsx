@@ -4,6 +4,7 @@ import { MeshDistortMaterial } from '@react-three/drei';
 import * as THREE from 'three';
 
 const DRIFT_VIEWPORT_MQ = '(max-width: 1023px)';
+const DEPTH_SCALE = 1.4;
 
 const REACTIONS = [
   'squish', 'jiggle', 'heartbeat', 'spinBurst',
@@ -12,8 +13,8 @@ const REACTIONS = [
 
 const BASE = {
   rotX: 0.06, rotY: 0.09,
-  distort:  { outer: 0.50, mid: 0.54, core: 0.26 },
-  emissive: { outer: 0.40, mid: 0.55, core: 1.40 },
+  distort:  { outer: 0.78, mid: 0.74, core: 0.30 },
+  emissive: { outer: 0.44, mid: 0.60, core: 1.40 },
   corePos:  new THREE.Vector3(0.10, -0.24, 0.12),
   midPos:   new THREE.Vector3(0.05, -0.07, 0.04),
 };
@@ -23,13 +24,35 @@ const DURATION = {
   blush: 0.55, leanToward: 0.90, distortSpike: 0.90, shimmy: 0.75,
 };
 
+// Option B — Fresnel rim shader.
+// Chains AFTER drei's own onBeforeCompile (which handles the distort vertex shader)
+// so both distort and rim effects coexist on the same material.
+function applyFresnel(mat, rimR, rimG, rimB, strength) {
+  if (!mat) return;
+  const prev = mat.onBeforeCompile;
+  mat.onBeforeCompile = (shader, renderer) => {
+    if (prev) prev.call(mat, shader, renderer);
+    shader.fragmentShader = shader.fragmentShader.replace(
+      '#include <output_fragment>',
+      `{
+        vec3 _vd = normalize(-vViewPosition);
+        float _rim = pow(1.0 - abs(dot(normalize(vNormal), _vd)), 1.9);
+        outgoingLight += _rim * vec3(${rimR.toFixed(3)},${rimG.toFixed(3)},${rimB.toFixed(3)}) * ${strength.toFixed(2)};
+      }
+      #include <output_fragment>`,
+    );
+  };
+  mat.needsUpdate = true;
+}
+
 export default function CeramicShell() {
-  // outerMeshRef / midMeshRef point to Groups (outer + inner wall surface each)
-  // coreMeshRef points directly to the core Mesh
   const groupRef       = useRef();
-  const outerGroupRef  = useRef();
-  const midGroupRef    = useRef();
-  const coreMeshRef    = useRef();
+  const outerMeshRef   = useRef();
+  const outerMatRef    = useRef();
+  const midMeshRef     = useRef();
+  const midMatRef      = useRef();
+  const coreGroupRef   = useRef();
+  const coreMatRef     = useRef();
   const centerLightRef = useRef();
 
   const { viewport } = useThree();
@@ -79,85 +102,90 @@ export default function CeramicShell() {
     return () => window.removeEventListener('click', onClick);
   }, []);
 
+  // Apply Fresnel rim glow after material creation
+  useEffect(() => {
+    applyFresnel(outerMatRef.current, 0.90, 0.40, 0.10, 2.8);
+    applyFresnel(midMatRef.current,   0.98, 0.58, 0.18, 2.2);
+  }, []);
+
   useFrame((state, delta) => {
     if (!groupRef.current) return;
     const t = state.clock.elapsedTime;
     const { x: ndcX, y: ndcY } = useDrift ? { x: 0, y: 0 } : mouseNdcRef.current;
 
-    // --- Group position (outer shell carries the lag) ---
+    const W = viewport.width  * DEPTH_SCALE;
+    const H = viewport.height * DEPTH_SCALE;
+
     if (useDrift) {
       driftTimeRef.current += delta;
       const d = driftTimeRef.current;
       const nx = 0.74 * Math.sin(d * 0.26) + 0.22 * Math.sin(d * 0.14 + 0.85) + 0.08 * Math.sin(d * 0.41);
       const ny = 0.66 * Math.cos(d * 0.22) + 0.20 * Math.sin(d * 0.18 + 1.05) + 0.07 * Math.cos(d * 0.35);
-      targetPosition.current.set(
-        (nx * viewport.width)  / 2 - BASE.corePos.x,
-        (ny * viewport.height) / 2 - BASE.corePos.y,
-        -2,
-      );
+      targetPosition.current.set((nx * W) / 2, (ny * H) / 2, -2);
     } else {
-      targetPosition.current.set(
-        (ndcX * viewport.width)  / 2 - BASE.corePos.x,
-        (ndcY * viewport.height) / 2 - BASE.corePos.y,
-        -2,
-      );
+      targetPosition.current.set((ndcX * W) / 2, (ndcY * H) / 2, -2);
     }
-    groupRef.current.position.lerp(targetPosition.current, Math.min(1, delta * 1.55));
+    groupRef.current.position.lerp(targetPosition.current, Math.min(1, delta * 1.8));
     groupRef.current.position.add(leanOffset.current);
 
-    // --- Inner layers lead toward cursor (parallax depth) ---
     corePosTarget.current.set(
-      BASE.corePos.x + ndcX * 0.10,
-      BASE.corePos.y + ndcY * 0.08,
+      BASE.corePos.x + ndcX * 0.08,
+      BASE.corePos.y + ndcY * 0.06,
       BASE.corePos.z,
     );
     midPosTarget.current.set(
-      BASE.midPos.x + ndcX * 0.05,
-      BASE.midPos.y + ndcY * 0.04,
+      BASE.midPos.x + ndcX * 0.04,
+      BASE.midPos.y + ndcY * 0.03,
       BASE.midPos.z,
     );
-    if (coreMeshRef.current) coreMeshRef.current.position.lerp(corePosTarget.current, Math.min(1, delta * 4.0));
-    if (midGroupRef.current)  midGroupRef.current.position.lerp(midPosTarget.current,  Math.min(1, delta * 2.4));
+    if (coreGroupRef.current) coreGroupRef.current.position.lerp(corePosTarget.current, Math.min(1, delta * 4.0));
+    if (midMeshRef.current)   midMeshRef.current.position.lerp(midPosTarget.current,    Math.min(1, delta * 2.6));
 
-    // --- Center light breathes — tight decay keeps crevices dark ---
-    const breathe = Math.sin(t * 0.55) * 0.5 + 0.5;
-    if (centerLightRef.current) centerLightRef.current.intensity = 3.5 + breathe * 5.5;
+    // Egg breathing
+    const eggBreath   = Math.sin(t * 0.72 + 0.5);
+    const eggScaleMul = 1 + eggBreath * 0.09;
+    const eggEmissive = BASE.emissive.core * (1 + eggBreath * 0.28);
+    if (coreGroupRef.current) {
+      coreGroupRef.current.scale.set(1.0 * eggScaleMul, 1.22 * eggScaleMul, 0.94 * eggScaleMul);
+    }
+    if (coreMatRef.current) coreMatRef.current.emissiveIntensity = eggEmissive;
 
-    // --- Group rotation: Lissajous-modulated ---
+    const breatheNorm = eggBreath * 0.5 + 0.5;
+    if (centerLightRef.current) centerLightRef.current.intensity = 3.0 + breatheNorm * 5.0;
+
+    // Group rotation
     const sm1 = 1 + 0.25 * Math.sin(t * 0.13);
     const sm2 = 1 + 0.20 * Math.sin(t * 0.17 + 0.9);
     groupRef.current.rotation.x += delta * rotSpeedRef.current.x * sm1;
     groupRef.current.rotation.y += delta * rotSpeedRef.current.y * sm2;
 
-    // --- Per-layer counter-rotation (shifts apertures open and closed) ---
-    if (outerGroupRef.current) {
-      outerGroupRef.current.rotation.y += delta * 0.07;
-      outerGroupRef.current.rotation.z += delta * 0.025;
+    // Per-layer counter-rotation with variation — apertures shift organically
+    if (outerMeshRef.current) {
+      outerMeshRef.current.rotation.y += delta * (0.07 + 0.04 * Math.sin(t * 0.09));
+      outerMeshRef.current.rotation.z += delta * (0.025 + 0.02 * Math.sin(t * 0.07 + 1.5));
+      outerMeshRef.current.rotation.x += delta * 0.020 * Math.cos(t * 0.11 + 0.8);
     }
-    if (midGroupRef.current) {
-      midGroupRef.current.rotation.y -= delta * 0.11;
-      midGroupRef.current.rotation.x += delta * 0.045;
+    if (midMeshRef.current) {
+      midMeshRef.current.rotation.y -= delta * (0.11 + 0.05 * Math.sin(t * 0.13 + 0.4));
+      midMeshRef.current.rotation.x += delta * (0.045 + 0.025 * Math.sin(t * 0.10 + 1.9));
+      midMeshRef.current.rotation.z -= delta * 0.018 * Math.cos(t * 0.12 + 1.1);
     }
-    if (coreMeshRef.current) {
-      coreMeshRef.current.rotation.y += delta * 0.16;
-      coreMeshRef.current.rotation.x -= delta * 0.08;
+    if (coreGroupRef.current) {
+      coreGroupRef.current.rotation.y += delta * 0.16;
+      coreGroupRef.current.rotation.x -= delta * 0.08;
     }
 
-    // --- Per-layer organic shape breathing ---
-    if (outerGroupRef.current) {
-      const ob = 1 + Math.sin(t * 0.31 + 0.0) * 0.035;
-      outerGroupRef.current.scale.set(ob, 1 + Math.cos(t * 0.27 + 1.1) * 0.025, ob);
+    // Per-layer organic shape breathing
+    if (outerMeshRef.current) {
+      const ob = 1 + Math.sin(t * 0.31) * 0.035;
+      outerMeshRef.current.scale.set(ob, 1 + Math.cos(t * 0.27 + 1.1) * 0.025, ob);
     }
-    if (midGroupRef.current) {
+    if (midMeshRef.current) {
       const mb = 1 + Math.sin(t * 0.38 + 2.1) * 0.045;
-      midGroupRef.current.scale.set(mb, 1 + Math.cos(t * 0.34 + 0.7) * 0.030, mb);
-    }
-    if (coreMeshRef.current) {
-      const cb = 1 + Math.sin(t * 0.46 + 1.3) * 0.055;
-      coreMeshRef.current.scale.set(1.0 * cb, 1.22 * cb, 0.94 * cb);
+      midMeshRef.current.scale.set(mb, 1 + Math.cos(t * 0.34 + 0.7) * 0.03, mb);
     }
 
-    // --- Reaction ---
+    // Reactions
     if (reactionRef.current) {
       if (reactionRef.current.startTime === null) {
         reactionRef.current.startTime = t;
@@ -169,10 +197,9 @@ export default function CeramicShell() {
       const elapsed = t - reactionRef.current.startTime;
       const dur = DURATION[reactionRef.current.type];
       const tp  = Math.min(1, elapsed / dur);
-      // Material access via group children
-      const om = outerGroupRef.current?.children?.[0]?.material;
-      const mm = midGroupRef.current?.children?.[0]?.material;
-      const cm = coreMeshRef.current?.material;
+      const om  = outerMatRef.current;
+      const mm  = midMatRef.current;
+      const cm  = coreMatRef.current;
 
       switch (reactionRef.current.type) {
         case 'squish': {
@@ -202,17 +229,13 @@ export default function CeramicShell() {
           const spike = Math.sin(tp * Math.PI) * 1.6;
           if (om) om.emissiveIntensity = BASE.emissive.outer + spike;
           if (mm) mm.emissiveIntensity = BASE.emissive.mid   + spike * 0.9;
-          if (centerLightRef.current) centerLightRef.current.intensity = (3.5 + breathe * 5.5) + spike * 4;
+          if (centerLightRef.current) centerLightRef.current.intensity = (3.0 + breatheNorm * 5.0) + spike * 4;
           break;
         }
         case 'leanToward': {
           const lean = Math.sin(tp * Math.PI) * 0.22;
           const { x: cx, y: cy } = clickNdcRef.current;
-          leanOffset.current.set(
-            cx * viewport.width  * 0.25 * lean,
-            cy * viewport.height * 0.25 * lean,
-            0,
-          );
+          leanOffset.current.set(cx * W * 0.25 * lean, cy * H * 0.25 * lean, 0);
           break;
         }
         case 'distortSpike': {
@@ -245,109 +268,87 @@ export default function CeramicShell() {
 
   return (
     <>
-      {/* Low ambient — lets crevice shadows stay dark */}
-      <ambientLight intensity={0.07} color="#f8d4a8" />
-      <directionalLight position={[ 8,  7,  4]} intensity={1.2} color="#f5e0c0" />
-      <directionalLight position={[-9, -4,  5]} intensity={0.5} color="#d4854a" />
+      <ambientLight intensity={0.06} color="#f8d4a8" />
+      <directionalLight position={[ 8,  7,  4]} intensity={1.1} color="#f5e0c0" />
+      <directionalLight position={[-9, -4,  5]} intensity={0.45} color="#d4854a" />
+      <pointLight position={[ 3.5,  2.0,  2.5]} color="#ffb870" intensity={2.0} distance={9} decay={2} />
+      <pointLight position={[-2.5, -3.0,  2.0]} color="#d47030" intensity={1.4} distance={7} decay={2} />
 
       <group ref={groupRef}>
-        {/*
-          Center light — warm, tight decay so it lights nearby surfaces
-          but doesn't flood into the deep crevice shadows.
-        */}
-        <pointLight
-          ref={centerLightRef}
-          position={[0.08, -0.18, 0.10]}
-          color="#ffb060"
-          distance={4.5}
-          decay={2.8}
-        />
+        <pointLight ref={centerLightRef} position={[0.08, -0.18, 0.10]} color="#ffb060" distance={4.2} decay={2.8} />
 
         {/*
-          OUTER SHELL — narrower phi (1.15π ≈ 207°) so inner layers are
-          consistently visible through the gap. Two surfaces create wall mass:
-          front face (FrontSide, radius 2.0) + inner wall (BackSide, radius 1.83,
-          dark shadowed color).
+          OUTER — single crescent arc (0.85π ≈ 153°), DoubleSide.
+          Option B Fresnel applied via useEffect after mount.
+          High distort (0.78) makes the cut edges organic not geometric.
         */}
-        <group ref={outerGroupRef} rotation={[0.20, 0.40, -0.12]}>
-          {/* Outer face */}
-          <mesh>
-            <sphereGeometry args={[2.0, 128, 128, 0, Math.PI * 0.90, 0.10, Math.PI * 0.82]} />
-            <MeshDistortMaterial
-              color="#7A2E0E"
-              emissive="#C04010"
-              emissiveIntensity={BASE.emissive.outer}
-              roughness={0.50}
-              metalness={0.03}
-              distort={BASE.distort.outer}
-              speed={0.46}
-              side={THREE.FrontSide}
-            />
-          </mesh>
-          {/* Inner wall face — warm dark terracotta, creates depth without blackness */}
-          <mesh>
-            <sphereGeometry args={[1.68, 96, 96, 0, Math.PI * 0.90, 0.10, Math.PI * 0.82]} />
-            <MeshDistortMaterial
-              color="#7A2E10"
-              emissive="#A03A10"
-              emissiveIntensity={0.22}
-              roughness={0.72}
-              metalness={0.0}
-              distort={0.18}
-              speed={0.40}
-              side={THREE.BackSide}
-            />
-          </mesh>
-        </group>
-
-        {/*
-          MID SHELL — narrower phi (1.05π ≈ 189°), same double-wall approach.
-          Counter-rotates against outer so apertures phase in and out of alignment.
-        */}
-        <group ref={midGroupRef} rotation={[-0.32, -0.72, 0.26]}>
-          {/* Outer face */}
-          <mesh>
-            <sphereGeometry args={[1.40, 96, 96, 0.45, Math.PI * 1.05, 0.16, Math.PI * 0.75]} />
-            <MeshDistortMaterial
-              color="#C06040"
-              emissive="#E07848"
-              emissiveIntensity={BASE.emissive.mid}
-              roughness={0.44}
-              metalness={0.02}
-              distort={BASE.distort.mid}
-              speed={0.50}
-              side={THREE.FrontSide}
-            />
-          </mesh>
-          {/* Inner wall face — warm depth, not dark */}
-          <mesh>
-            <sphereGeometry args={[1.16, 80, 80, 0.45, Math.PI * 1.05, 0.16, Math.PI * 0.75]} />
-            <MeshDistortMaterial
-              color="#8B3818"
-              emissive="#B04820"
-              emissiveIntensity={0.20}
-              roughness={0.68}
-              metalness={0.0}
-              distort={0.20}
-              speed={0.44}
-              side={THREE.BackSide}
-            />
-          </mesh>
-        </group>
-
-        {/* CORE — warm alabaster egg, glows from within, no inner wall needed */}
-        <mesh ref={coreMeshRef}>
-          <sphereGeometry args={[0.62, 64, 64]} />
+        <mesh ref={outerMeshRef} rotation={[0.20, 0.40, -0.12]} renderOrder={1}>
+          <sphereGeometry args={[1.80, 128, 128, 0, Math.PI * 0.85, 0.08, Math.PI * 0.84]} />
           <MeshDistortMaterial
-            color="#F5D8B0"
-            emissive="#FFD090"
-            emissiveIntensity={BASE.emissive.core}
-            roughness={0.28}
-            metalness={0.0}
-            distort={BASE.distort.core}
-            speed={0.28}
+            ref={outerMatRef}
+            color="#7A2E0E"
+            emissive="#C04010"
+            emissiveIntensity={BASE.emissive.outer}
+            roughness={0.50}
+            metalness={0.03}
+            distort={BASE.distort.outer}
+            speed={0.44}
+            side={THREE.DoubleSide}
           />
         </mesh>
+
+        {/*
+          MID — nearly full sphere (1.75π ≈ 315°), DoubleSide.
+          Stencil test: only renders within the outer sphere's projection.
+          This is the containment — mid cannot bleed past the outer boundary.
+          Counter-rotates against outer so apertures shift independently.
+        */}
+        <mesh ref={midMeshRef} rotation={[-0.32, -0.72, 0.26]} renderOrder={2}>
+          <sphereGeometry args={[1.26, 96, 96, 0.20, Math.PI * 0.80, 0.14, Math.PI * 0.80]} />
+          <MeshDistortMaterial
+            ref={midMatRef}
+            color="#C06040"
+            emissive="#E07848"
+            emissiveIntensity={BASE.emissive.mid}
+            roughness={0.44}
+            metalness={0.02}
+            distort={BASE.distort.mid}
+            speed={0.48}
+            side={THREE.DoubleSide}
+          />
+        </mesh>
+
+        {/*
+          CORE — literal edge outline (BackSide R=0.582, same distort as egg)
+          breathes identically with egg. Egg on top.
+        */}
+        <group ref={coreGroupRef} renderOrder={3}>
+          <mesh>
+            <sphereGeometry args={[0.582, 48, 48]} />
+            <MeshDistortMaterial
+              color="#A04010"
+              emissive="#C04808"
+              emissiveIntensity={0.52}
+              roughness={0.58}
+              distort={BASE.distort.core}
+              speed={0.28}
+              side={THREE.BackSide}
+            />
+          </mesh>
+          <mesh>
+            <sphereGeometry args={[0.56, 64, 64]} />
+            <MeshDistortMaterial
+              ref={coreMatRef}
+              color="#F5D8B0"
+              emissive="#FFD090"
+              emissiveIntensity={BASE.emissive.core}
+              roughness={0.28}
+              metalness={0.0}
+              distort={BASE.distort.core}
+              speed={0.28}
+            />
+          </mesh>
+        </group>
       </group>
     </>
   );
