@@ -1,4 +1,5 @@
 import { useState, useEffect, useCallback } from 'react';
+import { createPortal } from 'react-dom';
 import { X } from 'lucide-react';
 import PageShell from '../components/PageShell';
 import ReturnToPortfolioButton from '../components/ReturnToPortfolioButton';
@@ -15,7 +16,7 @@ function Lightbox({ src, alt, onClose }) {
     return () => { window.removeEventListener('keydown', onKey); document.body.style.overflow = ''; };
   }, [onClose]);
 
-  return (
+  return createPortal(
     <div
       className="fixed inset-0 z-[200] flex items-center justify-center bg-black/85 backdrop-blur-sm p-4 md:p-8"
       onClick={onClose}
@@ -34,7 +35,8 @@ function Lightbox({ src, alt, onClose }) {
         className="max-h-[90vh] max-w-full rounded-2xl object-contain shadow-[0_24px_80px_rgba(0,0,0,0.8)]"
         draggable={false}
       />
-    </div>
+    </div>,
+    document.body
   );
 }
 
@@ -85,6 +87,37 @@ function GitHubLink({ href }) {
   );
 }
 
+function StatusBadge({ status }) {
+  const styles = {
+    'Active':        'border-emerald-500/40 bg-emerald-500/10 text-emerald-400',
+    'Personal use':  'border-white/20 bg-white/5 text-white/50',
+    'In development':'border-amber-500/40 bg-amber-500/10 text-amber-400',
+  };
+  const dot = {
+    'Active':        'bg-emerald-400',
+    'Personal use':  'bg-white/30',
+    'In development':'bg-amber-400',
+  };
+  return (
+    <span className={`inline-flex items-center gap-1.5 rounded-full border px-2.5 py-0.5 text-[11px] font-medium ${styles[status] || styles['Personal use']}`}>
+      <span className={`h-1.5 w-1.5 rounded-full ${dot[status] || dot['Personal use']}`} />
+      {status}
+    </span>
+  );
+}
+
+function CardFooter({ models = [], github_href = null }) {
+  return (
+    <div className="flex flex-wrap items-center justify-between gap-3 border-t border-white/8 pt-4">
+      <div className="flex flex-col gap-1.5">
+        <p className="text-[9px] font-semibold uppercase tracking-[0.18em] text-white/30">Models used during creation</p>
+        <AiBadge models={models} />
+      </div>
+      {github_href && <GitHubLink href={github_href} />}
+    </div>
+  );
+}
+
 // ─── NitrousToken ─────────────────────────────────────────────────────────────
 
 const NT_MOTIONS = [
@@ -95,45 +128,83 @@ const NT_MOTIONS = [
   { gif: '/devtools/nt_motions/charge_compact.gif', label: 'Charge Cycle', desc: 'Ring expands from center and fades' },
 ];
 
+function MotionTile({ gif, label, desc }) {
+  const [hovered, setHovered] = useState(false);
+  return (
+    <div
+      className="relative flex flex-col gap-0"
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+    >
+      <div className="aspect-square overflow-hidden rounded-xl border border-white/10 bg-white/[0.04] shadow-[0_6px_20px_rgba(0,0,0,0.4)]">
+        <img src={gif} alt={`${label} motion style`} draggable={false} className="h-full w-full object-cover" />
+        {hovered && (
+          <div className="absolute inset-0 rounded-xl bg-black/70 flex flex-col justify-end p-3 gap-1">
+            <p className="text-[11px] font-semibold text-white leading-tight">{label}</p>
+            <p className="text-[10px] leading-snug text-white/70">{desc}</p>
+          </div>
+        )}
+      </div>
+      <p className="mt-2 inline-flex self-start rounded-full bg-black/40 px-2 py-0.5 text-[10px] font-semibold text-white/80 backdrop-blur-sm">{label}</p>
+    </div>
+  );
+}
+
 function NitrousTokenCard() {
   return (
-    <div className="glass-hub-sheet p-6 md:p-8 flex flex-col gap-8">
+    <div id="nitroustoken" className="glass-hub-sheet p-6 md:p-8 flex flex-col gap-8">
 
       {/* Header */}
       <div className="flex items-start justify-between gap-4">
         <div className="flex items-center gap-3">
-          <img src="/devtools/nitroustoken_logo.png" alt="NitrousToken logo — NT nitrous bottle" className="h-14 w-auto shrink-0 object-contain drop-shadow-lg" />
+          <img src="/devtools/nitroustoken_logo.png" alt="NitrousToken logo" className="h-14 w-auto shrink-0 object-contain drop-shadow-lg cursor-zoom-in" />
           <div>
-            <p className="mb-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-white/40">NitrousToken</p>
+            <div className="mb-1 flex items-center gap-2">
+              <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-white/40">NitrousToken</p>
+              <StatusBadge status="Personal use" />
+            </div>
             <h3 className="text-xl font-bold leading-snug tracking-tight text-white md:text-2xl">
               Real-time token quota gauges for every AI tool you run.
             </h3>
           </div>
         </div>
-        <div className="shrink-0"><AiBadge models={['claude', 'cursor']} /></div>
       </div>
 
-      {/* Panel + why */}
+      {/* Live embed + why */}
       <div className="flex flex-col gap-6 lg:flex-row lg:items-start">
-        <div className="shrink-0 lg:w-[560px]">
-          <div className="overflow-hidden rounded-2xl border border-white/10 shadow-[0_12px_40px_rgba(0,0,0,0.6)]">
-            <Img src="/devtools/nitroustoken.png" alt="NitrousToken main panel — 5 service quota gauges" className="w-full" />
+        <div className="shrink-0">
+          <div
+            className="overflow-hidden rounded-2xl border border-white/10 shadow-[0_12px_40px_rgba(0,0,0,0.6)]"
+            style={{ width: 560, height: 480 }}
+          >
+            <iframe
+              src="/nt-embed/index.html"
+              title="NitrousToken live demo"
+              width="560"
+              height="480"
+              scrolling="no"
+              style={{ display: 'block', border: 'none', borderRadius: '14px' }}
+            />
           </div>
+          <p className="mt-2 text-[10px] text-white/30 text-center">
+            Live app. Click the chart icon to open burn rate.
+          </p>
         </div>
         <div className="flex flex-col gap-5 text-sm leading-relaxed text-white/70">
           <div>
             <SectionLabel>Why it exists</SectionLabel>
-            <p>When you're running 5–10 AI services daily, quota limits are invisible until you slam into them mid-task. I needed always-on visibility — not buried in a settings page, but in the menu bar where I actually work.</p>
+            <p>When you're running 5 to 10 AI services daily, quota limits are invisible until you slam into them mid-task. I needed always-on visibility in the menu bar, not buried three settings pages deep.</p>
           </div>
           <div>
             <SectionLabel>Design decisions</SectionLabel>
             <ul className="space-y-1.5">
               {[
-                '10 service integrations — Anthropic, OpenAI, Cursor, Google, Mistral, xAI, Perplexity, Meta, Cohere, Copilot',
-                '6 themes from Asphalt to Burnout — fits any desktop without visual noise',
+                '10 service integrations including Anthropic, OpenAI, Cursor, Gemini, Mistral, xAI, Perplexity, Meta, Cohere, and Copilot',
+                '6 themes from Asphalt to Burnout, each verified at WCAG 2.1 AA contrast ratios so the gauge colors always read clearly',
                 'Burn rate forecasting shows days remaining and projected exhaust date per service',
-                'Cursor auth is zero-config — reads local SQLite without an API key',
+                'Cursor auth is zero-config. Reads local SQLite without an API key',
                 'Google Gemini uses OAuth credentials already on disk from the Gemini CLI',
+                'Local model tracked separately. Eris token usage appears as a dashed line so cloud cost is always visible against what runs free',
               ].map((d, i) => (
                 <li key={i} className="flex gap-2">
                   <span className="mt-1.5 h-1 w-1 shrink-0 rounded-full bg-amber-400/60" />
@@ -148,61 +219,19 @@ function NitrousTokenCard() {
         </div>
       </div>
 
-      {/* Burn rate */}
-      <div>
-        <SectionLabel>Burn rate &amp; forecasting</SectionLabel>
-        <p className="mb-3 text-xs leading-relaxed text-white/50">Usage over time per service, with projected exhaust date and warnings when a service is on track to run out before its reset.</p>
-        <div className="overflow-hidden rounded-xl border border-white/10 shadow-[0_8px_24px_rgba(0,0,0,0.5)] w-fit">
-          <Img src="/devtools/nt_burn_rate.png" alt="NitrousToken burn rate panel — multi-line chart with projection table" className="block" />
-        </div>
-      </div>
-
-      {/* Always-on meters */}
+      {/* Always-on meter motion styles */}
       <div>
         <SectionLabel>Always-on gauge motion styles</SectionLabel>
         <p className="mb-4 text-xs leading-relaxed text-white/50">
-          Each floating meter window is randomly assigned one motion on open — so five open at once look like five different instruments.
-          Hover or pin any meter to expand the detail panel.
+          Each floating meter window gets a randomly assigned motion on open. Five meters open at once look like five different instruments.
+          Hover any tile to see what it does.
         </p>
-        <div className="grid grid-cols-2 gap-5 sm:grid-cols-3 md:grid-cols-5">
-          {NT_MOTIONS.map(({ gif, label, desc }) => (
-            <div key={label} className="flex flex-col gap-2">
-              <div className="overflow-hidden rounded-xl border border-white/10 bg-white/[0.04] shadow-[0_6px_20px_rgba(0,0,0,0.4)]">
-                <Img src={gif} alt={`${label} motion`} className="w-full block" />
-              </div>
-              <p className="text-[11px] font-semibold text-white/80">{label}</p>
-              <p className="text-[10px] leading-snug text-white/40">{desc}</p>
-            </div>
-          ))}
-        </div>
-
-        {/* Expanded meter + personalization side by side */}
-        <div className="mt-6 flex flex-wrap items-start gap-6">
-          <div className="flex flex-col gap-2">
-            <p className="text-[10px] font-semibold uppercase tracking-[0.12em] text-white/30">Pinned detail view</p>
-            <div className="overflow-hidden rounded-xl border border-white/10 shadow-[0_6px_20px_rgba(0,0,0,0.5)]">
-              <Img src="/devtools/nt_motions/sweep_expanded.gif" alt="Expanded meter detail panel showing usage breakdown and reset date" className="w-[130px] block" />
-            </div>
-            <p className="max-w-[130px] text-[10px] leading-snug text-white/35">
-              Hover or pin to expand — token split, reset date, model-level Gemini quotas.
-            </p>
-          </div>
-          <div className="flex flex-col gap-2">
-            <p className="text-[10px] font-semibold uppercase tracking-[0.12em] text-white/30">Personalization</p>
-            <div className="flex flex-wrap gap-2">
-              <div className="overflow-hidden rounded-xl border border-white/10 shadow-[0_6px_20px_rgba(0,0,0,0.5)]">
-                <Img src="/devtools/nt_settings_top.png" alt="NitrousToken settings — theme selector and color pickers" className="w-[160px] block" />
-              </div>
-              <div className="overflow-hidden rounded-xl border border-white/10 shadow-[0_6px_20px_rgba(0,0,0,0.5)]">
-                <Img src="/devtools/nt_settings_motions.png" alt="NitrousToken settings — motion toggles and transparency" className="w-[160px] block" />
-              </div>
-            </div>
-            <p className="max-w-[330px] text-[10px] leading-snug text-white/35">
-              6 themes, per-service color overrides, motion toggles, and transparency controls.
-            </p>
-          </div>
+        <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-5">
+          {NT_MOTIONS.map((m) => <MotionTile key={m.label} {...m} />)}
         </div>
       </div>
+
+      <CardFooter models={['claude', 'cursor']} />
     </div>
   );
 }
@@ -212,45 +241,43 @@ function NitrousTokenCard() {
 const IGNUS_STAGES = [
   { src: '/devtools/ignus/stage_default.png',  label: 'Ready',    desc: 'Both services off, nothing selected' },
   { src: '/devtools/ignus/stage_selected.png', label: 'Selected', desc: 'InvokeAI checked, ready to launch' },
-  { src: '/devtools/ignus/stage_running.png',  label: 'Running',  desc: 'Both services live — stop controls visible' },
+  { src: '/devtools/ignus/stage_running.png',  label: 'Running',  desc: 'Both services live, stop controls active' },
 ];
 
 function IgnusCard() {
   return (
-    <div className="glass-hub-sheet p-6 md:p-8 flex flex-col gap-8">
+    <div id="ignus" className="glass-hub-sheet p-6 md:p-8 flex flex-col gap-8">
 
       {/* Header */}
       <div className="flex items-start justify-between gap-4">
         <div className="flex items-center gap-3">
           <img src="/devtools/ignus/ignus_dark.png" alt="Ignus logo" className="h-10 w-10 shrink-0 rounded-xl object-cover" />
           <div>
-            <p className="mb-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-white/40">Ignus</p>
+            <div className="mb-1 flex items-center gap-2">
+              <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-white/40">Ignus</p>
+              <StatusBadge status="Personal use" />
+            </div>
             <h3 className="text-xl font-bold leading-snug tracking-tight text-white md:text-2xl">
               One-click launcher for local AI image generation.
             </h3>
           </div>
         </div>
-        <div className="shrink-0"><AiBadge models={['claude', 'cursor']} /></div>
       </div>
 
       {/* Flame card + why */}
       <div className="flex flex-col gap-6 lg:flex-row lg:items-start">
         <div className="flex shrink-0 flex-col gap-4 lg:w-[340px]">
 
-          {/* 5-stage flame identity — real brand renders cycling mesh → fire */}
+          {/* 5-stage flame identity: wireframe mesh morphs into full fire via xfade */}
           <div className="relative overflow-hidden rounded-2xl border border-white/10 shadow-[0_12px_40px_rgba(0,0,0,0.8)] bg-black" style={{ aspectRatio: '1/1' }}>
-            {[
-              '/devtools/ignus/white_mesh_real.png',
-              '/devtools/ignus/flame25.png',
-              '/devtools/ignus/flame50.png',
-              '/devtools/ignus/flame75.png',
-              '/devtools/ignus/full_flame_real.png',
-            ].map((src, i) => (
-              <img key={i} src={src} alt="" aria-hidden
-                className="absolute inset-0 h-full w-full object-contain"
-                style={{ animation: `ignus-f${i} 25s ease-in-out infinite` }}
-              />
-            ))}
+            <video
+              autoPlay loop muted playsInline
+              className="h-full w-full object-cover"
+              aria-hidden
+            >
+              <source src="/devtools/ignus/flame_anim.webm" type="video/webm" />
+              <source src="/devtools/ignus/flame_anim.mp4" type="video/mp4" />
+            </video>
           </div>
 
           {/* Stage shots */}
@@ -279,10 +306,10 @@ function IgnusCard() {
             <SectionLabel>Design decisions</SectionLabel>
             <ul className="space-y-1.5">
               {[
-                'Service status at a glance — running/stopped with port number, no terminal needed',
+                'Service status at a glance: running or stopped, with port number. No terminal needed.',
                 'Single Launch button handles sequencing so order-of-operations errors disappear',
                 'launchd integration so InvokeAI survives restarts without babysitting',
-                'Flame-mesh identity: wireframe overlay on real fire — the collision between structure and generation',
+                'Flame-mesh identity: wireframe on real fire. Structural precision collides with raw generation.',
               ].map((d, i) => (
                 <li key={i} className="flex gap-2">
                   <span className="mt-1.5 h-1 w-1 shrink-0 rounded-full bg-amber-400/60" />
@@ -294,9 +321,10 @@ function IgnusCard() {
           <div className="flex flex-wrap gap-2 pt-1">
             {['Electron', 'launchd', 'InvokeAI', 'ComfyUI', 'Local AI'].map(t => <Tag key={t}>{t}</Tag>)}
           </div>
-          <GitHubLink href="https://github.com/n3rdenvy/Ignus" />
         </div>
       </div>
+
+      <CardFooter models={['claude', 'cursor']} github_href="https://github.com/n3rdenvy/Ignus" />
     </div>
   );
 }
@@ -305,20 +333,22 @@ function IgnusCard() {
 
 function KallistiCard() {
   return (
-    <div className="glass-hub-sheet p-6 md:p-8 flex flex-col gap-8">
+    <div id="kallisti" className="glass-hub-sheet p-6 md:p-8 flex flex-col gap-8">
 
       {/* Header */}
       <div className="flex items-start justify-between gap-4">
         <div className="flex items-center gap-3">
-          <img src="/devtools/kallisti_logo.png" alt="Kallisti logo — golden apple" className="h-10 w-10 shrink-0 rounded-xl object-cover" />
+          <img src="/devtools/kallisti_logo.png" alt="Kallisti logo" className="h-10 w-10 shrink-0 rounded-xl object-cover cursor-zoom-in" />
           <div>
-            <p className="mb-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-white/40">Kallisti</p>
+            <div className="mb-1 flex items-center gap-2">
+              <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-white/40">Kallisti</p>
+              <StatusBadge status="In development" />
+            </div>
             <h3 className="text-xl font-bold leading-snug tracking-tight text-white md:text-2xl">
               A job pipeline that surfaces high-fit roles and lets Eris brief you on each one.
             </h3>
           </div>
         </div>
-        <div className="shrink-0"><AiBadge models={['claude', 'cursor']} /></div>
       </div>
 
       {/* Screenshots + why */}
@@ -336,15 +366,15 @@ function KallistiCard() {
         <div className="flex flex-col gap-5 text-sm leading-relaxed text-white/70">
           <div>
             <SectionLabel>Why it exists</SectionLabel>
-            <p>Job searching while working full-time means roles slip through or get stale. I needed something that ran in the background, scored fits against my actual profile, and let me loop Eris in on any role in one click — without switching context to a browser tab.</p>
+            <p>Job searching while working full-time means roles slip through or go stale. I needed something that ran in the background, scored fits against my actual profile, and let me pull Eris into any role briefing in one click. No browser tab context switch.</p>
           </div>
           <div>
             <SectionLabel>Design decisions</SectionLabel>
             <ul className="space-y-1.5">
               {[
-                'Eris integration built in — one click opens a briefing chat with full role context pre-loaded',
+                'Eris integration built in. One click opens a briefing chat with the full role context already loaded',
                 'Drift scoring surfaces roles that match your trajectory, not just your keywords',
-                'Menu bar only, no dock icon — present when you need it, invisible when you don\'t',
+                'Menu bar only, no dock icon. Present when you need it, gone when you don\'t',
                 'File-watcher architecture so the radar runs in background and the UI updates live when new roles land',
               ].map((d, i) => (
                 <li key={i} className="flex gap-2">
@@ -357,9 +387,10 @@ function KallistiCard() {
           <div className="flex flex-wrap gap-2 pt-1">
             {['Electron', 'React', 'Menu Bar', 'Job Search', 'AI Integration'].map(t => <Tag key={t}>{t}</Tag>)}
           </div>
-          <GitHubLink href="https://github.com/n3rdenvy/Kallisti" />
         </div>
       </div>
+
+      <CardFooter models={['claude', 'cursor']} github_href="https://github.com/n3rdenvy/Kallisti" />
     </div>
   );
 }
@@ -369,20 +400,6 @@ function KallistiCard() {
 export default function DevTools() {
   return (
     <PageShell width="wide">
-      <style>{`
-        /* Ignus 5-stage crossfade — 25s cycle, 5s per stage, 1s fade overlap */
-        /* i0: mesh (0-5s) */
-        @keyframes ignus-f0 { 0%,100%{opacity:1} 16%{opacity:1} 20%,80%{opacity:0} 96%{opacity:0} }
-        /* i1: flame25 (5-10s) */
-        @keyframes ignus-f1 { 0%,16%{opacity:0} 20%,36%{opacity:1} 40%,100%{opacity:0} }
-        /* i2: flame50 (10-15s) */
-        @keyframes ignus-f2 { 0%,36%{opacity:0} 40%,56%{opacity:1} 60%,100%{opacity:0} }
-        /* i3: flame75 (15-20s) */
-        @keyframes ignus-f3 { 0%,56%{opacity:0} 60%,76%{opacity:1} 80%,100%{opacity:0} }
-        /* i4: full fire (20-25s) */
-        @keyframes ignus-f4 { 0%,76%{opacity:0} 80%,96%{opacity:1} 100%{opacity:0} }
-      `}</style>
-
       <ReturnToPortfolioButton />
 
       <div className="flex min-h-0 min-w-0 flex-1 flex-col pb-20 pt-4 max-md:pt-[3.85rem] md:pt-8">

@@ -9,7 +9,7 @@
 
 const MODEL_META = {
   claude: {
-    label: 'Claude (Anthropic)',
+    label: 'Claude Sonnet 4.6 (Anthropic)',
     bg: '#D4541A',
     icon: (
       <svg viewBox="0 0 16 16" className="h-4 w-4" aria-hidden>
