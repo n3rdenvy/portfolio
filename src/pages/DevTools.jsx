@@ -101,11 +101,14 @@ function NitrousTokenCard() {
 
       {/* Header */}
       <div className="flex items-start justify-between gap-4">
-        <div>
-          <p className="mb-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-white/40">NitrousToken</p>
-          <h3 className="text-xl font-bold leading-snug tracking-tight text-white md:text-2xl">
-            Real-time token quota gauges for every AI tool you run.
-          </h3>
+        <div className="flex items-center gap-3">
+          <img src="/devtools/nitroustoken_logo.png" alt="NitrousToken logo — NT nitrous bottle" className="h-14 w-auto shrink-0 object-contain drop-shadow-lg" />
+          <div>
+            <p className="mb-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-white/40">NitrousToken</p>
+            <h3 className="text-xl font-bold leading-snug tracking-tight text-white md:text-2xl">
+              Real-time token quota gauges for every AI tool you run.
+            </h3>
+          </div>
         </div>
         <div className="shrink-0"><AiBadge models={['claude', 'cursor']} /></div>
       </div>
@@ -234,30 +237,20 @@ function IgnusCard() {
       <div className="flex flex-col gap-6 lg:flex-row lg:items-start">
         <div className="flex shrink-0 flex-col gap-4 lg:w-[340px]">
 
-          {/* Live flame/mesh animation */}
-          <div
-            className="relative overflow-hidden rounded-2xl border border-white/10 shadow-[0_12px_40px_rgba(0,0,0,0.6)]"
-            style={{ aspectRatio: '340/280' }}
-          >
-            <img src="/devtools/ignus/full_flame.png" alt="" aria-hidden className="absolute inset-0 h-full w-full object-cover" style={{ animation: 'ignus-flame 6s ease-in-out infinite' }} />
-            <img src="/devtools/ignus/white_mesh.png" alt="" aria-hidden className="absolute inset-0 h-full w-full object-cover" style={{ animation: 'ignus-mesh 6s ease-in-out infinite', mixBlendMode: 'screen' }} />
-            <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-transparent to-black/60" />
-            <div className="absolute inset-0 flex flex-col justify-between p-4">
-              <div className="flex items-center gap-2">
-                <span className="text-base">🔥</span>
-                <span className="text-sm font-bold tracking-tight text-white">Ignus</span>
-                <span className="text-[10px] text-white/40">your 3D render models</span>
-              </div>
-              <div className="flex flex-col gap-2">
-                {['InvokeAI', 'ComfyUI'].map(name => (
-                  <div key={name} className="flex items-center gap-2 rounded-lg border border-white/10 bg-black/40 px-3 py-2 backdrop-blur-sm">
-                    <span className="h-2 w-2 rounded-full bg-emerald-400 shadow-[0_0_6px_rgba(74,222,128,0.8)]" />
-                    <span className="flex-1 text-xs font-medium text-white">{name}</span>
-                    <span className="rounded bg-emerald-400/10 px-1.5 py-0.5 text-[10px] text-emerald-400">running</span>
-                  </div>
-                ))}
-              </div>
-            </div>
+          {/* 5-stage flame identity — real brand renders cycling mesh → fire */}
+          <div className="relative overflow-hidden rounded-2xl border border-white/10 shadow-[0_12px_40px_rgba(0,0,0,0.8)] bg-black" style={{ aspectRatio: '1/1' }}>
+            {[
+              '/devtools/ignus/white_mesh_real.png',
+              '/devtools/ignus/flame25.png',
+              '/devtools/ignus/flame50.png',
+              '/devtools/ignus/flame75.png',
+              '/devtools/ignus/full_flame_real.png',
+            ].map((src, i) => (
+              <img key={i} src={src} alt="" aria-hidden
+                className="absolute inset-0 h-full w-full object-contain"
+                style={{ animation: `ignus-f${i} 25s ease-in-out infinite` }}
+              />
+            ))}
           </div>
 
           {/* Stage shots */}
@@ -316,11 +309,14 @@ function KallistiCard() {
 
       {/* Header */}
       <div className="flex items-start justify-between gap-4">
-        <div>
-          <p className="mb-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-white/40">Kallisti</p>
-          <h3 className="text-xl font-bold leading-snug tracking-tight text-white md:text-2xl">
-            A job pipeline that surfaces high-fit roles and lets Eris brief you on each one.
-          </h3>
+        <div className="flex items-center gap-3">
+          <img src="/devtools/kallisti_logo.png" alt="Kallisti logo — golden apple" className="h-10 w-10 shrink-0 rounded-xl object-cover" />
+          <div>
+            <p className="mb-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-white/40">Kallisti</p>
+            <h3 className="text-xl font-bold leading-snug tracking-tight text-white md:text-2xl">
+              A job pipeline that surfaces high-fit roles and lets Eris brief you on each one.
+            </h3>
+          </div>
         </div>
         <div className="shrink-0"><AiBadge models={['claude', 'cursor']} /></div>
       </div>
@@ -374,14 +370,17 @@ export default function DevTools() {
   return (
     <PageShell width="wide">
       <style>{`
-        @keyframes ignus-flame {
-          0%, 100% { opacity: 0.85; transform: scale(1.02); }
-          50% { opacity: 0.55; transform: scale(1); }
-        }
-        @keyframes ignus-mesh {
-          0%, 100% { opacity: 0.3; }
-          50% { opacity: 0.65; }
-        }
+        /* Ignus 5-stage crossfade — 25s cycle, 5s per stage, 1s fade overlap */
+        /* i0: mesh (0-5s) */
+        @keyframes ignus-f0 { 0%,100%{opacity:1} 16%{opacity:1} 20%,80%{opacity:0} 96%{opacity:0} }
+        /* i1: flame25 (5-10s) */
+        @keyframes ignus-f1 { 0%,16%{opacity:0} 20%,36%{opacity:1} 40%,100%{opacity:0} }
+        /* i2: flame50 (10-15s) */
+        @keyframes ignus-f2 { 0%,36%{opacity:0} 40%,56%{opacity:1} 60%,100%{opacity:0} }
+        /* i3: flame75 (15-20s) */
+        @keyframes ignus-f3 { 0%,56%{opacity:0} 60%,76%{opacity:1} 80%,100%{opacity:0} }
+        /* i4: full fire (20-25s) */
+        @keyframes ignus-f4 { 0%,76%{opacity:0} 80%,96%{opacity:1} 100%{opacity:0} }
       `}</style>
 
       <ReturnToPortfolioButton />
