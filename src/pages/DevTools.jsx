@@ -154,28 +154,12 @@ function NitrousTokenCard() {
         </div>
       </div>
 
-      {/* Settings */}
-      <div>
-        <SectionLabel>Personalization</SectionLabel>
-        <div className="flex flex-wrap items-start gap-3">
-          <div className="overflow-hidden rounded-xl border border-white/10 shadow-[0_6px_20px_rgba(0,0,0,0.5)]">
-            <Img src="/devtools/nt_settings_top.png" alt="NitrousToken settings — theme selector and per-service color pickers" className="w-[180px] block" />
-          </div>
-          <div className="overflow-hidden rounded-xl border border-white/10 shadow-[0_6px_20px_rgba(0,0,0,0.5)]">
-            <Img src="/devtools/nt_settings_motions.png" alt="NitrousToken settings — motion toggle chips and transparency sliders" className="w-[180px] block" />
-          </div>
-          <p className="max-w-[200px] self-end pb-1 text-xs leading-relaxed text-white/40">
-            6 themes, per-service color overrides, motion toggles, and transparency controls.
-          </p>
-        </div>
-      </div>
-
       {/* Always-on meters */}
       <div>
         <SectionLabel>Always-on gauge motion styles</SectionLabel>
         <p className="mb-4 text-xs leading-relaxed text-white/50">
           Each floating meter window is randomly assigned one motion on open — so five open at once look like five different instruments.
-          Hover or pin any meter to reveal the detail panel.
+          Hover or pin any meter to expand the detail panel.
         </p>
         <div className="grid grid-cols-2 gap-5 sm:grid-cols-3 md:grid-cols-5">
           {NT_MOTIONS.map(({ gif, label, desc }) => (
@@ -188,13 +172,32 @@ function NitrousTokenCard() {
             </div>
           ))}
         </div>
-        <div className="mt-4 flex flex-wrap items-start gap-4">
-          <div className="overflow-hidden rounded-xl border border-white/10 shadow-[0_6px_20px_rgba(0,0,0,0.5)]">
-            <Img src="/devtools/nt_motions/sweep_expanded.gif" alt="Expanded meter detail panel showing usage breakdown and reset date" className="w-[130px] block" />
+
+        {/* Expanded meter + personalization side by side */}
+        <div className="mt-6 flex flex-wrap items-start gap-6">
+          <div className="flex flex-col gap-2">
+            <p className="text-[10px] font-semibold uppercase tracking-[0.12em] text-white/30">Pinned detail view</p>
+            <div className="overflow-hidden rounded-xl border border-white/10 shadow-[0_6px_20px_rgba(0,0,0,0.5)]">
+              <Img src="/devtools/nt_motions/sweep_expanded.gif" alt="Expanded meter detail panel showing usage breakdown and reset date" className="w-[130px] block" />
+            </div>
+            <p className="max-w-[130px] text-[10px] leading-snug text-white/35">
+              Hover or pin to expand — token split, reset date, model-level Gemini quotas.
+            </p>
           </div>
-          <p className="max-w-[260px] pt-1 text-xs leading-relaxed text-white/40">
-            Hover or pin any meter to expand — usage breakdown, input/output token split, reset date, and per-model quotas for Google Gemini.
-          </p>
+          <div className="flex flex-col gap-2">
+            <p className="text-[10px] font-semibold uppercase tracking-[0.12em] text-white/30">Personalization</p>
+            <div className="flex flex-wrap gap-2">
+              <div className="overflow-hidden rounded-xl border border-white/10 shadow-[0_6px_20px_rgba(0,0,0,0.5)]">
+                <Img src="/devtools/nt_settings_top.png" alt="NitrousToken settings — theme selector and color pickers" className="w-[160px] block" />
+              </div>
+              <div className="overflow-hidden rounded-xl border border-white/10 shadow-[0_6px_20px_rgba(0,0,0,0.5)]">
+                <Img src="/devtools/nt_settings_motions.png" alt="NitrousToken settings — motion toggles and transparency" className="w-[160px] block" />
+              </div>
+            </div>
+            <p className="max-w-[330px] text-[10px] leading-snug text-white/35">
+              6 themes, per-service color overrides, motion toggles, and transparency controls.
+            </p>
+          </div>
         </div>
       </div>
     </div>
