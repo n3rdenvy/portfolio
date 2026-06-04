@@ -90,22 +90,30 @@ export default function CeramicShell() {
       const d = driftTimeRef.current;
       const nx = 0.74 * Math.sin(d * 0.26) + 0.22 * Math.sin(d * 0.14 + 0.85) + 0.08 * Math.sin(d * 0.41);
       const ny = 0.66 * Math.cos(d * 0.22) + 0.20 * Math.sin(d * 0.18 + 1.05) + 0.07 * Math.cos(d * 0.35);
-      targetPosition.current.set((nx * viewport.width) / 2, (ny * viewport.height) / 2, -2);
+      targetPosition.current.set(
+        (nx * viewport.width)  / 2 - BASE.corePos.x,
+        (ny * viewport.height) / 2 - BASE.corePos.y,
+        -2,
+      );
     } else {
-      targetPosition.current.set((ndcX * viewport.width) / 2, (ndcY * viewport.height) / 2, -2);
+      targetPosition.current.set(
+        (ndcX * viewport.width)  / 2 - BASE.corePos.x,
+        (ndcY * viewport.height) / 2 - BASE.corePos.y,
+        -2,
+      );
     }
     groupRef.current.position.lerp(targetPosition.current, Math.min(1, delta * 1.55));
     groupRef.current.position.add(leanOffset.current);
 
     // --- Inner layers lead toward cursor (parallax depth) ---
     corePosTarget.current.set(
-      BASE.corePos.x + ndcX * 0.24,
-      BASE.corePos.y + ndcY * 0.20,
+      BASE.corePos.x + ndcX * 0.10,
+      BASE.corePos.y + ndcY * 0.08,
       BASE.corePos.z,
     );
     midPosTarget.current.set(
-      BASE.midPos.x + ndcX * 0.11,
-      BASE.midPos.y + ndcY * 0.09,
+      BASE.midPos.x + ndcX * 0.05,
+      BASE.midPos.y + ndcY * 0.04,
       BASE.midPos.z,
     );
     if (coreMeshRef.current) coreMeshRef.current.position.lerp(corePosTarget.current, Math.min(1, delta * 4.0));
@@ -264,7 +272,7 @@ export default function CeramicShell() {
         <group ref={outerGroupRef} rotation={[0.20, 0.40, -0.12]}>
           {/* Outer face */}
           <mesh>
-            <sphereGeometry args={[2.0, 128, 128, 0, Math.PI * 1.15, 0.10, Math.PI * 0.82]} />
+            <sphereGeometry args={[2.0, 128, 128, 0, Math.PI * 0.90, 0.10, Math.PI * 0.82]} />
             <MeshDistortMaterial
               color="#7A2E0E"
               emissive="#C04010"
@@ -276,14 +284,14 @@ export default function CeramicShell() {
               side={THREE.FrontSide}
             />
           </mesh>
-          {/* Inner wall face — dark, low distort, creates shadow depth */}
+          {/* Inner wall face — warm dark terracotta, creates depth without blackness */}
           <mesh>
-            <sphereGeometry args={[1.83, 96, 96, 0, Math.PI * 1.15, 0.10, Math.PI * 0.82]} />
+            <sphereGeometry args={[1.68, 96, 96, 0, Math.PI * 0.90, 0.10, Math.PI * 0.82]} />
             <MeshDistortMaterial
-              color="#2A0E04"
-              emissive="#3A1008"
-              emissiveIntensity={0.08}
-              roughness={0.80}
+              color="#7A2E10"
+              emissive="#A03A10"
+              emissiveIntensity={0.22}
+              roughness={0.72}
               metalness={0.0}
               distort={0.18}
               speed={0.40}
@@ -311,14 +319,14 @@ export default function CeramicShell() {
               side={THREE.FrontSide}
             />
           </mesh>
-          {/* Inner wall face */}
+          {/* Inner wall face — warm depth, not dark */}
           <mesh>
-            <sphereGeometry args={[1.26, 80, 80, 0.45, Math.PI * 1.05, 0.16, Math.PI * 0.75]} />
+            <sphereGeometry args={[1.16, 80, 80, 0.45, Math.PI * 1.05, 0.16, Math.PI * 0.75]} />
             <MeshDistortMaterial
-              color="#5A2010"
-              emissive="#3A1008"
-              emissiveIntensity={0.10}
-              roughness={0.75}
+              color="#8B3818"
+              emissive="#B04820"
+              emissiveIntensity={0.20}
+              roughness={0.68}
               metalness={0.0}
               distort={0.20}
               speed={0.44}
