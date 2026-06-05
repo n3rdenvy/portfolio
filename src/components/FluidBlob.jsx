@@ -24,12 +24,11 @@ function useBobEmissiveMap() {
     ctx.fillStyle = '#ffffff';
     ctx.textAlign = 'center';
     ctx.textBaseline = 'middle';
-    ctx.font = '900 160px Satoshi, Arial, sans-serif';
+    ctx.font = '900 100px Satoshi, Arial, sans-serif';
 
-    // 3 copies evenly spaced at U = 1/6, 1/2, 5/6 (120° apart around equator)
-    // so at least one is always visible as the blob rotates
+    // 4 copies evenly spaced at U = 1/8, 3/8, 5/8, 7/8 (90° apart around equator)
     const y = h * 0.5;
-    [1 / 6, 1 / 2, 5 / 6].forEach((u) => ctx.fillText('B.o.b', w * u, y));
+    [1 / 8, 3 / 8, 5 / 8, 7 / 8].forEach((u) => ctx.fillText('B.o.b', w * u, y));
 
     const texture = new THREE.CanvasTexture(canvas);
     texture.colorSpace = THREE.NoColorSpace;
