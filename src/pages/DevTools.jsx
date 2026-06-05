@@ -211,40 +211,40 @@ function MotionTile({ gif, label, desc, service, pct, used, total, burn, days, b
   const [hovered, setHovered] = useState(false);
   return (
     <div
-      className="flex flex-col gap-1.5"
+      className="flex flex-col gap-2 pt-1"
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
     >
       {/* Static: always visible above the gif */}
-      <p className="text-[10px] font-semibold text-white/80">{label}</p>
-      <p className="text-[9px] leading-snug text-white/45">{desc}</p>
+      <p className="text-xs font-semibold text-white/80">{label}</p>
+      <p className="text-[10px] leading-snug text-white/45">{desc}</p>
 
       {/* Animation */}
       <div className="aspect-square overflow-hidden rounded-xl border border-white/10 bg-white/[0.04] shadow-[0_6px_20px_rgba(0,0,0,0.4)]">
         <img src={gif} alt={`${label} motion style`} draggable={false} className="h-full w-full object-cover" />
       </div>
 
-      {/* NT app hover simulation — reserved space, always present as dashed hint */}
+      {/* NT app hover simulation — always-reserved space, dashed border signals interactivity */}
       <div
         className={`rounded-lg border border-dashed transition-colors duration-200 ${
           hovered ? 'border-white/25' : 'border-white/12'
         }`}
-        style={{ minHeight: '5rem', padding: '8px 10px', backgroundColor: hovered ? 'rgba(0,0,0,0.72)' : 'transparent' }}
+        style={{ minHeight: '6.5rem', padding: '10px 12px', backgroundColor: hovered ? 'rgba(0,0,0,0.75)' : 'transparent' }}
       >
         {hovered && (
-          <div className="flex flex-col gap-1">
+          <div className="flex flex-col gap-1.5">
             <div className="flex items-center justify-between">
-              <span className="text-[9px] font-semibold" style={{ color: 'rgba(255,255,255,0.80)' }}>{service}</span>
-              <span className="text-[9px] font-bold" style={{ color: bar_hex }}>{pct}%</span>
+              <span className="text-xs font-semibold" style={{ color: 'rgba(255,255,255,0.85)' }}>{service}</span>
+              <span className="text-xs font-bold" style={{ color: bar_hex }}>{pct}%</span>
             </div>
-            <div style={{ height: 4, borderRadius: 2, backgroundColor: 'rgba(255,255,255,0.10)', overflow: 'hidden' }}>
-              <div style={{ height: '100%', width: `${pct}%`, borderRadius: 2, backgroundColor: bar_hex }} />
+            <div style={{ height: 5, borderRadius: 3, backgroundColor: 'rgba(255,255,255,0.10)', overflow: 'hidden' }}>
+              <div style={{ height: '100%', width: `${pct}%`, borderRadius: 3, backgroundColor: bar_hex }} />
             </div>
-            <div className="flex items-center justify-between" style={{ marginTop: 1 }}>
-              <span style={{ fontSize: 8, color: 'rgba(255,255,255,0.38)' }}>{used} / {total} tokens</span>
-              <span style={{ fontSize: 8, color: 'rgba(255,255,255,0.38)' }}>{days}d left</span>
+            <div className="flex items-center justify-between mt-0.5">
+              <span className="text-[11px]" style={{ color: 'rgba(255,255,255,0.45)' }}>{used} / {total} tokens</span>
+              <span className="text-[11px]" style={{ color: 'rgba(255,255,255,0.45)' }}>{days}d left</span>
             </div>
-            <p style={{ fontSize: 8, color: 'rgba(255,255,255,0.28)', marginTop: 1 }}>{burn} tkns/day</p>
+            <p className="text-[10px]" style={{ color: 'rgba(255,255,255,0.32)' }}>{burn} tokens/day</p>
           </div>
         )}
       </div>
@@ -334,7 +334,7 @@ function NitrousTokenCard() {
           Each floating meter window gets a randomly assigned motion on open. Five meters open at once look like five different instruments.
           Hover any tile to preview the live data tooltip as it appears in the app.
         </p>
-        <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-5">
+        <div className="grid grid-cols-2 gap-4 overflow-visible sm:grid-cols-3 md:grid-cols-5">
           {NT_MOTIONS.map((m) => <MotionTile key={m.label} {...m} />)}
         </div>
       </div>
