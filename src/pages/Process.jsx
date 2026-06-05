@@ -6,12 +6,12 @@ const STEPS = [
   {
     stepLabel: 'Step 01',
     description:
-      'Discovery maps stakeholders, data contracts, and failure domains before UI is sketched. Screenshots here will document the actual research workspace as it lands.',
+      'Discovery before design. Stakeholders mapped, data flows identified, failure modes catalogued before a single screen gets drawn. Screenshots will document the actual research workspace as it lands.',
   },
   {
     stepLabel: 'Step 02',
     description:
-      'Synthesis turns interviews and telemetry into annotated flows. This block mirrors the notation layer used to align engineering, design, and operations on one technical narrative.',
+      'Synthesis turns interviews and telemetry into annotated flows. The annotations carry the rationale so design, engineering, and ops are already aligned when they read it, not after a meeting.',
   },
 ];
 

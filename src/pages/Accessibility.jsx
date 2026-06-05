@@ -6,23 +6,23 @@ import HubPageHeading, { HubPageHeadingRow } from '../components/HubPageHeading'
 const CARDS = [
   {
     title: 'WCAG 2.1 Compliance',
-    body: 'Strict adherence to contrast ratios and keyboard logic.',
+    body: 'Contrast ratios hit WCAG 2.1 minimum. Every interactive element reachable and operable by keyboard alone.',
   },
   {
     title: 'Adaptive Interface Agency',
-    body: 'Integrated OpenDyslexic and sensory shaping for total neurodivergent environment agency.',
+    body: 'OpenDyslexic toggle and sensory controls built in. Users reshape the environment to fit their brain, not the other way around.',
   },
   {
     title: 'Chronopsychology',
-    body: 'Circadian-aligned UI shifts reducing cognitive friction.',
+    body: 'Warm and dark theme shifts that track the light cycle. Less friction at night without requiring a manual toggle.',
   },
   {
     title: 'Incentivized Personalization',
-    body: 'Visual Trophies unlocked via peer-validated data to drive retention.',
+    body: 'Rewards tied to verified rider contributions. The more accurate data you submit, the more the app works for you.',
   },
   {
     title: 'UX Localization',
-    body: 'Contextual translation framework for Spanish, French, and Chinese transit terminology.',
+    body: 'Transit terminology localized for Spanish, French, and Chinese speakers. Built for context, not just vocabulary.',
   },
 ];
 

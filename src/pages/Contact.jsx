@@ -446,9 +446,8 @@ export default function Contact() {
             <div className="grid grid-cols-1 gap-8 lg:min-h-0 lg:grid-cols-2 lg:gap-x-6 lg:gap-y-0 lg:items-stretch">
               <div className="flex min-w-0 flex-col gap-6 lg:justify-center lg:gap-8">
                 <p className="text-base leading-relaxed text-white lg:pr-6">
-                  I&apos;m all ears (and eyes). Use the drop down menus below to dump your entire brain or just give me
-                  the highlight reel. Shorter responses are allowed, but if you want to hit me with a beautiful wall of
-                  text, I can take it. Don&apos;t hold back and let&apos;s see where we can take this!
+                  I&apos;m all ears (and eyes). Use the menus below to give me the full brain dump or just the highlight
+                  reel. Short is fine. Long is fine. If you want to write a wall of text, I will read every word.
                 </p>
                 <div className="hidden lg:block">{contactDetails('contact-heading-lg')}</div>
               </div>

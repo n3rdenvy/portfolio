@@ -44,7 +44,7 @@ const PORTFOLIO_HUB_CARDS = [
     to: '/transit-pulse-ax',
     title: 'Transit Pulse AX App',
     description:
-      'Real-time agentic navigation and proactive routing systems for the modern commuter.',
+      'Real-time community transit for Philadelphia. Riders verify conditions. The schedule is a suggestion.',
     icon: Activity,
   },
   {
