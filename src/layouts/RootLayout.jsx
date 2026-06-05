@@ -81,7 +81,6 @@ export default function RootLayout() {
       {/* Background canvas */}
       <div className="absolute inset-0" style={{ backgroundColor: T.bg }}>
         <Canvas className="h-full w-full" gl={{ alpha: true, antialias: true }}>
-          <color attach="background" args={[T.bg]} />
           {isV2 ? <CeramicShell key="ceramic" /> : <FluidBlob key="blob" />}
         </Canvas>
       </div>
