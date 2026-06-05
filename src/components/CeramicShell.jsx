@@ -13,7 +13,7 @@ const REACTIONS = [
 
 const BASE = {
   rotX: 0.06, rotY: 0.09,
-  distort:  { outer: 0.76, mid: 0.72, core: 0.30 },
+  distort:  { outer: 0.48, mid: 0.44, core: 0.30 },
   emissive: { outer: 0.48, mid: 0.64, core: 1.40 },
   corePos:  new THREE.Vector3(0.10, -0.24, 0.12),
   midPos:   new THREE.Vector3(0.05, -0.07, 0.04),
@@ -273,14 +273,14 @@ export default function CeramicShell() {
 
   return (
     <>
-      <Environment preset="sunset" environmentIntensity={0.45} />
+      <Environment preset="warehouse" environmentIntensity={0.80} />
       <ambientLight intensity={0.10} color="#f8d4a8" />
       <directionalLight position={[ 8,  7,  4]} intensity={1.1} color="#f5e0c0" />
       <directionalLight position={[-9, -4,  5]} intensity={0.45} color="#d4854a" />
       <pointLight position={[ 3.5,  2.0,  2.5]} color="#ffb870" intensity={2.0} distance={9} decay={2} />
       <pointLight position={[-2.5, -3.0,  2.0]} color="#d47030" intensity={1.4} distance={7} decay={2} />
 
-      <group ref={groupRef} scale={1.55}>
+      <group ref={groupRef} scale={1.40}>
         <pointLight ref={centerLightRef} position={[0.08, -0.18, 0.10]} color="#ffb060" distance={4.2} decay={2.8} />
 
         {/*

@@ -1,21 +1,29 @@
 import { motion, useMotionValue, useSpring } from 'framer-motion';
 import { useCallback, useEffect, useState } from 'react';
+import { useTheme } from '../context/ThemeContext';
 
 const MotionDiv = motion.div;
 
 const SPRING = { stiffness: 400, damping: 35, mass: 0.4 };
 
-/** Horizontal squeeze only (narrower hand); stroke width unchanged in user units. */
 const HAND_SCALE_X = 0.78;
 
-/**
- * Classic “pointer hand” silhouette (Lucide hand paths): four fingers + palm + thumb.
- * Scaled narrower on X about viewBox center so it reads less “wide” than the stock icon.
- */
-function PointerHandGlyph({ className }) {
+const CURSOR_COLORS = {
+  v1: {
+    border: '#ffc933',
+    dotFill: 'rgba(255, 201, 51, 0.4)',
+    handFill: 'rgba(255, 201, 51, 0.28)',
+  },
+  v2: {
+    border: '#8B4220',
+    dotFill: 'rgba(139, 66, 32, 0.32)',
+    handFill: 'rgba(139, 66, 32, 0.22)',
+  },
+};
+
+function PointerHandGlyph({ strokeColor, fillColor }) {
   return (
     <svg
-      className={className}
       width={28}
       height={32}
       viewBox="0 0 24 24"
@@ -25,8 +33,8 @@ function PointerHandGlyph({ className }) {
     >
       <g transform={`translate(12, 12) scale(${HAND_SCALE_X}, 1) translate(-12, -12)`}>
         <g
-          fill="none"
-          stroke="var(--amber-brand)"
+          fill={fillColor}
+          stroke={strokeColor}
           strokeWidth={1.4}
           strokeLinecap="round"
           strokeLinejoin="round"
@@ -72,6 +80,8 @@ function isPointerTarget(node) {
 }
 
 export default function CustomCursor() {
+  const { theme } = useTheme();
+  const colors = theme === 'v2' ? CURSOR_COLORS.v2 : CURSOR_COLORS.v1;
   const [mode, setMode] = useState('dot');
   const x = useMotionValue(-100);
   const y = useMotionValue(-100);
@@ -97,7 +107,7 @@ export default function CustomCursor() {
   return (
     <MotionDiv
       aria-hidden
-      className="pointer-events-none fixed left-0 top-0 z-50"
+      className="pointer-events-none fixed left-0 top-0 z-[200]"
       style={{
         x: springX,
         y: springY,
@@ -112,8 +122,8 @@ export default function CustomCursor() {
           animate={{ opacity: 1, scale: 1 }}
           className="h-3 w-3 rounded-full border"
           style={{
-            borderColor: 'var(--amber-brand)',
-            backgroundColor: 'rgba(255, 201, 51, 0.4)',
+            borderColor: colors.border,
+            backgroundColor: colors.dotFill,
           }}
         />
       ) : (
@@ -124,7 +134,7 @@ export default function CustomCursor() {
           transition={{ type: 'spring', stiffness: 520, damping: 34 }}
           className="block"
         >
-          <PointerHandGlyph />
+          <PointerHandGlyph strokeColor={colors.border} fillColor={colors.handFill} />
         </MotionDiv>
       )}
     </MotionDiv>

@@ -47,7 +47,10 @@ export default function DyslexiaToggle({ dyslexia, setDyslexia }) {
           </motion.span>
         )}
       </AnimatePresence>
-      <span className="flex h-11 w-11 shrink-0 items-center justify-center text-[15px] font-bold">
+      <span
+        className={`flex h-11 w-11 shrink-0 items-center justify-center text-[15px] font-bold${dyslexia ? ' dyslexia-toggle-preview' : ''}`}
+        style={dyslexia ? {} : { fontFamily: "'OpenDyslexic', sans-serif" }}
+      >
         D
       </span>
     </motion.button>

@@ -652,3 +652,10 @@ html.dyslexia p,
 html.dyslexia li {
   line-height: 1.9 !important;
 }
+
+/* When dyslexia is ON, the toggle D shows Satoshi — preview of switching back */
+html.dyslexia .dyslexia-toggle-preview {
+  font-family: 'Satoshi', sans-serif !important;
+  letter-spacing: normal !important;
+  word-spacing: normal !important;
+}
