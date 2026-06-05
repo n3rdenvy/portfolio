@@ -24,7 +24,7 @@ function useBobEmissiveMap() {
     ctx.fillStyle = '#ffffff';
     ctx.textAlign = 'center';
     ctx.textBaseline = 'middle';
-    ctx.font = '900 296px Satoshi, Arial, sans-serif';
+    ctx.font = '900 160px Satoshi, Arial, sans-serif';
 
     // 3 copies evenly spaced at U = 1/6, 1/2, 5/6 (120° apart around equator)
     // so at least one is always visible as the blob rotates
