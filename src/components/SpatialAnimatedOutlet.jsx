@@ -18,6 +18,7 @@ export default function SpatialAnimatedOutlet() {
     <Framer.AnimatePresence mode="wait">
       <Framer.motion.div
         key={pathname}
+        id="page-scroll-root"
         className={[
           'absolute inset-0 h-full w-full overflow-x-hidden scrollbar-none',
           viewportLocked ? 'overflow-y-hidden' : 'overflow-y-auto',

@@ -24,7 +24,7 @@ function useBobEmissiveMap() {
     ctx.fillStyle = '#ffffff';
     ctx.textAlign = 'center';
     ctx.textBaseline = 'middle';
-    ctx.font = '900 100px Satoshi, Arial, sans-serif';
+    ctx.font = '900 100px Satoshi, sans-serif';
 
     // 4 copies evenly spaced at U = 1/8, 3/8, 5/8, 7/8 (90° apart around equator)
     const y = h * 0.5;

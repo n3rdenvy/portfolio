@@ -45,6 +45,17 @@ export default function RootLayout() {
   }, []);
 
   useEffect(() => {
+    const onWheel = (e) => {
+      if (!glassRef.current) return;
+      if (e.composedPath().includes(glassRef.current)) return;
+      const scrollEl = document.getElementById('page-scroll-root');
+      if (scrollEl) scrollEl.scrollTop += e.deltaY;
+    };
+    window.addEventListener('wheel', onWheel, { passive: true });
+    return () => window.removeEventListener('wheel', onWheel);
+  }, []);
+
+  useEffect(() => {
     const root = document.documentElement;
     if (finePointer) {
       root.dataset.customCursor = 'on';
