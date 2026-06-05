@@ -5,7 +5,6 @@ import PageShell from '../components/PageShell';
 import ReturnToPortfolioButton from '../components/ReturnToPortfolioButton';
 import HubPageHeading, { HubPageHeadingRow } from '../components/HubPageHeading';
 import AiBadge from '../components/AiBadge';
-import { IgnusFlameCanvas } from '../components/IgnusFlameCanvas';
 
 // ─── Lightbox ────────────────────────────────────────────────────────────────
 
@@ -407,7 +406,14 @@ function IgnusCard() {
         <div className="flex shrink-0 flex-col gap-4 lg:w-[340px]">
 
           <div className="relative overflow-hidden rounded-2xl border border-white/10 shadow-[0_12px_40px_rgba(0,0,0,0.8)] bg-black" style={{ aspectRatio: '1/1' }}>
-            <IgnusFlameCanvas />
+            <video
+              autoPlay loop muted playsInline
+              className="h-full w-full object-cover"
+              aria-hidden
+            >
+              <source src="/devtools/ignus/flame_anim.webm" type="video/webm" />
+              <source src="/devtools/ignus/flame_anim.mp4" type="video/mp4" />
+            </video>
           </div>
 
           <div>
