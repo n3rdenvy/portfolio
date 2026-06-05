@@ -209,12 +209,10 @@ const NT_MOTIONS = [
   },
 ];
 
-function MotionTile({ gif, label, desc, service, pct, used, total, burn, days, bar_hex, pulse_anim, charge_anim }) {
+function MotionTile({ gif, label, desc, service, pct, used, total, burn, days, bar_hex }) {
   const [hovered, setHovered] = useState(false);
 
   const img_style = {};
-  if (pulse_anim) img_style.animation = 'nt-pulse-glow 2.5s ease-in-out infinite';
-  if (charge_anim) img_style.filter = 'hue-rotate(210deg)';
 
   return (
     <div
@@ -229,15 +227,6 @@ function MotionTile({ gif, label, desc, service, pct, used, total, burn, days, b
       {/* Animation */}
       <div className="relative aspect-square overflow-hidden rounded-xl border border-white/10 bg-white/[0.04] shadow-[0_6px_20px_rgba(0,0,0,0.4)]">
         <img src={gif} alt={`${label} motion style`} draggable={false} className="h-full w-full object-cover object-top" style={img_style} />
-        {charge_anim && (
-          <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
-            <div style={{
-              width: '48%', height: '48%', borderRadius: '50%',
-              border: '2px solid rgba(129,140,248,0.7)',
-              animation: 'nt-charge-ring 2.2s ease-out infinite',
-            }} />
-          </div>
-        )}
       </div>
 
       {/* NT app hover simulation — always-reserved space, dashed border signals interactivity */}
