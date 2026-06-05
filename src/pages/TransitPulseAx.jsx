@@ -4,9 +4,9 @@ import AiBadge from '../components/AiBadge';
 import PageShell from '../components/PageShell';
 import { TRANSIT_PULSE_PROTOTYPE_URL } from '../data/transitPulseAx';
 
-function SectionLabel({ children }) {
+function SectionLabel({ children, as: Tag = 'p' }) {
   return (
-    <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-white/40">{children}</p>
+    <Tag className="text-[10px] font-semibold uppercase tracking-[0.2em] text-white/40">{children}</Tag>
   );
 }
 
@@ -153,7 +153,7 @@ export default function TransitPulseAx() {
           <div className="min-w-0 pl-6 sm:pl-7 md:pl-10 lg:pl-12">
             <HubPageHeading
               title="Transit Pulse AX"
-              subtitle="Real-time community transit app for Philadelphia. Built from user research up."
+              subtitle="Real-time community transit app. Built from 5 user interviews and 19 screener responses."
             />
             <div className="mt-3 pl-1">
               <AiBadge models={['claude', 'cursor']} />
@@ -172,7 +172,7 @@ export default function TransitPulseAx() {
 
           {/* Prototype */}
           <div className="glass-hub-sheet glass-hub-sheet--no-backdrop p-6 md:p-8">
-            <SectionLabel>Live prototype</SectionLabel>
+            <SectionLabel as="h2">Live prototype</SectionLabel>
             {hasPrototype ? (
               <div className="mt-4 flex justify-center">
                 <div
@@ -200,7 +200,7 @@ export default function TransitPulseAx() {
           <div className="glass-hub-sheet p-6 md:p-8">
             <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
               <div className="space-y-3">
-                <SectionLabel>The Problem</SectionLabel>
+                <SectionLabel as="h2">The Problem</SectionLabel>
                 <p className="text-sm leading-relaxed text-white/70">
                   Official transit apps provide GPS coordinates and scheduled arrival times. What they do not provide is ground truth: whether the bus is actually moving, whether the stop is safe at this hour, whether there is room to board, or whether the arrival time reflects reality at all.
                 </p>
@@ -209,7 +209,7 @@ export default function TransitPulseAx() {
                 </p>
               </div>
               <div className="space-y-3">
-                <SectionLabel>The Solution</SectionLabel>
+                <SectionLabel as="h2">The Solution</SectionLabel>
                 <p className="text-sm leading-relaxed text-white/70">
                   Transit Pulse layers community-verified reality on top of official data. Riders submit live conditions like vehicle location, occupancy, safety vibe, and cleanliness, and that signal travels instantly to everyone waiting down the line.
                 </p>
@@ -222,7 +222,7 @@ export default function TransitPulseAx() {
 
           {/* Research */}
           <div className="glass-hub-sheet p-6 md:p-8">
-            <SectionLabel>Research</SectionLabel>
+            <SectionLabel as="h2">Research</SectionLabel>
             <p className="mt-1 mb-5 text-sm text-white/50">Self-directed. January – February 2026.</p>
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
               {[
@@ -239,58 +239,9 @@ export default function TransitPulseAx() {
             </div>
           </div>
 
-          {/* Personas */}
-          <div className="glass-hub-sheet p-6 md:p-8">
-            <SectionLabel>User Personas</SectionLabel>
-            <p className="mt-1 mb-5 text-sm text-white/50">Names changed for privacy. Each grounded in a real interview participant.</p>
-            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
-              {PERSONAS.map((p) => (
-                <PersonaCard key={p.name} {...p} />
-              ))}
-            </div>
-          </div>
-
-          {/* Pain clusters */}
-          <div className="glass-hub-sheet p-6 md:p-8">
-            <SectionLabel>Thematic Analysis: 5 Pain Clusters</SectionLabel>
-            <p className="mt-1 mb-5 text-sm text-white/50">Synthesized from affinity mapping across all 5 interviews. Each cluster maps to one or more design decisions.</p>
-            <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
-              {PAIN_CLUSTERS.map((c) => (
-                <PainCluster key={c.title} {...c} />
-              ))}
-            </div>
-          </div>
-
-          {/* Design Decisions */}
-          <div className="glass-hub-sheet p-6 md:p-8">
-            <SectionLabel>Design Decisions</SectionLabel>
-            <div className="mt-4">
-              <DecisionRow
-                decision="Pivot 1: The schedule is a suggestion"
-                why="Early iterations assumed SEPTA data was mostly accurate. Research proved otherwise. Ghost buses, abrupt detours, and hardware latency are systemic. The UI now actively surfaces discrepancies rather than presenting official data at face value."
-              />
-              <DecisionRow
-                decision="Pivot 2: Safety is a primary metric, not a secondary filter"
-                why="Three of five interview participants named physical security as their top transit concern before timing or convenience. Stop safety ratings and safe-corridor mapping moved from optional features to top-level navigation."
-              />
-              <DecisionRow
-                decision="Pivot 3: Brutalist efficiency over clean corporate design"
-                why="If a gradient reduces legibility in direct sunlight, it is removed. The design language draws from Philly Handstyle graffiti and the kinetic visual vocabulary of Vogue and Waacking: highly visible, highly intentional, built for motion."
-              />
-              <DecisionRow
-                decision="The Two-Tap Mandate"
-                why="Any critical action, reporting a safety hazard, checking an alternate route, confirming vehicle location, must complete in a maximum of two taps. This is the governing rule of the UX. Users are moving, cold, stressed, or in low-signal environments. The interface has to earn every second."
-              />
-              <DecisionRow
-                decision="Signal Independence"
-                why="The app architecture assumes a poor connection by default. Critical UI components load without heavy assets. Data caches intelligently. An app that fails in an underground station is an app that fails its users at exactly the moment they need it most."
-              />
-            </div>
-          </div>
-
           {/* Competitive positioning */}
           <div className="glass-hub-sheet p-6 md:p-8">
-            <SectionLabel>Competitive Positioning</SectionLabel>
+            <SectionLabel as="h2">Competitive Positioning</SectionLabel>
             <div className="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-3">
               {[
                 {
@@ -319,6 +270,55 @@ export default function TransitPulseAx() {
             <div className="mt-4 rounded-xl border border-amber-400/20 bg-amber-400/[0.03] p-4">
               <p className="text-xs font-semibold text-amber-200/80 uppercase tracking-widest">Transit Pulse</p>
               <p className="mt-1 text-sm text-white/70">The utility of Transit App with the awareness of Citizen, but helpful rather than alarmist. Community-verified reality layered on top of official schedules, with a UI built for people who are already moving.</p>
+            </div>
+          </div>
+
+          {/* Personas */}
+          <div className="glass-hub-sheet p-6 md:p-8">
+            <SectionLabel as="h2">User Personas</SectionLabel>
+            <p className="mt-1 mb-5 text-sm text-white/50">Names changed for privacy. Each grounded in a real interview participant.</p>
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+              {PERSONAS.map((p) => (
+                <PersonaCard key={p.name} {...p} />
+              ))}
+            </div>
+          </div>
+
+          {/* Pain clusters */}
+          <div className="glass-hub-sheet p-6 md:p-8">
+            <SectionLabel as="h2">Thematic Analysis: 5 Pain Clusters</SectionLabel>
+            <p className="mt-1 mb-5 text-sm text-white/50">Synthesized from affinity mapping across all 5 interviews. Each cluster maps to one or more design decisions.</p>
+            <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
+              {PAIN_CLUSTERS.map((c) => (
+                <PainCluster key={c.title} {...c} />
+              ))}
+            </div>
+          </div>
+
+          {/* Design Decisions */}
+          <div className="glass-hub-sheet p-6 md:p-8">
+            <SectionLabel as="h2">Design Decisions</SectionLabel>
+            <div className="mt-4">
+              <DecisionRow
+                decision="Pivot 1: The schedule is a suggestion"
+                why="Early iterations assumed SEPTA data was mostly accurate. Research proved otherwise. Ghost buses, abrupt detours, and hardware latency are systemic. The UI now actively surfaces discrepancies rather than presenting official data at face value."
+              />
+              <DecisionRow
+                decision="Pivot 2: Safety is a primary metric, not a secondary filter"
+                why="Three of five interview participants named physical security as their top transit concern before timing or convenience. Stop safety ratings and safe-corridor mapping moved from optional features to top-level navigation."
+              />
+              <DecisionRow
+                decision="Pivot 3: Brutalist efficiency over clean corporate design"
+                why="If a gradient reduces legibility in direct sunlight, it is removed. The design language draws from Philly Handstyle graffiti and the kinetic visual vocabulary of Vogue and Waacking: highly visible, highly intentional, built for motion."
+              />
+              <DecisionRow
+                decision="The Two-Tap Mandate"
+                why="Any critical action, reporting a safety hazard, checking an alternate route, confirming vehicle location, must complete in a maximum of two taps. This is the governing rule of the UX. Users are moving, cold, stressed, or in low-signal environments. The interface has to earn every second."
+              />
+              <DecisionRow
+                decision="Signal Independence"
+                why="The app architecture assumes a poor connection by default. Critical UI components load without heavy assets. Data caches intelligently. An app that fails in an underground station is an app that fails its users at exactly the moment they need it most."
+              />
             </div>
           </div>
 

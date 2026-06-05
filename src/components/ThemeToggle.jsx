@@ -44,7 +44,7 @@ export default function ThemeToggle() {
   return (
     <motion.button
       onClick={() => setTheme(isV2 ? 'v1' : 'v2')}
-      aria-label={`Switch to ${isV2 ? 'V1 dark mode' : 'V2 warm mode'}`}
+      aria-label={`Switch to ${isV2 ? 'dark mode' : 'warm mode'}`}
       className={[
         'fixed bottom-6 right-6 z-[80] flex h-11 w-11 items-center justify-center rounded-full',
         'backdrop-blur-md transition-[border-color,background-color,color] duration-300',

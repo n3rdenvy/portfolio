@@ -118,18 +118,17 @@ export default function LandingHub() {
                   <strong className="font-black">interior design leader</strong>{' '}
                   at IKEA, thinking about how people move through spaces, what
                   they actually need from a room, and which products earn their
-                  place in it. Late 2025 I started taking{' '}
-                  <strong className="font-black">UX seriously</strong>, and got
-                  into it the way I tend to get into things: by building.
+                  place in it. Late 2025 I committed to{' '}
+                  <strong className="font-black">UX</strong>, and got into it
+                  the way I tend to get into things: by building.
                 </p>
                 <p className="indent-4 md:indent-6">
                   Since then I have shipped a real-time transit app backed by
                   actual user research, built a{' '}
                   <strong className="font-black">fully local AI stack</strong>,
-                  and made a few tools that improve my daily workflow. When I am
-                  not working through a design problem, I am usually
-                  participating in a D&amp;D campaign, skating ten miles, or
-                  destressing with my cats.
+                  and made a few tools that improve my daily workflow. When I'm
+                  not designing, I'm usually on skates or losing a D&amp;D
+                  campaign.
                 </p>
               </div>
 

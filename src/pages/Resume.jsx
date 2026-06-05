@@ -453,6 +453,20 @@ export default function Resume() {
             </section>
           )}
 
+          <section className="mb-10" aria-labelledby="resume-skills">
+            <h2 id="resume-skills" className="text-xs font-semibold tracking-tight text-white">
+              Skills
+            </h2>
+            <ul className="mt-4 flex flex-col gap-5">
+              {skills.map((s) => (
+                <li key={s.category}>
+                  <p className="font-semibold text-white">{s.category}</p>
+                  <p className="mt-1 text-sm leading-relaxed text-white">{s.items}</p>
+                </li>
+              ))}
+            </ul>
+          </section>
+
           <section className="mb-10" aria-labelledby="resume-education">
             <h2 id="resume-education" className="text-xs font-semibold tracking-tight text-white">
               Education
@@ -471,20 +485,6 @@ export default function Resume() {
                 </p>
               </div>
             ))}
-          </section>
-
-          <section className="mb-10" aria-labelledby="resume-skills">
-            <h2 id="resume-skills" className="text-xs font-semibold tracking-tight text-white">
-              Skills
-            </h2>
-            <ul className="mt-4 flex flex-col gap-5">
-              {skills.map((s) => (
-                <li key={s.category}>
-                  <p className="font-semibold text-white">{s.category}</p>
-                  <p className="mt-1 text-sm leading-relaxed text-white">{s.items}</p>
-                </li>
-              ))}
-            </ul>
           </section>
 
           <section className="mb-6" aria-labelledby="resume-experience">

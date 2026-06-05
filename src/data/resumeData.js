@@ -6,7 +6,7 @@ export const resumeData = {
     linkedin: 'www.linkedin.com/in/n3rdenvy',
     portfolio: 'erik-portfolio-eta.vercel.app',
   },
-  summary: "I've spent the last five years as an interior design leader at IKEA, thinking about how people move through spaces, what they're actually trying to do, and which products earn their place in a room. Late 2025 I started taking UX seriously as a career direction and got into it the way I tend to get into things: by building. Since then I've shipped a real-time transit app backed by actual user research, built a fully local AI stack, and made a few tools that improve my daily workflow.",
+  summary: "Five years directing interior design strategy for IKEA US. National campaigns, CAD production, cross-functional teams. Late 2025 I pivoted to UX and built my way in. Since then I've shipped a real-time transit app backed by actual user research, built a fully local AI stack, and made a few tools that improve my daily workflow.",
   education: [
     {
       degree: 'B.S of Interior Design',
@@ -58,7 +58,7 @@ export const resumeData = {
       dates: '02/2021 - 02/2022',
       location: 'Conshohocken, PA',
       bullets: [
-        'Executed room settings and vignettes across the full IKEA range, focused on visual storytelling, spatial tempo, and distinct impressions across styles and price points.',
+        'Executed room settings and vignettes across the full IKEA range for the Conshohocken store. Maintained visual storytelling, spatial tempo, and style differentiation across price points.',
       ],
     },
     {

@@ -4,7 +4,7 @@ import { motion, useMotionValue, useSpring, useReducedMotion } from 'framer-moti
 import { markHubLeavingToPortfolio } from '../utils/pageTransitions';
 import AiBadge from './AiBadge';
 
-export default function PortfolioHubCard({ to, title, description, icon: Icon, badge, aiTools }) {
+export default function PortfolioHubCard({ to, title, description, icon: Icon, badge, aiTools, tech }) {
   const wrapRef = useRef(null);
   const reduceMotion = useReducedMotion();
   const scale = useMotionValue(1);
@@ -51,11 +51,23 @@ export default function PortfolioHubCard({ to, title, description, icon: Icon, b
           </div>
         </div>
         <div className="min-h-0">
-          <h3 className="text-base font-semibold leading-snug tracking-tight text-white md:text-lg">
+          <h2 className="text-base font-semibold leading-snug tracking-tight text-white md:text-lg">
             {title}
-          </h3>
+          </h2>
           {description ? (
             <p className="mt-2 text-sm leading-relaxed text-white text-pretty">{description}</p>
+          ) : null}
+          {tech?.length ? (
+            <ul className="mt-3 flex flex-wrap gap-1.5" aria-label="Tech stack">
+              {tech.map((t) => (
+                <li
+                  key={t}
+                  className="rounded-full border border-white/15 px-2 py-0.5 text-[10px] font-medium tracking-tight text-white/60"
+                >
+                  {t}
+                </li>
+              ))}
+            </ul>
           ) : null}
         </div>
       </Link>

@@ -100,8 +100,8 @@ function Tag({ children }) {
   );
 }
 
-function SectionLabel({ children }) {
-  return <p className="mb-2 text-[10px] font-semibold uppercase tracking-[0.18em] text-white/40">{children}</p>;
+function SectionLabel({ children, as: Tag = 'h3' }) {
+  return <Tag className="mb-2 text-[10px] font-semibold uppercase tracking-[0.18em] text-white/40">{children}</Tag>;
 }
 
 function GitHubLink({ href }) {
@@ -264,10 +264,10 @@ function NitrousTokenCard() {
         <div className="flex items-center gap-3">
           <img src="/devtools/nitroustoken_logo.png" alt="NitrousToken logo" className="h-14 w-auto shrink-0 object-contain drop-shadow-lg cursor-zoom-in" />
           <div>
-            <p className="mb-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-white/40">NitrousToken</p>
-            <h3 className="text-xl font-bold leading-snug tracking-tight text-white md:text-2xl">
+            <h2 className="mb-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-white/40">NitrousToken</h2>
+            <p className="text-xl font-bold leading-snug tracking-tight text-white md:text-2xl">
               Real-time token quota gauges for every AI tool you run.
-            </h3>
+            </p>
           </div>
         </div>
       </div>
@@ -393,10 +393,10 @@ function IgnusCard() {
         <div className="flex items-center gap-3">
           <img src="/devtools/ignus/ignus_dark.png" alt="Ignus logo" className="h-10 w-10 shrink-0 rounded-xl object-cover" />
           <div>
-            <p className="mb-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-white/40">Ignus</p>
-            <h3 className="text-xl font-bold leading-snug tracking-tight text-white md:text-2xl">
+            <h2 className="mb-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-white/40">Ignus</h2>
+            <p className="text-xl font-bold leading-snug tracking-tight text-white md:text-2xl">
               One-click launcher for local AI image generation.
-            </h3>
+            </p>
           </div>
         </div>
       </div>
@@ -532,12 +532,12 @@ function KallistiCard() {
           <img src="/devtools/kallisti_logo.png" alt="Kallisti logo" className="h-10 w-10 shrink-0 rounded-xl object-cover cursor-zoom-in" />
           <div>
             <div className="mb-1 flex items-center gap-2">
-              <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-white/40">Kallisti</p>
+              <h2 className="text-[10px] font-semibold uppercase tracking-[0.18em] text-white/40">Kallisti</h2>
               <StatusBadge status="In development" />
             </div>
-            <h3 className="text-xl font-bold leading-snug tracking-tight text-white md:text-2xl">
+            <p className="text-xl font-bold leading-snug tracking-tight text-white md:text-2xl">
               An AI-powered job pipeline that scores fit, tracks every opportunity, and briefs you on demand.
-            </h3>
+            </p>
           </div>
         </div>
       </div>

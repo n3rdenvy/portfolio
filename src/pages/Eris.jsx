@@ -11,9 +11,9 @@ function Tag({ children }) {
   );
 }
 
-function SectionLabel({ children }) {
+function SectionLabel({ children, as: Tag = 'p' }) {
   return (
-    <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-white/40">{children}</p>
+    <Tag className="text-[10px] font-semibold uppercase tracking-[0.2em] text-white/40">{children}</Tag>
   );
 }
 
@@ -80,7 +80,7 @@ export default function Eris() {
           <div className="glass-hub-sheet p-6 md:p-8">
             <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
               <div className="space-y-3">
-                <SectionLabel>The Problem</SectionLabel>
+                <SectionLabel as="h2">The Problem</SectionLabel>
                 <p className="text-sm leading-relaxed text-white/70">
                   Running an AI-heavy workflow across 5–10 services means constant context-switching, expensive API tokens for routine tasks, and an AI that forgets everything the moment you close the tab. Every session starts from zero.
                 </p>
@@ -89,7 +89,7 @@ export default function Eris() {
                 </p>
               </div>
               <div className="space-y-3">
-                <SectionLabel>The Constraint That Shaped Everything</SectionLabel>
+                <SectionLabel as="h2">The Constraint That Shaped Everything</SectionLabel>
                 <p className="text-sm leading-relaxed text-white/70">
                   Zero external tokens for daily operations. Claude Code is reserved exclusively for building and coding. Eris handles everything else: research, briefings, memory, autonomous tasks, and creative work without touching a metered API.
                 </p>
@@ -102,7 +102,7 @@ export default function Eris() {
 
           {/* Architecture */}
           <div className="glass-hub-sheet p-6 md:p-8">
-            <SectionLabel>Architecture</SectionLabel>
+            <SectionLabel as="h2">Architecture</SectionLabel>
             <p className="mt-1 mb-5 text-sm text-white/50">Daedalus: Mac Mini M4 Pro (64GB unified memory)</p>
 
             <div className="flex flex-col gap-3">
@@ -152,7 +152,7 @@ export default function Eris() {
 
           {/* Capabilities */}
           <div className="glass-hub-sheet p-6 md:p-8">
-            <SectionLabel>Key Capabilities</SectionLabel>
+            <SectionLabel as="h2">Key Capabilities</SectionLabel>
             <div className="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
               <CapabilityCard
                 title="Morning Brief"
@@ -189,7 +189,7 @@ export default function Eris() {
 
           {/* Design decisions */}
           <div className="glass-hub-sheet p-6 md:p-8">
-            <SectionLabel>Design Decisions</SectionLabel>
+            <SectionLabel as="h2">Design Decisions</SectionLabel>
             <div className="mt-4">
               <DecisionRow
                 decision="Letta over a raw vector database"

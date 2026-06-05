@@ -27,18 +27,21 @@ const PORTFOLIO_HUB_CARDS = [
     title: 'IKEA Design Strategy',
     description: 'US market research, set design, range direction, and CAD production documents for national campaigns.',
     icon: Building2,
+    tech: ['Interior Design', 'CAD', 'Set Design', 'Range Strategy'],
   },
   {
     to: '/commercials',
     title: 'Set Design + Designer Tips',
     description: 'Spec work, commissioned motion, and set-forward visual systems.',
     icon: Clapperboard,
+    tech: ['Video Production', 'Set Design', 'Motion'],
   },
   {
     to: '/3d-visualization',
     title: '3D Visualization Portfolio',
     description: 'Spatial studies, materials, and real-time presentation frames.',
     icon: Box,
+    tech: ['3ds Max', 'CAD', 'Revit', 'Visualization'],
   },
   {
     to: '/transit-pulse-ax',
@@ -46,12 +49,14 @@ const PORTFOLIO_HUB_CARDS = [
     description:
       'Real-time community transit for Philadelphia. Riders verify conditions. The schedule is a suggestion.',
     icon: Activity,
+    tech: ['React', 'Next.js', 'WCAG 2.1', 'User Research'],
   },
   {
     to: '/eris',
     title: 'Eris AI Infrastructure',
     description: 'Fully local always-on AI system. Custom stack: Letta memory, Ollama, ambient awareness, 17 autonomous agents.',
     icon: Cpu,
+    tech: ['Python', 'Letta', 'Ollama', 'LaunchAgents'],
   },
   {
     to: '/dev-tools',
@@ -59,12 +64,14 @@ const PORTFOLIO_HUB_CARDS = [
     description:
       'Electron menu bar apps built for the AI-heavy workflow. NitrousToken and Ignus.',
     icon: Wrench,
+    tech: ['Electron', 'React', 'macOS', 'API'],
   },
   {
     to: '/inhabit',
     title: 'Inhabit AR Furniture',
     description: 'Android AR app for placing IKEA furniture in your actual space. TripoSR to GLB to ARCore pipeline.',
     icon: Smartphone,
+    tech: ['Android', 'ARCore', 'Unity', 'TripoSR'],
   },
 ];
 
@@ -80,7 +87,7 @@ export default function PortfolioHubPanel() {
           <div className="min-w-0 pl-6 sm:pl-7 md:pl-10 lg:pl-12">
             <HubPageHeading
               title="Portfolio hub"
-              subtitle="Pick a stream to open its detail page."
+              subtitle="Pick a project."
             />
           </div>
         </HubPageHeadingRow>
@@ -106,6 +113,7 @@ export default function PortfolioHubPanel() {
                   icon={card.icon}
                   badge={card.badge}
                   aiTools={card.aiTools}
+                  tech={card.tech}
                 />
               </motion.li>
             ))}

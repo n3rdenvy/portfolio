@@ -317,6 +317,7 @@ function AccordionRow({ id, title, subtitle, isOpen, onToggle, children, panelId
           id={`${panelId}-trigger`}
           aria-expanded={isOpen}
           aria-controls={panelId}
+          aria-label={subtitle ? `${title}: ${subtitle}` : title}
           onClick={() => onToggle(id)}
           className="btn-theme btn-theme-disclosure flex items-start gap-3 py-4 text-base font-medium text-white"
         >
@@ -508,6 +509,7 @@ export default function Contact() {
                                   value={formData[section.field]}
                                   onChange={(e) => updateField(section.field, e.target.value)}
                                   placeholder={section.placeholder}
+                                  aria-label={section.title}
                                   className="w-full resize-y rounded-xl border border-white/10 bg-slateBg/90 px-3 py-2 text-sm text-white placeholder:text-white/60 focus:border-white/35 focus:outline-none focus:ring-1 focus:ring-white/25"
                                 />
                               ) : (
@@ -517,6 +519,7 @@ export default function Contact() {
                                   value={formData[section.field]}
                                   onChange={(e) => updateField(section.field, e.target.value)}
                                   placeholder={section.placeholder}
+                                  aria-label={section.title}
                                   className="w-full rounded-xl border border-white/10 bg-slateBg/90 px-3 py-2 text-sm text-white placeholder:text-white/60 focus:border-white/35 focus:outline-none focus:ring-1 focus:ring-white/25"
                                 />
                               )}

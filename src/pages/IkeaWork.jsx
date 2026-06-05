@@ -2,9 +2,9 @@ import PageShell from '../components/PageShell';
 import ReturnToPortfolioButton from '../components/ReturnToPortfolioButton';
 import HubPageHeading, { HubPageHeadingRow } from '../components/HubPageHeading';
 
-function SectionLabel({ children }) {
+function SectionLabel({ children, as: Tag = 'p' }) {
   return (
-    <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-white/40">{children}</p>
+    <Tag className="text-[10px] font-semibold uppercase tracking-[0.2em] text-white/40">{children}</Tag>
   );
 }
 
@@ -46,6 +46,26 @@ export default function IkeaWork() {
           </div>
         </HubPageHeadingRow>
 
+        {/* On this page */}
+        <nav aria-label="On this page" className="mt-6 glass-hub-sheet px-6 py-4 md:px-8 md:mt-8">
+          <p className="mb-3 text-[10px] font-semibold uppercase tracking-[0.2em] text-white/40">On this page</p>
+          <ul className="flex flex-wrap gap-x-5 gap-y-2">
+            {[
+              { href: '#a-giving-bag', label: 'A Giving Bag' },
+              { href: '#ready-for-college', label: 'Ready for College' },
+              { href: '#room-settings', label: 'Room Settings' },
+              { href: '#brief-built', label: 'Brief → Built' },
+              { href: '#aurdal-malm', label: 'AURDAL + MALM' },
+            ].map(({ href, label }) => (
+              <li key={href}>
+                <a href={href} className="text-sm text-white/55 underline-offset-2 transition-colors hover:text-white hover:underline">
+                  {label}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </nav>
+
         <div className="mt-8 flex flex-col gap-10 md:mt-10">
 
           {/* Role strip */}
@@ -72,7 +92,7 @@ export default function IkeaWork() {
               <div className="flex flex-wrap items-start justify-between gap-4">
                 <div>
                   <SectionLabel>Campaign: January 2023</SectionLabel>
-                  <h2 className="mt-2 text-2xl font-bold tracking-tight text-white md:text-3xl">
+                  <h2 id="a-giving-bag" className="mt-2 scroll-mt-16 text-2xl font-bold tracking-tight text-white md:text-3xl">
                     A Giving Bag
                   </h2>
                   <p className="mt-1 text-base text-white/60 italic">For every kind of everyday</p>
@@ -96,13 +116,13 @@ export default function IkeaWork() {
               {/* Problem + Role */}
               <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
                 <div className="space-y-2">
-                  <SectionLabel>The Brief</SectionLabel>
+                  <SectionLabel as="h3">The Brief</SectionLabel>
                   <p className="text-sm leading-relaxed text-white/70">
                     IKEA needed to produce campaign content for the US market that felt authentic to how Americans actually live, not translated from Swedish or European home contexts. The rooms needed to read as genuinely local, not aspirationally foreign.
                   </p>
                 </div>
                 <div className="space-y-2">
-                  <SectionLabel>My Role</SectionLabel>
+                  <SectionLabel as="h3">My Role</SectionLabel>
                   <p className="text-sm leading-relaxed text-white/70">
                     Responsible for US market architectural research, range style direction, and the complete set of production deliverables handed to Ogilvy and the production company: from visual identity through to dimensioned CAD wall drawings for set construction.
                   </p>
@@ -111,7 +131,7 @@ export default function IkeaWork() {
 
               {/* Research */}
               <div className="space-y-3">
-                <SectionLabel>Research: US Architectural Context</SectionLabel>
+                <SectionLabel as="h3">Research: US Architectural Context</SectionLabel>
                 <p className="text-sm leading-relaxed text-white/70">
                   Range selection and set direction started with IKEA's countrywide consumer research, identifying which US architectural features would feel genuinely familiar to our customers rather than aspirationally foreign, while still leaving room for that "this could be my dream home" reaction. That baseline shaped every spatial decision that followed.
                 </p>
@@ -139,7 +159,7 @@ export default function IkeaWork() {
 
               {/* Range Style Guide */}
               <div className="space-y-2">
-                <SectionLabel>Range Style Guide: Delivered to Ogilvy + Production</SectionLabel>
+                <SectionLabel as="h3">Range Style Guide: Delivered to Ogilvy + Production</SectionLabel>
                 <p className="text-sm leading-relaxed text-white/70">
                   Produced the complete range style guide covering plants and finishes (glass, ceramics, natural fibres), home textiles (cotton, linen, hemp, jute, textural and crafted), and home décor and organization. This document became the on-set reference for the entire production team.
                 </p>
@@ -147,7 +167,7 @@ export default function IkeaWork() {
 
               {/* CAD Drawings */}
               <div className="space-y-3">
-                <SectionLabel>Construction Documents: Dimensioned Set Drawings</SectionLabel>
+                <SectionLabel as="h3">Construction Documents: Dimensioned Set Drawings</SectionLabel>
                 <p className="text-sm leading-relaxed text-white/70">
                   Produced full architectural drawings for set construction: wall elevations HB, HD, LA, and DA with precise dimensions, fireplace specs, window placement, stair configuration, and drapery hemming callouts. These went directly to the build team.
                 </p>
@@ -180,7 +200,7 @@ export default function IkeaWork() {
               <div className="flex flex-wrap items-start justify-between gap-4">
                 <div>
                   <SectionLabel>Campaign: FY26 Launch 1</SectionLabel>
-                  <h2 className="mt-2 text-2xl font-bold tracking-tight text-white md:text-3xl">
+                  <h2 id="ready-for-college" className="mt-2 scroll-mt-16 text-2xl font-bold tracking-tight text-white md:text-3xl">
                     Ready for College
                   </h2>
                   <p className="mt-1 text-base text-white/60 italic">IKEA US Content Studio · Conshohocken, PA</p>
@@ -197,13 +217,13 @@ export default function IkeaWork() {
               {/* Overview */}
               <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
                 <div className="space-y-2">
-                  <SectionLabel>The Brief</SectionLabel>
+                  <SectionLabel as="h3">The Brief</SectionLabel>
                   <p className="text-sm leading-relaxed text-white/70">
                     Design a US-authentic college dorm set for Gen-Z students in a shared living situation. A typical US college dorm is 100–200 sq ft, shared with a roommate. Everything in the set had to solve for that constraint without feeling aspirational or unrealistic.
                   </p>
                 </div>
                 <div className="space-y-2">
-                  <SectionLabel>Framework</SectionLabel>
+                  <SectionLabel as="h3">Framework</SectionLabel>
                   <p className="text-sm leading-relaxed text-white/70">
                     Built an Activities → Needs → Solutions framework across five student behaviors: Store & Organize, Socializing, Sleep, Studying/Gaming, Getting Ready. Every product on set traces back to a documented need, not a style preference.
                   </p>
@@ -212,7 +232,7 @@ export default function IkeaWork() {
 
               {/* Activities needs solutions highlight */}
               <div className="rounded-xl border border-white/10 bg-white/[0.03] p-5">
-                <SectionLabel>Activities → Needs → Solutions (sample)</SectionLabel>
+                <SectionLabel as="h3">Activities → Needs → Solutions (sample)</SectionLabel>
                 <div className="mt-3 grid grid-cols-1 gap-3 text-sm md:grid-cols-3">
                   {[
                     {
@@ -256,7 +276,7 @@ export default function IkeaWork() {
 
               {/* Product selection */}
               <div className="space-y-3">
-                <SectionLabel>Product Selection: 15 Items Specified</SectionLabel>
+                <SectionLabel as="h3">Product Selection: 15 Items Specified</SectionLabel>
                 <CaseStudyImage
                   src="/ikea/rfc_products.png"
                   alt="Product selection grid for the Ready for College campaign"
@@ -274,7 +294,7 @@ export default function IkeaWork() {
 
               <div>
                 <SectionLabel>Room Settings: FY25 US Market</SectionLabel>
-                <h2 className="mt-2 text-2xl font-bold tracking-tight text-white md:text-3xl">
+                <h2 id="room-settings" className="mt-2 scroll-mt-16 text-2xl font-bold tracking-tight text-white md:text-3xl">
                   Room Settings: Body of Work
                 </h2>
                 <p className="mt-2 text-sm leading-relaxed text-white/60">
@@ -309,7 +329,7 @@ export default function IkeaWork() {
 
               <div>
                 <SectionLabel>Brief → Floor Plan → Built</SectionLabel>
-                <h2 className="mt-2 text-2xl font-bold tracking-tight text-white md:text-3xl">
+                <h2 id="brief-built" className="mt-2 scroll-mt-16 text-2xl font-bold tracking-tight text-white md:text-3xl">
                   Brief → Built
                 </h2>
                 <p className="mt-2 text-sm leading-relaxed text-white/60">
@@ -346,7 +366,7 @@ export default function IkeaWork() {
 
               <div>
                 <SectionLabel>FY27: US Retail Solutions</SectionLabel>
-                <h2 className="mt-2 text-2xl font-bold tracking-tight text-white md:text-3xl">
+                <h2 id="aurdal-malm" className="mt-2 scroll-mt-16 text-2xl font-bold tracking-tight text-white md:text-3xl">
                   AURDAL + MALM: US Retail Adaptation
                 </h2>
                 <p className="mt-2 text-sm leading-relaxed text-white/60">

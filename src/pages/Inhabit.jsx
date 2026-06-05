@@ -3,9 +3,9 @@ import ReturnToPortfolioButton from '../components/ReturnToPortfolioButton';
 import HubPageHeading, { HubPageHeadingRow } from '../components/HubPageHeading';
 import AiBadge from '../components/AiBadge';
 
-function SectionLabel({ children }) {
+function SectionLabel({ children, as: Tag = 'h2' }) {
   return (
-    <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-white/40">{children}</p>
+    <Tag className="text-[10px] font-semibold uppercase tracking-[0.2em] text-white/40">{children}</Tag>
   );
 }
 
