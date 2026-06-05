@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { useFrame, useThree } from '@react-three/fiber';
-import { Environment, Sphere, MeshDistortMaterial, Text } from '@react-three/drei';
+import { Environment, Sphere, MeshDistortMaterial } from '@react-three/drei';
 import * as THREE from 'three';
 
 /** Below Tailwind `lg` (1024px): no cursor-led motion on phones/tablets — use slow drift instead. */
@@ -119,20 +119,6 @@ export default function FluidBlob() {
             speed={0.72}
           />
         </Sphere>
-        <Text
-          position={[0, 0, 1.92]}
-          fontSize={0.62}
-          fontWeight={900}
-          letterSpacing={0.12}
-          color="#e8ecf5"
-          anchorX="center"
-          anchorY="middle"
-          fillOpacity={0.72}
-          renderOrder={1}
-          depthOffset={-1}
-        >
-          B.O.B
-        </Text>
       </group>
     </>
   );

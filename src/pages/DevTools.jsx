@@ -59,6 +59,39 @@ function Img({ src, alt, className = '' }) {
 
 // ─── Shared primitives ────────────────────────────────────────────────────────
 
+function VsRow({ name, note }) {
+  return (
+    <div className="flex items-baseline gap-2 py-1 border-b border-white/8 last:border-0">
+      <span className="shrink-0 text-[10px] font-semibold text-white/60 min-w-[80px]">{name}</span>
+      <span className="text-[9px] leading-snug text-white/35">{note}</span>
+    </div>
+  );
+}
+
+function GapCallout({ children }) {
+  return (
+    <div className="rounded-lg border border-emerald-500/20 bg-emerald-500/5 px-3 py-2.5">
+      <p className="mb-1 text-[10px] font-semibold text-emerald-400">No direct competitor</p>
+      <p className="text-[9px] leading-snug text-white/50">{children}</p>
+    </div>
+  );
+}
+
+function MarketSection({ audience, vs_label = 'vs. alternatives', children }) {
+  return (
+    <div className="grid gap-6 sm:grid-cols-2">
+      <div>
+        <SectionLabel>Who it's for</SectionLabel>
+        <p className="text-sm leading-relaxed text-white/70">{audience}</p>
+      </div>
+      <div>
+        <SectionLabel>{vs_label}</SectionLabel>
+        {children}
+      </div>
+    </div>
+  );
+}
+
 function Tag({ children }) {
   return (
     <span className="inline-flex items-center rounded-full border border-white/15 bg-white/5 px-2.5 py-0.5 text-[11px] font-medium tracking-wide text-white/60">
@@ -137,31 +170,82 @@ function CardFooter({ models = [], github_href = null, tags = [] }) {
 // ─── NitrousToken ─────────────────────────────────────────────────────────────
 
 const NT_MOTIONS = [
-  { gif: '/devtools/nt_motions/pulse_compact.gif',  label: 'Pulse',        desc: 'Arc glow breathes on a slow cycle' },
-  { gif: '/devtools/nt_motions/hum_compact.gif',    label: 'Engine Hum',   desc: 'Needle jitters like an analog gauge under load' },
-  { gif: '/devtools/nt_motions/sweep_compact.gif',  label: 'Radar Sweep',  desc: 'Ghost segments scan across the filled arc' },
-  { gif: '/devtools/nt_motions/drift_compact.gif',  label: 'Live Drift',   desc: 'Fill oscillates slowly around the true value' },
-  { gif: '/devtools/nt_motions/charge_compact.gif', label: 'Charge Cycle', desc: 'Ring expands from center and fades' },
+  {
+    gif:     '/devtools/nt_motions/pulse_compact.gif',
+    label:   'Pulse',
+    desc:    'Arc glow breathes on a slow cycle — ambient presence without demanding attention.',
+    service: 'Anthropic', pct: 74, used: '370k', total: '500k', burn: '14.2k', days: 11,
+    bar_hex: '#FBBF24',
+  },
+  {
+    gif:     '/devtools/nt_motions/hum_compact.gif',
+    label:   'Engine Hum',
+    desc:    'Needle jitters like an analog gauge under load — signals active compute.',
+    service: 'OpenAI', pct: 91, used: '455k', total: '500k', burn: '28.0k', days: 2,
+    bar_hex: '#F87171',
+  },
+  {
+    gif:     '/devtools/nt_motions/sweep_compact.gif',
+    label:   'Radar Sweep',
+    desc:    'Ghost segments scan across the filled arc — feels like live polling.',
+    service: 'Cursor', pct: 38, used: '190k', total: '500k', burn: '8.4k', days: 16,
+    bar_hex: '#34D399',
+  },
+  {
+    gif:     '/devtools/nt_motions/drift_compact.gif',
+    label:   'Live Drift',
+    desc:    'Fill oscillates slowly around the true value — natural imprecision at rest.',
+    service: 'Gemini', pct: 62, used: '3.1M', total: '5M', burn: '412k', days: 9,
+    bar_hex: '#FBBF24',
+  },
+  {
+    gif:     '/devtools/nt_motions/charge_compact.gif',
+    label:   'Charge Cycle',
+    desc:    'Ring expands from center and fades — reads like charging or refreshing.',
+    service: 'Mistral', pct: 29, used: '145k', total: '500k', burn: '6.2k', days: 24,
+    bar_hex: '#34D399',
+  },
 ];
 
-function MotionTile({ gif, label, desc }) {
+function MotionTile({ gif, label, desc, service, pct, used, total, burn, days, bar_hex }) {
   const [hovered, setHovered] = useState(false);
   return (
     <div
-      className="flex flex-col"
+      className="flex flex-col gap-1.5"
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
     >
+      {/* Static: always visible above the gif */}
+      <p className="text-[10px] font-semibold text-white/80">{label}</p>
+      <p className="text-[9px] leading-snug text-white/45">{desc}</p>
+
+      {/* Animation */}
       <div className="aspect-square overflow-hidden rounded-xl border border-white/10 bg-white/[0.04] shadow-[0_6px_20px_rgba(0,0,0,0.4)]">
         <img src={gif} alt={`${label} motion style`} draggable={false} className="h-full w-full object-cover" />
       </div>
-      <p className="mt-2 text-[10px] font-semibold text-white/80">{label}</p>
-      {/* Dashed placeholder reserves space and signals interactivity even before hover */}
-      <div className={`mt-1.5 min-h-[2.75rem] rounded-lg border border-dashed px-2 py-1.5 transition-colors duration-200 ${
-        hovered ? 'border-white/25 bg-white/[0.04]' : 'border-white/12'
-      }`}>
+
+      {/* NT app hover simulation — reserved space, always present as dashed hint */}
+      <div
+        className={`rounded-lg border border-dashed transition-colors duration-200 ${
+          hovered ? 'border-white/25' : 'border-white/12'
+        }`}
+        style={{ minHeight: '5rem', padding: '8px 10px', backgroundColor: hovered ? 'rgba(0,0,0,0.72)' : 'transparent' }}
+      >
         {hovered && (
-          <p className="text-[10px] leading-snug text-white/55">{desc}</p>
+          <div className="flex flex-col gap-1">
+            <div className="flex items-center justify-between">
+              <span className="text-[9px] font-semibold" style={{ color: 'rgba(255,255,255,0.80)' }}>{service}</span>
+              <span className="text-[9px] font-bold" style={{ color: bar_hex }}>{pct}%</span>
+            </div>
+            <div style={{ height: 4, borderRadius: 2, backgroundColor: 'rgba(255,255,255,0.10)', overflow: 'hidden' }}>
+              <div style={{ height: '100%', width: `${pct}%`, borderRadius: 2, backgroundColor: bar_hex }} />
+            </div>
+            <div className="flex items-center justify-between" style={{ marginTop: 1 }}>
+              <span style={{ fontSize: 8, color: 'rgba(255,255,255,0.38)' }}>{used} / {total} tokens</span>
+              <span style={{ fontSize: 8, color: 'rgba(255,255,255,0.38)' }}>{days}d left</span>
+            </div>
+            <p style={{ fontSize: 8, color: 'rgba(255,255,255,0.28)', marginTop: 1 }}>{burn} tkns/day</p>
+          </div>
         )}
       </div>
     </div>
@@ -231,12 +315,24 @@ function NitrousTokenCard() {
         </div>
       </div>
 
+      {/* Market position */}
+      <MarketSection
+        audience="Engineers and developers running five or more AI services daily who need quota visibility in the menu bar — not buried in a web dashboard or reset every time they switch browser tabs."
+      >
+        <div className="flex flex-col">
+          <VsRow name="OpenAI / Anthropic" note="Single-service dashboards, web only, historical data. No burn rate, no forecasting, no cross-service view." />
+          <VsRow name="Google Console" note="Gemini usage buried 4+ clicks deep. Requires sign-in each session. No ambient presence." />
+          <VsRow name="Cursor's counter" note="IDE-native token indicator, but Cursor-only and disappears when the IDE isn't focused." />
+          <VsRow name="NitrousToken" note="Only cross-service, menu-bar-native tracker. 10 services, burn rate, days remaining, zero-config auth for Cursor and Gemini." />
+        </div>
+      </MarketSection>
+
       {/* Always-on meter motion styles */}
       <div>
         <SectionLabel>Always-on gauge motion styles</SectionLabel>
         <p className="mb-4 text-xs leading-relaxed text-white/50">
           Each floating meter window gets a randomly assigned motion on open. Five meters open at once look like five different instruments.
-          Hover any tile to see what it does.
+          Hover any tile to preview the live data tooltip as it appears in the app.
         </p>
         <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-5">
           {NT_MOTIONS.map((m) => <MotionTile key={m.label} {...m} />)}
@@ -365,6 +461,16 @@ function IgnusCard() {
         </div>
       </div>
 
+      {/* Market position */}
+      <MarketSection
+        audience="Generative AI artists and researchers who run InvokeAI or ComfyUI locally and want to start generating without touching a terminal — especially during longer creative sessions where launch friction breaks flow."
+        vs_label="market gap"
+      >
+        <GapCallout>
+          InvokeAI Desktop and ComfyUI's native launcher each manage one service. Neither manages both, neither lives in the menu bar, and neither handles restarts automatically via launchd. The category of dedicated, dual-service lifecycle manager does not exist yet.
+        </GapCallout>
+      </MarketSection>
+
       <CardFooter
         models={['claude', 'cursor']}
         tags={['Electron', 'launchd', 'InvokeAI', 'ComfyUI', 'Local AI']}
@@ -443,6 +549,18 @@ function KallistiCard() {
           </div>
         </div>
       </div>
+
+      {/* Market position */}
+      <MarketSection
+        audience="Employed mid-to-senior engineers and designers who are passively exploring opportunities and want private, ambient job tracking without signing up for another cloud service or switching context from their actual work."
+      >
+        <div className="flex flex-col">
+          <VsRow name="Teal HQ" note="Strong pipeline management and resume tools, but cloud-only. Your job search data lives on their servers under their terms." />
+          <VsRow name="Huntr" note="Solid kanban tracker for applications, no AI scoring. Manual data entry, web-based, no background automation." />
+          <VsRow name="LinkedIn Jobs" note="Real-time market access but keyword-filtered only. No briefing generation, no fit scoring against your actual trajectory." />
+          <VsRow name="Kallisti" note="Local-first, no account. AI scores fit against career trajectory, not keywords. One-click Claude briefing. Runs in the background." />
+        </div>
+      </MarketSection>
 
       <CardFooter
         models={['claude', 'cursor']}

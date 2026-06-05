@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { useFrame, useThree } from '@react-three/fiber';
-import { MeshDistortMaterial } from '@react-three/drei';
+import { Environment, MeshDistortMaterial } from '@react-three/drei';
 import * as THREE from 'three';
 
 const DRIFT_VIEWPORT_MQ = '(max-width: 1023px)';
@@ -273,13 +273,14 @@ export default function CeramicShell() {
 
   return (
     <>
-      <ambientLight intensity={0.06} color="#f8d4a8" />
+      <Environment preset="sunset" environmentIntensity={0.45} />
+      <ambientLight intensity={0.10} color="#f8d4a8" />
       <directionalLight position={[ 8,  7,  4]} intensity={1.1} color="#f5e0c0" />
       <directionalLight position={[-9, -4,  5]} intensity={0.45} color="#d4854a" />
       <pointLight position={[ 3.5,  2.0,  2.5]} color="#ffb870" intensity={2.0} distance={9} decay={2} />
       <pointLight position={[-2.5, -3.0,  2.0]} color="#d47030" intensity={1.4} distance={7} decay={2} />
 
-      <group ref={groupRef}>
+      <group ref={groupRef} scale={1.55}>
         <pointLight ref={centerLightRef} position={[0.08, -0.18, 0.10]} color="#ffb060" distance={4.2} decay={2.8} />
 
         {/*
@@ -300,7 +301,7 @@ export default function CeramicShell() {
               envMapIntensity={0.13}
               distort={BASE.distort.outer}
               speed={0.44}
-              side={THREE.FrontSide}
+              side={THREE.DoubleSide}
             />
           </mesh>
         </group>
@@ -322,7 +323,7 @@ export default function CeramicShell() {
               envMapIntensity={0.12}
               distort={BASE.distort.mid}
               speed={0.48}
-              side={THREE.FrontSide}
+              side={THREE.DoubleSide}
             />
           </mesh>
         </group>

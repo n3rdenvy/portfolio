@@ -2,8 +2,16 @@
 
 @font-face {
   font-family: 'OpenDyslexic';
-  src: url('https://cdn.jsdelivr.net/npm/opendyslexic@0.91.12/OpenDyslexic-Regular.otf') format('opentype');
-  font-weight: normal;
+  src: url('/fonts/OpenDyslexic-Regular.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'OpenDyslexic';
+  src: url('/fonts/OpenDyslexic-Bold.otf') format('opentype');
+  font-weight: 700;
   font-style: normal;
   font-display: swap;
 }
@@ -498,6 +506,8 @@ html[data-theme="warm"] .text-white\/40  { color: rgba(42,26,8,0.42) !important;
 html[data-theme="warm"] .text-white\/35  { color: rgba(42,26,8,0.38) !important; }
 html[data-theme="warm"] .text-white\/30  { color: rgba(42,26,8,0.32) !important; }
 html[data-theme="warm"] .text-white\/20  { color: rgba(42,26,8,0.24) !important; }
+html[data-theme="warm"] .text-white\/80  { color: rgba(42,26,8,0.80) !important; }
+html[data-theme="warm"] .text-white\/45  { color: rgba(42,26,8,0.44) !important; }
 
 html[data-theme="warm"] a { color: #2A1A08; }
 
@@ -510,6 +520,11 @@ html[data-theme="warm"] .border-white\/20  { border-color: rgba(140,90,40,0.22) 
 html[data-theme="warm"] .border-white\/24  { border-color: rgba(140,90,40,0.26) !important; }
 html[data-theme="warm"] .border-white\/38  { border-color: rgba(140,90,40,0.36) !important; }
 html[data-theme="warm"] .border-white\/42  { border-color: rgba(140,90,40,0.40) !important; }
+html[data-theme="warm"] .border-white\/8   { border-color: rgba(140,90,40,0.10) !important; }
+html[data-theme="warm"] .border-white\/12  { border-color: rgba(140,90,40,0.15) !important; }
+html[data-theme="warm"] .border-white\/25  { border-color: rgba(140,90,40,0.28) !important; }
+html[data-theme="warm"] .border-white\/30  { border-color: rgba(140,90,40,0.32) !important; }
+html[data-theme="warm"] .border-white\/50  { border-color: rgba(140,90,40,0.48) !important; }
 
 /* Background remaps */
 html[data-theme="warm"] .bg-white\/5         { background-color: rgba(140,90,40,0.06) !important; }
@@ -518,6 +533,7 @@ html[data-theme="warm"] .bg-white\/14        { background-color: rgba(140,90,40,
 html[data-theme="warm"] .bg-white\/\[0\.03\] { background-color: rgba(140,90,40,0.04) !important; }
 html[data-theme="warm"] .bg-white\/\[0\.04\] { background-color: rgba(140,90,40,0.05) !important; }
 html[data-theme="warm"] .bg-white\/\[0\.05\] { background-color: rgba(140,90,40,0.06) !important; }
+html[data-theme="warm"] .bg-white\/15     { background-color: rgba(140,90,40,0.14) !important; }
 
 /* Glass surfaces — warm frosted light */
 html[data-theme="warm"] .glass-hub-sheet {
