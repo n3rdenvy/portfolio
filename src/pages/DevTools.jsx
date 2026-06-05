@@ -171,44 +171,51 @@ function CardFooter({ models = [], github_href = null, tags = [] }) {
 
 const NT_MOTIONS = [
   {
-    gif:     '/devtools/nt_motions/pulse_compact.gif',
-    label:   'Pulse',
-    desc:    'Arc glow breathes on a slow cycle. Ambient presence without demanding attention.',
-    service: 'Anthropic', pct: 65, used: '650k', total: '1M', burn: '14.2k', days: 11,
-    bar_hex: '#FFD700',
+    gif:        '/devtools/nt_motions/pulse_compact.gif',
+    label:      'Pulse',
+    desc:       'Arc glow breathes on a slow cycle. Ambient presence without demanding attention.',
+    service:    'Anthropic', pct: 78, used: '780k', total: '1M', burn: '18.0k', days: 6,
+    bar_hex:    '#FFD700',
+    pulse_anim: true,
   },
   {
     gif:     '/devtools/nt_motions/hum_compact.gif',
     label:   'Engine Hum',
     desc:    'Needle jitters like an analog gauge under load. Signals active compute.',
-    service: 'OpenAI', pct: 48, used: '480k', total: '1M', burn: '28.0k', days: 2,
+    service: 'OpenAI', pct: 31, used: '310k', total: '1M', burn: '9.2k', days: 22,
     bar_hex: '#4AB8FF',
   },
   {
     gif:     '/devtools/nt_motions/sweep_compact.gif',
     label:   'Radar Sweep',
     desc:    'Ghost segments scan across the filled arc. Feels like live polling.',
-    service: 'Cursor', pct: 72, used: '360k', total: '500k', burn: '8.4k', days: 16,
+    service: 'Cursor', pct: 94, used: '470k', total: '500k', burn: '31k', days: 1,
     bar_hex: '#F58220',
   },
   {
     gif:     '/devtools/nt_motions/drift_compact.gif',
     label:   'Live Drift',
     desc:    'Fill oscillates slowly around the true value. Natural imprecision at rest.',
-    service: 'Gemini', pct: 58, used: '3.1M', total: '5M', burn: '412k', days: 9,
+    service: 'Gemini', pct: 52, used: '2.6M', total: '5M', burn: '210k', days: 11,
     bar_hex: '#34D399',
   },
   {
-    gif:     '/devtools/nt_motions/charge_compact.gif',
-    label:   'Charge Cycle',
-    desc:    'Ring expands from center and fades. Reads like charging or refreshing.',
-    service: 'Mistral', pct: 44, used: '44', total: '100 prompts', burn: '6.2k', days: 24,
-    bar_hex: '#818CF8',
+    gif:         '/devtools/nt_motions/charge_compact.gif',
+    label:       'Charge Cycle',
+    desc:        'Ring expands from center and fades. Reads like charging or refreshing.',
+    service:     'Mistral', pct: 17, used: '17', total: '100 prompts', burn: '3.1k', days: 38,
+    bar_hex:     '#818CF8',
+    charge_anim: true,
   },
 ];
 
-function MotionTile({ gif, label, desc, service, pct, used, total, burn, days, bar_hex }) {
+function MotionTile({ gif, label, desc, service, pct, used, total, burn, days, bar_hex, pulse_anim, charge_anim }) {
   const [hovered, setHovered] = useState(false);
+
+  const img_style = {};
+  if (pulse_anim) img_style.animation = 'nt-pulse-glow 2.5s ease-in-out infinite';
+  if (charge_anim) img_style.filter = 'hue-rotate(210deg)';
+
   return (
     <div
       className="flex flex-col gap-2 pt-1"
@@ -220,8 +227,17 @@ function MotionTile({ gif, label, desc, service, pct, used, total, burn, days, b
       <p className="text-[10px] leading-snug text-white/45">{desc}</p>
 
       {/* Animation */}
-      <div className="aspect-square overflow-hidden rounded-xl border border-white/10 bg-white/[0.04] shadow-[0_6px_20px_rgba(0,0,0,0.4)]">
-        <img src={gif} alt={`${label} motion style`} draggable={false} className="h-full w-full object-cover object-top" />
+      <div className="relative aspect-square overflow-hidden rounded-xl border border-white/10 bg-white/[0.04] shadow-[0_6px_20px_rgba(0,0,0,0.4)]">
+        <img src={gif} alt={`${label} motion style`} draggable={false} className="h-full w-full object-cover object-top" style={img_style} />
+        {charge_anim && (
+          <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
+            <div style={{
+              width: '48%', height: '48%', borderRadius: '50%',
+              border: '2px solid rgba(129,140,248,0.7)',
+              animation: 'nt-charge-ring 2.2s ease-out infinite',
+            }} />
+          </div>
+        )}
       </div>
 
       {/* NT app hover simulation — always-reserved space, dashed border signals interactivity */}
