@@ -36,7 +36,7 @@ export default function Accessibility() {
           <div className="min-w-0 pl-6 sm:pl-7 md:pl-10 lg:pl-12">
             <HubPageHeading
               title="Accessibility strategy"
-              subtitle="Five capability lenses — flip each card to read the thesis. Keyboard: Tab to focus, Enter or Space to flip."
+              subtitle="Five capability lenses. Flip each card to read the thesis. Keyboard: Tab to focus, Enter or Space to flip."
             />
           </div>
         </HubPageHeadingRow>

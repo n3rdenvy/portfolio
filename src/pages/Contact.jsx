@@ -544,7 +544,7 @@ export default function Contact() {
               Your submission
             </h2>
             <p className="shrink-0 text-sm leading-relaxed text-white">
-              Use the questions to build a draft, or paste and write freely here — send works whenever this box has
+              Use the questions to build a draft, or paste and write freely here. Send works whenever this box has
               something in it.
             </p>
             <label htmlFor="submission-draft" className="sr-only">
@@ -557,7 +557,7 @@ export default function Contact() {
                 skipFormDraftSyncRef.current = true;
                 setDraftBody(e.target.value);
               }}
-              placeholder="Fill the questions and this updates for you — or paste your own message and send anytime."
+              placeholder="Fill the questions and this updates for you. Or paste your own message and send anytime."
               className={submissionDraftTextareaClass}
             />
 

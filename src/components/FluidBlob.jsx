@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { useFrame, useThree } from '@react-three/fiber';
-import { Environment, Sphere, MeshDistortMaterial } from '@react-three/drei';
+import { Environment, Sphere, MeshDistortMaterial, Text } from '@react-three/drei';
 import * as THREE from 'three';
 
 /** Below Tailwind `lg` (1024px): no cursor-led motion on phones/tablets — use slow drift instead. */
@@ -35,6 +35,7 @@ function useMicroRoughnessMap() {
 }
 
 export default function FluidBlob() {
+  const groupRef = useRef();
   const meshRef = useRef();
   const { viewport } = useThree();
   const mouseNdcRef = useRef({ x: 0, y: 0 });
@@ -89,7 +90,7 @@ export default function FluidBlob() {
       );
     }
 
-    meshRef.current.position.lerp(targetPosition.current, Math.min(1, delta * 1.55));
+    groupRef.current.position.lerp(targetPosition.current, Math.min(1, delta * 1.55));
 
     meshRef.current.rotation.x += delta * 0.08;
     meshRef.current.rotation.y += delta * 0.11;
@@ -98,25 +99,41 @@ export default function FluidBlob() {
   return (
     <>
       <Environment preset="studio" environmentIntensity={0.28} />
-      <Sphere ref={meshRef} args={[1.83, 144, 144]}>
-        <MeshDistortMaterial
-          color="#1A1C23"
-          roughnessMap={roughnessMap}
-          roughness={0.34}
-          metalness={0.91}
-          envMapIntensity={1.05}
-          ior={1.65}
-          specularIntensity={1.35}
-          specularColor="#e8ecf5"
-          clearcoat={0.48}
-          clearcoatRoughness={0.58}
-          sheen={0.75}
-          sheenColor="#b9c4d6"
-          sheenRoughness={0.42}
-          distort={0.92}
-          speed={0.72}
-        />
-      </Sphere>
+      <group ref={groupRef}>
+        <Sphere ref={meshRef} args={[1.83, 144, 144]}>
+          <MeshDistortMaterial
+            color="#1A1C23"
+            roughnessMap={roughnessMap}
+            roughness={0.34}
+            metalness={0.91}
+            envMapIntensity={1.05}
+            ior={1.65}
+            specularIntensity={1.35}
+            specularColor="#e8ecf5"
+            clearcoat={0.48}
+            clearcoatRoughness={0.58}
+            sheen={0.75}
+            sheenColor="#b9c4d6"
+            sheenRoughness={0.42}
+            distort={0.92}
+            speed={0.72}
+          />
+        </Sphere>
+        <Text
+          position={[0, 0, 1.92]}
+          fontSize={0.62}
+          fontWeight={900}
+          letterSpacing={0.12}
+          color="#e8ecf5"
+          anchorX="center"
+          anchorY="middle"
+          fillOpacity={0.72}
+          renderOrder={1}
+          depthOffset={-1}
+        >
+          B.O.B
+        </Text>
+      </group>
     </>
   );
 }

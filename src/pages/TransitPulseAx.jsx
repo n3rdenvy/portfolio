@@ -124,7 +124,7 @@ const PAIN_CLUSTERS = [
     title: 'The Productivity Extension',
     points: [
       'Two-car trains almost guarantee no available seat',
-      'Trains used as mobile workspaces — inability to sit = commute failure',
+      'Trains used as mobile workspaces. Inability to sit = commute failure',
       'Baseline travel time display expected by default',
       'Seat availability is a go/no-go decision factor',
     ],
@@ -202,16 +202,16 @@ export default function TransitPulseAx() {
               <div className="space-y-3">
                 <SectionLabel>The Problem</SectionLabel>
                 <p className="text-sm leading-relaxed text-white/70">
-                  Official transit apps provide GPS coordinates and scheduled arrival times. What they do not provide is ground truth — whether the bus is actually moving, whether the stop is safe at this hour, whether there is room to board, or whether the arrival time reflects reality at all.
+                  Official transit apps provide GPS coordinates and scheduled arrival times. What they do not provide is ground truth: whether the bus is actually moving, whether the stop is safe at this hour, whether there is room to board, or whether the arrival time reflects reality at all.
                 </p>
                 <p className="text-sm leading-relaxed text-white/70">
-                  The stress of public transit is not the wait itself. It is the uncertainty. Riders cannot trust the tool they rely on, so they hedge — checking multiple apps, leaving earlier, calling rideshares preemptively. Every one of those workarounds is a failure the app caused.
+                  The stress of public transit is not the wait itself. It is the uncertainty. Riders cannot trust the tool they rely on, so they hedge: checking multiple apps, leaving earlier, calling rideshares preemptively. Every one of those workarounds is a failure the app caused.
                 </p>
               </div>
               <div className="space-y-3">
                 <SectionLabel>The Solution</SectionLabel>
                 <p className="text-sm leading-relaxed text-white/70">
-                  Transit Pulse layers community-verified reality on top of official data. Riders submit live conditions — vehicle location, occupancy, safety vibe, cleanliness — and that signal travels instantly to everyone waiting down the line.
+                  Transit Pulse layers community-verified reality on top of official data. Riders submit live conditions like vehicle location, occupancy, safety vibe, and cleanliness, and that signal travels instantly to everyone waiting down the line.
                 </p>
                 <p className="text-sm leading-relaxed text-white/70">
                   The schedule is a suggestion. The community is the source of truth.
@@ -252,7 +252,7 @@ export default function TransitPulseAx() {
 
           {/* Pain clusters */}
           <div className="glass-hub-sheet p-6 md:p-8">
-            <SectionLabel>Thematic Analysis — 5 Pain Clusters</SectionLabel>
+            <SectionLabel>Thematic Analysis: 5 Pain Clusters</SectionLabel>
             <p className="mt-1 mb-5 text-sm text-white/50">Synthesized from affinity mapping across all 5 interviews. Each cluster maps to one or more design decisions.</p>
             <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
               {PAIN_CLUSTERS.map((c) => (
@@ -267,7 +267,7 @@ export default function TransitPulseAx() {
             <div className="mt-4">
               <DecisionRow
                 decision="Pivot 1: The schedule is a suggestion"
-                why="Early iterations assumed SEPTA data was mostly accurate. Research proved otherwise — ghost buses, abrupt detours, and hardware latency are systemic. The UI now actively surfaces discrepancies rather than presenting official data at face value."
+                why="Early iterations assumed SEPTA data was mostly accurate. Research proved otherwise. Ghost buses, abrupt detours, and hardware latency are systemic. The UI now actively surfaces discrepancies rather than presenting official data at face value."
               />
               <DecisionRow
                 decision="Pivot 2: Safety is a primary metric, not a secondary filter"
@@ -275,11 +275,11 @@ export default function TransitPulseAx() {
               />
               <DecisionRow
                 decision="Pivot 3: Brutalist efficiency over clean corporate design"
-                why="If a gradient reduces legibility in direct sunlight, it is removed. The design language draws from Philly Handstyle graffiti and the kinetic visual vocabulary of Vogue and Waacking — highly visible, highly intentional, built for motion."
+                why="If a gradient reduces legibility in direct sunlight, it is removed. The design language draws from Philly Handstyle graffiti and the kinetic visual vocabulary of Vogue and Waacking: highly visible, highly intentional, built for motion."
               />
               <DecisionRow
                 decision="The Two-Tap Mandate"
-                why="Any critical action — reporting a safety hazard, checking an alternate route, confirming vehicle location — must complete in a maximum of two taps. This is the governing rule of the UX. Users are moving, cold, stressed, or in low-signal environments. The interface has to earn every second."
+                why="Any critical action, reporting a safety hazard, checking an alternate route, confirming vehicle location, must complete in a maximum of two taps. This is the governing rule of the UX. Users are moving, cold, stressed, or in low-signal environments. The interface has to earn every second."
               />
               <DecisionRow
                 decision="Signal Independence"
@@ -301,7 +301,7 @@ export default function TransitPulseAx() {
                 {
                   name: 'Transit App',
                   label: 'The Specialist',
-                  gap: 'Strong routing and a clean UI, but relies entirely on official GTFS data. Does not crowdsource conditions — safety, lighting, occupancy, vibe.',
+                  gap: 'Strong routing and a clean UI, but relies entirely on official GTFS data. Does not crowdsource conditions like safety, lighting, occupancy, or vibe.',
                 },
                 {
                   name: 'Citizen',
@@ -318,7 +318,7 @@ export default function TransitPulseAx() {
             </div>
             <div className="mt-4 rounded-xl border border-amber-400/20 bg-amber-400/[0.03] p-4">
               <p className="text-xs font-semibold text-amber-200/80 uppercase tracking-widest">Transit Pulse</p>
-              <p className="mt-1 text-sm text-white/70">The utility of Transit App with the awareness of Citizen — but helpful rather than alarmist. Community-verified reality layered on top of official schedules, with a UI built for people who are already moving.</p>
+              <p className="mt-1 text-sm text-white/70">The utility of Transit App with the awareness of Citizen, but helpful rather than alarmist. Community-verified reality layered on top of official schedules, with a UI built for people who are already moving.</p>
             </div>
           </div>
 

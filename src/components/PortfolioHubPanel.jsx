@@ -49,7 +49,7 @@ const PORTFOLIO_HUB_CARDS = [
   },
   {
     to: '/eris',
-    title: 'Eris — AI Infrastructure',
+    title: 'Eris AI Infrastructure',
     description: 'Fully local always-on AI system. Custom stack: Letta memory, Ollama, ambient awareness, 17 autonomous agents.',
     icon: Cpu,
   },
@@ -62,7 +62,7 @@ const PORTFOLIO_HUB_CARDS = [
   },
   {
     to: '/inhabit',
-    title: 'Inhabit — AR Furniture',
+    title: 'Inhabit AR Furniture',
     description: 'Android AR app for placing IKEA furniture in your actual space. TripoSR to GLB to ARCore pipeline.',
     icon: Smartphone,
   },

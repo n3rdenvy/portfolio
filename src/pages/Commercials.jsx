@@ -30,7 +30,7 @@ export default function Commercials() {
               <div className="glass-hub-sheet rounded-xl p-5 md:p-6">
                 <p className="mb-1 text-xs font-semibold tracking-tight text-white/60">Commercial set design</p>
                 <p className="text-sm leading-relaxed text-white/90">
-                  These spots required designing environments that read correctly on camera under studio lighting —
+                  These spots required designing environments that read correctly on camera under studio lighting,
                   a different constraint than designing a room to live in. The spatial decisions are the same
                   (sightlines, material contrast, focal anchors), but the success metric shifts from
                   &ldquo;how does this feel to be in&rdquo; to &ldquo;how does this read at 24fps.&rdquo;
@@ -39,7 +39,7 @@ export default function Commercials() {
               <div className="glass-hub-sheet rounded-xl p-5 md:p-6">
                 <p className="mb-1 text-xs font-semibold tracking-tight text-white/60">IKEA expert videos</p>
                 <p className="text-sm leading-relaxed text-white/90">
-                  The interior tips series is customer education — reducing the gap between seeing a product in a
+                  The interior tips series is customer education focused on reducing the gap between seeing a product in a
                   showroom and knowing how to actually use it at home. The design challenge is communicating
                   spatial logic in two minutes to someone who has never thought about sightlines or material
                   tension before.

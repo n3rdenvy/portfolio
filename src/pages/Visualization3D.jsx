@@ -14,7 +14,7 @@ export default function Visualization3D() {
             <h1 className="page-heading-xl mt-2 text-white">Immersive gallery</h1>
             <p className="mt-3 text-sm leading-relaxed text-white/80 md:text-base">
               3D renders as a pre-decision tool. The underlying problem in furniture retail is that most
-              customers cannot confidently visualize a product in their own space — so they either overbuy
+              customers cannot confidently visualize a product in their own space, so they either overbuy
               and return, or they walk away unsure. These renders close that gap: showing not just what a
               product looks like, but how a configured room feels to be in. The goal was always a
               confident yes, not a hedged maybe.

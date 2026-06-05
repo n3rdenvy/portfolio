@@ -85,13 +85,13 @@ export default function Eris() {
                   Running an AI-heavy workflow across 5–10 services means constant context-switching, expensive API tokens for routine tasks, and an AI that forgets everything the moment you close the tab. Every session starts from zero.
                 </p>
                 <p className="text-sm leading-relaxed text-white/70">
-                  I needed a permanent AI partner — one that lives locally, knows my projects, my habits, my voice, and is always running whether I'm at the machine or not.
+                  I needed a permanent AI partner that lives locally, knows my projects, my habits, my voice, and is always running whether I'm at the machine or not.
                 </p>
               </div>
               <div className="space-y-3">
                 <SectionLabel>The Constraint That Shaped Everything</SectionLabel>
                 <p className="text-sm leading-relaxed text-white/70">
-                  Zero external tokens for daily operations. Claude Code is reserved exclusively for building and coding. Eris handles everything else — research, briefings, memory, autonomous tasks, creative work — without touching a metered API.
+                  Zero external tokens for daily operations. Claude Code is reserved exclusively for building and coding. Eris handles everything else: research, briefings, memory, autonomous tasks, and creative work without touching a metered API.
                 </p>
                 <p className="text-sm leading-relaxed text-white/70">
                   This constraint forced every architectural decision to be intentional. If a component added latency or resource overhead without clear value, it was removed.
@@ -103,7 +103,7 @@ export default function Eris() {
           {/* Architecture */}
           <div className="glass-hub-sheet p-6 md:p-8">
             <SectionLabel>Architecture</SectionLabel>
-            <p className="mt-1 mb-5 text-sm text-white/50">Daedalus — Mac Mini M4 Pro (64GB unified memory)</p>
+            <p className="mt-1 mb-5 text-sm text-white/50">Daedalus: Mac Mini M4 Pro (64GB unified memory)</p>
 
             <div className="flex flex-col gap-3">
               <StackLayer
@@ -197,7 +197,7 @@ export default function Eris() {
               />
               <DecisionRow
                 decision="Kokoro TTS over cloud alternatives"
-                why="Cloud TTS (ElevenLabs, OpenAI) would add latency and per-character cost to every Eris response. Kokoro runs locally at port 8880, starts with OWUI, and the custom voice blend means Eris sounds distinct — not like a generic assistant."
+                why="Cloud TTS (ElevenLabs, OpenAI) would add latency and per-character cost to every Eris response. Kokoro runs locally at port 8880, starts with OWUI, and the custom voice blend means Eris sounds distinct from a generic assistant."
               />
               <DecisionRow
                 decision="Removed MemPalace after discovering 10-second pipe latency"
@@ -209,7 +209,7 @@ export default function Eris() {
               />
               <DecisionRow
                 decision="Weekly synthesis over daily summarization"
-                why="Daily summaries create noise. A weekly behavioral synthesis — running every Sunday at 2:30am — surfaces patterns across the week: what I was building, how long I spent on it, where attention drifted. That's the signal level that's actually useful."
+                why="Daily summaries create noise. A weekly behavioral synthesis running every Sunday at 2:30am surfaces patterns across the week: what I was building, how long I spent on it, where attention drifted. That's the signal level that's actually useful."
               />
               <DecisionRow
                 decision="Karpathy Archive directory structure"

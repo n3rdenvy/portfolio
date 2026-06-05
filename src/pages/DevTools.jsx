@@ -104,10 +104,12 @@ function StatusBadge({ status }) {
   );
 }
 
-// CardFooter — single consistent bottom bar: tags + models + github
+// CardFooter — unified bottom bar: stack (left) + models + github (right)
 function CardFooter({ models = [], github_href = null, tags = [] }) {
+  const hasRight = models.length > 0 || github_href;
   return (
-    <div className="flex flex-col gap-3 border-t border-white/8 pt-4">
+    <div className="flex flex-wrap items-start justify-between gap-4 border-t border-white/8 pt-4">
+      {/* Stack tags — left side, takes all space it needs */}
       {tags.length > 0 && (
         <div className="flex flex-col gap-1.5">
           <p className="text-[9px] font-semibold uppercase tracking-[0.18em] text-white/30">Stack</p>
@@ -116,15 +118,18 @@ function CardFooter({ models = [], github_href = null, tags = [] }) {
           </div>
         </div>
       )}
-      <div className="flex flex-wrap items-center justify-between gap-3">
-        {models.length > 0 && (
-          <div className="flex flex-col gap-1.5">
-            <p className="text-[9px] font-semibold uppercase tracking-[0.18em] text-white/30">AI models used</p>
-            <AiBadge models={models} />
-          </div>
-        )}
-        {github_href && <GitHubLink href={github_href} />}
-      </div>
+      {/* Right column: models above github link */}
+      {hasRight && (
+        <div className="flex flex-col items-end gap-3">
+          {models.length > 0 && (
+            <div className="flex flex-col items-end gap-1.5">
+              <p className="text-[9px] font-semibold uppercase tracking-[0.18em] text-white/30">AI models used</p>
+              <AiBadge models={models} />
+            </div>
+          )}
+          {github_href && <GitHubLink href={github_href} />}
+        </div>
+      )}
     </div>
   );
 }
@@ -143,7 +148,7 @@ function MotionTile({ gif, label, desc }) {
   const [hovered, setHovered] = useState(false);
   return (
     <div
-      className="flex flex-col gap-0"
+      className="flex flex-col"
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
     >
@@ -151,9 +156,14 @@ function MotionTile({ gif, label, desc }) {
         <img src={gif} alt={`${label} motion style`} draggable={false} className="h-full w-full object-cover" />
       </div>
       <p className="mt-2 text-[10px] font-semibold text-white/80">{label}</p>
-      {hovered && (
-        <p className="mt-0.5 text-[10px] leading-snug text-white/45">{desc}</p>
-      )}
+      {/* Dashed placeholder reserves space and signals interactivity even before hover */}
+      <div className={`mt-1.5 min-h-[2.75rem] rounded-lg border border-dashed px-2 py-1.5 transition-colors duration-200 ${
+        hovered ? 'border-white/25 bg-white/[0.04]' : 'border-white/12'
+      }`}>
+        {hovered && (
+          <p className="text-[10px] leading-snug text-white/55">{desc}</p>
+        )}
+      </div>
     </div>
   );
 }
@@ -237,7 +247,7 @@ function NitrousTokenCard() {
       <div>
         <SectionLabel>6 themes, all WCAG 2.1 AA verified</SectionLabel>
         <p className="mb-4 text-xs leading-relaxed text-white/50">
-          Every gauge color in every theme was checked against its background at 4.5:1 minimum contrast. The palette was designed first, then verified — not the other way around.
+          Every gauge color in every theme was checked against its background at 4.5:1 minimum contrast. The palette was designed first, then verified. Not the other way around.
         </p>
         <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-6">
           {[
@@ -389,18 +399,22 @@ function KallistiCard() {
       {/* Live embed + why */}
       <div className="flex flex-col gap-6 lg:flex-row lg:items-start">
         <div className="shrink-0">
+          {/* Outer box clips the scaled iframe to visible dimensions */}
           <div
             className="overflow-hidden rounded-2xl border border-white/10 shadow-[0_12px_40px_rgba(0,0,0,0.6)]"
-            style={{ width: 560, height: 520, backgroundColor: '#0F172A' }}
+            style={{ width: 560, height: 432, backgroundColor: '#0F172A' }}
           >
-            <iframe
-              src="/kallisti-embed/index.html"
-              title="Kallisti live demo"
-              width="560"
-              height="520"
-              scrolling="no"
-              style={{ display: 'block', border: 'none', borderRadius: '14px' }}
-            />
+            {/* Scale 920px native width down to 560px visible */}
+            <div style={{ transform: 'scale(0.6087)', transformOrigin: 'top left', width: 920, height: 710 }}>
+              <iframe
+                src="/kallisti-embed/index.html"
+                title="Kallisti live demo"
+                width="920"
+                height="710"
+                scrolling="no"
+                style={{ display: 'block', border: 'none' }}
+              />
+            </div>
           </div>
           <p className="mt-2 text-[10px] text-white/30 text-center">
             Live app. Click any role to open the detail view.

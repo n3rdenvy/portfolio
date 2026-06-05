@@ -58,7 +58,7 @@ export default function Inhabit() {
           <div className="glass-hub-sheet px-6 py-4 md:px-8">
             <div className="flex items-center gap-3">
               <span className="h-2 w-2 rounded-full bg-amber-400/80 animate-pulse" />
-              <p className="text-sm font-medium text-white/70">In development — demo footage and screenshots coming</p>
+              <p className="text-sm font-medium text-white/70">In development. Demo footage and screenshots coming.</p>
             </div>
           </div>
 
@@ -68,16 +68,16 @@ export default function Inhabit() {
               <div className="space-y-3">
                 <SectionLabel>The Problem</SectionLabel>
                 <p className="text-sm leading-relaxed text-white/70">
-                  Buying furniture from a catalog means committing to a purchase before you know how it actually sits in your room — the scale, the clearance, the way light hits it. Returns are expensive, mistakes are common, and the decision anxiety is real.
+                  Buying furniture from a catalog means committing to a purchase before you know how it actually sits in your room. The scale, the clearance, the way light hits it. Returns are expensive, mistakes are common, and the decision anxiety is real.
                 </p>
                 <p className="text-sm leading-relaxed text-white/70">
-                  Existing AR furniture apps treat placement as a novelty. They drop a generic 3D model into a phone screen and call it done. The spatial thinking that makes a room actually work — flow, proportion, how one piece relates to another — isn't there.
+                  Existing AR furniture apps treat placement as a novelty. They drop a generic 3D model into a phone screen and call it done. The spatial thinking that makes a room actually work, flow, proportion, how one piece relates to another, isn't there.
                 </p>
               </div>
               <div className="space-y-3">
                 <SectionLabel>The Insight</SectionLabel>
                 <p className="text-sm leading-relaxed text-white/70">
-                  Five years of designing retail floor settings and national campaign spaces at IKEA means I've thought more about how products occupy real rooms than most app developers ever will. The domain expertise isn't a backstory — it's the product differentiator.
+                  Five years of designing retail floor settings and national campaign spaces at IKEA means I've thought more about how products occupy real rooms than most app developers ever will. The domain expertise isn't a backstory. It's the product differentiator.
                 </p>
                 <p className="text-sm leading-relaxed text-white/70">
                   Inhabit is built on the same spatial intuition that drives set design and range direction, applied to the problem of helping someone decide whether a sofa fits before they buy it.
@@ -142,15 +142,15 @@ export default function Inhabit() {
               />
               <DecisionRow
                 decision="Single-image reconstruction over photogrammetry"
-                why="Asking a user to take 30 photos of a product before they can place it in AR is friction that kills the use case. One photo is the right trade-off — mesh quality is sufficient for spatial decision-making even if it's not render-perfect."
+                why="Asking a user to take 30 photos of a product before they can place it in AR is friction that kills the use case. One photo is the right trade-off. Mesh quality is sufficient for spatial decision-making even if it's not render-perfect."
               />
               <DecisionRow
                 decision="IKEA catalog as the starting point"
-                why="The catalog solves the cold-start problem for 3D assets and connects the app to a realistic purchase decision. The domain expertise from IKEA set design means I know which products people actually struggle to visualize — beds, large sofas, storage systems."
+                why="The catalog solves the cold-start problem for 3D assets and connects the app to a realistic purchase decision. The domain expertise from IKEA set design means I know which products people actually struggle to visualize: beds, large sofas, storage systems."
               />
               <DecisionRow
                 decision="Android-first"
-                why="ARCore on Android is more open and developer-accessible than ARKit. The Pixel 8 Pro's lidar-adjacent depth sensing improves surface detection in low-light rooms — which is where furniture placement decisions usually happen."
+                why="ARCore on Android is more open and developer-accessible than ARKit. The Pixel 8 Pro's lidar-adjacent depth sensing improves surface detection in low-light rooms, which is where furniture placement decisions usually happen."
               />
             </div>
           </div>

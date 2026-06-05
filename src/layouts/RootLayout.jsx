@@ -5,6 +5,7 @@ import CeramicShell from '../components/CeramicShell';
 import FluidBlob from '../components/FluidBlob';
 import SpatialAnimatedOutlet from '../components/SpatialAnimatedOutlet';
 import ThemeToggle from '../components/ThemeToggle';
+import DyslexiaToggle from '../components/DyslexiaToggle';
 import { useTheme } from '../context/ThemeContext';
 
 const V1 = {
@@ -28,7 +29,7 @@ const V2 = {
 };
 
 export default function RootLayout() {
-  const { theme } = useTheme();
+  const { theme, dyslexia, setDyslexia } = useTheme();
   const isV2 = theme === 'v2';
   const T = isV2 ? V2 : V1;
 
@@ -122,6 +123,7 @@ export default function RootLayout() {
         </div>
       </div>
 
+      <DyslexiaToggle dyslexia={dyslexia} setDyslexia={setDyslexia} />
       <ThemeToggle />
       {finePointer ? <CustomCursor /> : null}
     </div>

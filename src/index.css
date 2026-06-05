@@ -1,5 +1,13 @@
 @import url('https://api.fontshare.com/v2/css?f[]=satoshi@900,700,500,400&display=swap');
 
+@font-face {
+  font-family: 'OpenDyslexic';
+  src: url('https://cdn.jsdelivr.net/npm/opendyslexic@0.91.12/OpenDyslexic-Regular.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -599,4 +607,32 @@ html[data-theme="warm"] .bonus-laugh-link {
   background-color: rgba(255, 252, 246, 0.80) !important;
   border-color: rgba(140, 90, 40, 0.22) !important;
   color: #2A1A08 !important;
+}
+
+/* ── Dyslexia mode ─────────────────────────────────────────────────────── */
+html.dyslexia,
+html.dyslexia body {
+  font-family: 'OpenDyslexic', sans-serif !important;
+}
+
+html.dyslexia h1,
+html.dyslexia h2,
+html.dyslexia h3,
+html.dyslexia h4,
+html.dyslexia p,
+html.dyslexia li,
+html.dyslexia span,
+html.dyslexia a,
+html.dyslexia button,
+html.dyslexia label,
+html.dyslexia input,
+html.dyslexia textarea {
+  font-family: 'OpenDyslexic', sans-serif !important;
+  letter-spacing: 0.06em !important;
+  word-spacing: 0.12em !important;
+}
+
+html.dyslexia p,
+html.dyslexia li {
+  line-height: 1.9 !important;
 }

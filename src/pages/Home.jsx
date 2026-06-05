@@ -3,7 +3,7 @@ import { ArrowUp, ArrowUpRight, Armchair, Clapperboard, Download, LineChart } fr
 import InteriorCarousel from '../components/InteriorCarousel';
 
 const HERO_COPY =
-  'Trauma-Informed Design and systems architecture shape how products collect attention, surface state, and recover from error. Boundaries, interfaces, and observability are the levers—not decoration. Erik Smith works at that intersection: humane patterns inside rigorous technical frames.';
+  'Trauma-Informed Design and systems architecture shape how products collect attention, surface state, and recover from error. Boundaries, interfaces, and observability are the levers. Erik Smith works at that intersection: humane patterns inside rigorous technical frames.';
 
 const BTN_NAV = 'btn-theme inline-flex items-center gap-2 px-4 py-2.5 text-sm font-medium no-underline';
 

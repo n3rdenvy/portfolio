@@ -14,8 +14,8 @@ export default function ROI() {
         </p>
         <div className="mt-10 space-y-6 text-[15px] leading-[1.75] text-white md:text-base">
           <p>
-            The program moved production from isolated local vignettes—each team shipping its own codecs,
-            color pipelines, and review rituals—toward one national media spine. Shared ingest, shared QC
+            The program moved production from isolated local vignettes, each team shipping its own codecs,
+            color pipelines, and review rituals, toward one national media spine. Shared ingest, shared QC
             language, and shared release criteria replaced redundant tooling and compressed cycle time
             without sacrificing brand fidelity in regional markets.
           </p>

@@ -36,7 +36,7 @@ export default function ComingSoon() {
               <DeviceClayPhoneFrame variant="android" label="Android phone showing HemoType app screen">
                 <img
                   src={HEMOTYPE_SRC}
-                  alt="HemoType — clinical typography app preview"
+                  alt="HemoType clinical typography app preview"
                   className="absolute inset-0 size-full object-cover object-top"
                   width={360}
                   height={780}
@@ -55,7 +55,7 @@ export default function ComingSoon() {
                     Leah&apos;s PM App
                   </p>
                   <p className="mt-2 text-sm leading-relaxed text-slate-700">
-                    Product management experience — screens and flows TBD.
+                    Product management experience. Screens and flows TBD.
                   </p>
                 </div>
               </DeviceClayPhoneFrame>
