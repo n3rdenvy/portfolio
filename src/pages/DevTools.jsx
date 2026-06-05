@@ -173,35 +173,35 @@ const NT_MOTIONS = [
   {
     gif:     '/devtools/nt_motions/pulse_compact.gif',
     label:   'Pulse',
-    desc:    'Arc glow breathes on a slow cycle — ambient presence without demanding attention.',
+    desc:    'Arc glow breathes on a slow cycle. Ambient presence without demanding attention.',
     service: 'Anthropic', pct: 74, used: '370k', total: '500k', burn: '14.2k', days: 11,
     bar_hex: '#FBBF24',
   },
   {
     gif:     '/devtools/nt_motions/hum_compact.gif',
     label:   'Engine Hum',
-    desc:    'Needle jitters like an analog gauge under load — signals active compute.',
+    desc:    'Needle jitters like an analog gauge under load. Signals active compute.',
     service: 'OpenAI', pct: 91, used: '455k', total: '500k', burn: '28.0k', days: 2,
     bar_hex: '#F87171',
   },
   {
     gif:     '/devtools/nt_motions/sweep_compact.gif',
     label:   'Radar Sweep',
-    desc:    'Ghost segments scan across the filled arc — feels like live polling.',
+    desc:    'Ghost segments scan across the filled arc. Feels like live polling.',
     service: 'Cursor', pct: 38, used: '190k', total: '500k', burn: '8.4k', days: 16,
     bar_hex: '#34D399',
   },
   {
     gif:     '/devtools/nt_motions/drift_compact.gif',
     label:   'Live Drift',
-    desc:    'Fill oscillates slowly around the true value — natural imprecision at rest.',
+    desc:    'Fill oscillates slowly around the true value. Natural imprecision at rest.',
     service: 'Gemini', pct: 62, used: '3.1M', total: '5M', burn: '412k', days: 9,
     bar_hex: '#FBBF24',
   },
   {
     gif:     '/devtools/nt_motions/charge_compact.gif',
     label:   'Charge Cycle',
-    desc:    'Ring expands from center and fades — reads like charging or refreshing.',
+    desc:    'Ring expands from center and fades. Reads like charging or refreshing.',
     service: 'Mistral', pct: 29, used: '145k', total: '500k', burn: '6.2k', days: 24,
     bar_hex: '#34D399',
   },
@@ -221,7 +221,7 @@ function MotionTile({ gif, label, desc, service, pct, used, total, burn, days, b
 
       {/* Animation */}
       <div className="aspect-square overflow-hidden rounded-xl border border-white/10 bg-white/[0.04] shadow-[0_6px_20px_rgba(0,0,0,0.4)]">
-        <img src={gif} alt={`${label} motion style`} draggable={false} className="h-full w-full object-cover" />
+        <img src={gif} alt={`${label} motion style`} draggable={false} className="h-full w-full object-cover object-top" />
       </div>
 
       {/* NT app hover simulation — always-reserved space, dashed border signals interactivity */}
@@ -317,7 +317,7 @@ function NitrousTokenCard() {
 
       {/* Market position */}
       <MarketSection
-        audience="Engineers and developers running five or more AI services daily who need quota visibility in the menu bar — not buried in a web dashboard or reset every time they switch browser tabs."
+        audience="Engineers and developers running five or more AI services daily who need quota visibility in the menu bar. Not buried in a web dashboard or reset every time they switch browser tabs."
       >
         <div className="flex flex-col">
           <VsRow name="OpenAI / Anthropic" note="Single-service dashboards, web only, historical data. No burn rate, no forecasting, no cross-service view." />
@@ -463,7 +463,7 @@ function IgnusCard() {
 
       {/* Market position */}
       <MarketSection
-        audience="Generative AI artists and researchers who run InvokeAI or ComfyUI locally and want to start generating without touching a terminal — especially during longer creative sessions where launch friction breaks flow."
+        audience="Generative AI artists and researchers who run InvokeAI or ComfyUI locally and want to start generating without touching a terminal. Especially useful in longer creative sessions where launch friction breaks flow."
         vs_label="market gap"
       >
         <GapCallout>
