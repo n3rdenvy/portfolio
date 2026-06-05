@@ -6,6 +6,35 @@ import * as THREE from 'three';
 /** Below Tailwind `lg` (1024px): no cursor-led motion on phones/tablets — use slow drift instead. */
 const DRIFT_VIEWPORT_MQ = '(max-width: 1023px)';
 
+function useBobEmissiveMap() {
+  const tex = useMemo(() => {
+    const size = 1024;
+    const canvas = document.createElement('canvas');
+    canvas.width = size;
+    canvas.height = size;
+    const ctx = canvas.getContext('2d');
+
+    // Black background = no emission outside the text
+    ctx.fillStyle = '#000000';
+    ctx.fillRect(0, 0, size, size);
+
+    // Text emits light — white drives the emissive intensity fully
+    ctx.fillStyle = '#ffffff';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.font = '900 148px Satoshi, Arial, sans-serif';
+    ctx.fillText('B.o.b', size / 2, size / 2);
+
+    const texture = new THREE.CanvasTexture(canvas);
+    texture.colorSpace = THREE.NoColorSpace;
+    texture.needsUpdate = true;
+    return texture;
+  }, []);
+
+  useEffect(() => () => tex.dispose(), [tex]);
+  return tex;
+}
+
 function useMicroRoughnessMap() {
   const map = useMemo(() => {
     const w = 256;
@@ -42,6 +71,7 @@ export default function FluidBlob() {
   const targetPosition = useRef(new THREE.Vector3());
   const driftTimeRef = useRef(0);
   const roughnessMap = useMicroRoughnessMap();
+  const bobEmissiveMap = useBobEmissiveMap();
 
   const [useDriftMotion, setUseDriftMotion] = useState(
     () => typeof window !== 'undefined' && window.matchMedia(DRIFT_VIEWPORT_MQ).matches
@@ -103,6 +133,9 @@ export default function FluidBlob() {
         <Sphere ref={meshRef} args={[1.83, 144, 144]}>
           <MeshDistortMaterial
             color="#1A1C23"
+            emissiveMap={bobEmissiveMap}
+            emissive="#e8ecf5"
+            emissiveIntensity={0.85}
             roughnessMap={roughnessMap}
             roughness={0.34}
             metalness={0.91}
