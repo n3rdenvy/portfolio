@@ -8,25 +8,34 @@ const DRIFT_VIEWPORT_MQ = '(max-width: 1023px)';
 
 function useBobEmissiveMap() {
   const tex = useMemo(() => {
-    const size = 1024;
+    // 2× resolution — hardware downsampling gives smooth AA edges
+    const w = 2048;
+    const h = 2048;
     const canvas = document.createElement('canvas');
-    canvas.width = size;
-    canvas.height = size;
+    canvas.width = w;
+    canvas.height = h;
     const ctx = canvas.getContext('2d');
+    ctx.imageSmoothingEnabled = true;
+    ctx.imageSmoothingQuality = 'high';
 
-    // Black background = no emission outside the text
     ctx.fillStyle = '#000000';
-    ctx.fillRect(0, 0, size, size);
+    ctx.fillRect(0, 0, w, h);
 
-    // Text emits light — white drives the emissive intensity fully
     ctx.fillStyle = '#ffffff';
     ctx.textAlign = 'center';
     ctx.textBaseline = 'middle';
-    ctx.font = '900 148px Satoshi, Arial, sans-serif';
-    ctx.fillText('B.o.b', size / 2, size / 2);
+    ctx.font = '900 296px Satoshi, Arial, sans-serif';
+
+    // 3 copies evenly spaced at U = 1/6, 1/2, 5/6 (120° apart around equator)
+    // so at least one is always visible as the blob rotates
+    const y = h * 0.5;
+    [1 / 6, 1 / 2, 5 / 6].forEach((u) => ctx.fillText('B.o.b', w * u, y));
 
     const texture = new THREE.CanvasTexture(canvas);
     texture.colorSpace = THREE.NoColorSpace;
+    texture.generateMipmaps = true;
+    texture.minFilter = THREE.LinearMipmapLinearFilter;
+    texture.magFilter = THREE.LinearFilter;
     texture.needsUpdate = true;
     return texture;
   }, []);
