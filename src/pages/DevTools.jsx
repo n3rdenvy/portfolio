@@ -70,9 +70,9 @@ function VsRow({ name, note }) {
 
 function GapCallout({ children }) {
   return (
-    <div className="rounded-lg border border-emerald-500/20 bg-emerald-500/5 px-3 py-2.5">
-      <p className="mb-1 text-[10px] font-semibold text-emerald-400">No direct competitor</p>
-      <p className="text-[9px] leading-snug text-white/50">{children}</p>
+    <div className="rounded-xl border border-emerald-500/25 bg-emerald-500/8 px-4 py-4">
+      <p className="mb-2 text-xs font-semibold uppercase tracking-[0.14em] text-emerald-400">No direct competitor</p>
+      <p className="text-sm leading-relaxed text-white/60">{children}</p>
     </div>
   );
 }
@@ -174,36 +174,36 @@ const NT_MOTIONS = [
     gif:     '/devtools/nt_motions/pulse_compact.gif',
     label:   'Pulse',
     desc:    'Arc glow breathes on a slow cycle. Ambient presence without demanding attention.',
-    service: 'Anthropic', pct: 74, used: '370k', total: '500k', burn: '14.2k', days: 11,
-    bar_hex: '#FBBF24',
+    service: 'Anthropic', pct: 65, used: '650k', total: '1M', burn: '14.2k', days: 11,
+    bar_hex: '#FFD700',
   },
   {
     gif:     '/devtools/nt_motions/hum_compact.gif',
     label:   'Engine Hum',
     desc:    'Needle jitters like an analog gauge under load. Signals active compute.',
-    service: 'OpenAI', pct: 91, used: '455k', total: '500k', burn: '28.0k', days: 2,
-    bar_hex: '#F87171',
+    service: 'OpenAI', pct: 48, used: '480k', total: '1M', burn: '28.0k', days: 2,
+    bar_hex: '#4AB8FF',
   },
   {
     gif:     '/devtools/nt_motions/sweep_compact.gif',
     label:   'Radar Sweep',
     desc:    'Ghost segments scan across the filled arc. Feels like live polling.',
-    service: 'Cursor', pct: 38, used: '190k', total: '500k', burn: '8.4k', days: 16,
-    bar_hex: '#34D399',
+    service: 'Cursor', pct: 72, used: '360k', total: '500k', burn: '8.4k', days: 16,
+    bar_hex: '#F58220',
   },
   {
     gif:     '/devtools/nt_motions/drift_compact.gif',
     label:   'Live Drift',
     desc:    'Fill oscillates slowly around the true value. Natural imprecision at rest.',
-    service: 'Gemini', pct: 62, used: '3.1M', total: '5M', burn: '412k', days: 9,
-    bar_hex: '#FBBF24',
+    service: 'Gemini', pct: 58, used: '3.1M', total: '5M', burn: '412k', days: 9,
+    bar_hex: '#34D399',
   },
   {
     gif:     '/devtools/nt_motions/charge_compact.gif',
     label:   'Charge Cycle',
     desc:    'Ring expands from center and fades. Reads like charging or refreshing.',
-    service: 'Mistral', pct: 29, used: '145k', total: '500k', burn: '6.2k', days: 24,
-    bar_hex: '#34D399',
+    service: 'Mistral', pct: 44, used: '44', total: '100 prompts', burn: '6.2k', days: 24,
+    bar_hex: '#818CF8',
   },
 ];
 
@@ -292,7 +292,11 @@ function NitrousTokenCard() {
         <div className="flex flex-col gap-5 text-sm leading-relaxed text-white/70">
           <div>
             <SectionLabel>Why it exists</SectionLabel>
-            <p>When you're running 5 to 10 AI services daily, quota limits are invisible until you slam into them mid-task. I needed always-on visibility in the menu bar, not buried three settings pages deep.</p>
+            <p>When you're running 5 to 10 AI services daily, quota limits are invisible until you slam into them mid-task. Every provider buries usage behind a login. I needed one place in the menu bar instead of 10 browser tabs.</p>
+          </div>
+          <div>
+            <SectionLabel>Who it's for</SectionLabel>
+            <p>Developers and engineers running multiple AI tools simultaneously who can't afford mid-task quota surprises. If you've ever hit a limit on Claude mid-prompt and had to switch to OpenAI, this is for you.</p>
           </div>
           <div>
             <SectionLabel>Design decisions</SectionLabel>
@@ -314,18 +318,6 @@ function NitrousTokenCard() {
           </div>
         </div>
       </div>
-
-      {/* Market position */}
-      <MarketSection
-        audience="Engineers and developers running five or more AI services daily who need quota visibility in the menu bar. Not buried in a web dashboard or reset every time they switch browser tabs."
-      >
-        <div className="flex flex-col">
-          <VsRow name="OpenAI / Anthropic" note="Single-service dashboards, web only, historical data. No burn rate, no forecasting, no cross-service view." />
-          <VsRow name="Google Console" note="Gemini usage buried 4+ clicks deep. Requires sign-in each session. No ambient presence." />
-          <VsRow name="Cursor's counter" note="IDE-native token indicator, but Cursor-only and disappears when the IDE isn't focused." />
-          <VsRow name="NitrousToken" note="Only cross-service, menu-bar-native tracker. 10 services, burn rate, days remaining, zero-config auth for Cursor and Gemini." />
-        </div>
-      </MarketSection>
 
       {/* Always-on meter motion styles */}
       <div>
@@ -443,6 +435,10 @@ function IgnusCard() {
             <p>Running InvokeAI and ComfyUI locally means terminal commands, port management, and waiting to confirm services started. That friction breaks flow before you've generated a single image. Ignus collapses it to one button.</p>
           </div>
           <div>
+            <SectionLabel>Who it's for</SectionLabel>
+            <p>Generative AI artists and researchers who run local image generation tools and want to start producing without touching a terminal. Especially useful in longer creative sessions where launch friction breaks flow.</p>
+          </div>
+          <div>
             <SectionLabel>Design decisions</SectionLabel>
             <ul className="space-y-1.5">
               {[
@@ -461,15 +457,10 @@ function IgnusCard() {
         </div>
       </div>
 
-      {/* Market position */}
-      <MarketSection
-        audience="Generative AI artists and researchers who run InvokeAI or ComfyUI locally and want to start generating without touching a terminal. Especially useful in longer creative sessions where launch friction breaks flow."
-        vs_label="market gap"
-      >
-        <GapCallout>
-          InvokeAI Desktop and ComfyUI's native launcher each manage one service. Neither manages both, neither lives in the menu bar, and neither handles restarts automatically via launchd. The category of dedicated, dual-service lifecycle manager does not exist yet.
-        </GapCallout>
-      </MarketSection>
+      {/* Market gap */}
+      <GapCallout>
+        InvokeAI Desktop and ComfyUI's native launcher each manage one service. Neither manages both, neither lives in the menu bar, and neither handles restarts automatically via launchd. The category of dedicated, dual-service lifecycle manager does not exist yet.
+      </GapCallout>
 
       <CardFooter
         models={['claude', 'cursor']}
@@ -481,6 +472,52 @@ function IgnusCard() {
 }
 
 // ─── Kallisti ─────────────────────────────────────────────────────────────────
+
+const KALLISTI_FEATURES = [
+  { label: 'AI fit scoring (trajectory, not keywords)', support: [true,  false, false, false] },
+  { label: 'One-click AI briefing per role',            support: [true,  false, false, false] },
+  { label: 'Local-first / no account required',         support: [true,  false, false, false] },
+  { label: 'Background file-watcher automation',        support: [true,  false, false, false] },
+  { label: 'Ambient menu bar presence',                 support: [true,  false, false, false] },
+  { label: 'Role pipeline tracking',                    support: [true,  true,  true,  null]  },
+  { label: 'Interview preparation',                     support: [false, true,  true,  false] },
+  { label: 'Resume optimization',                       support: [false, true,  false, false] },
+];
+
+const KALLISTI_PRODUCTS = ['Kallisti', 'Teal HQ', 'Huntr', 'LinkedIn Jobs'];
+
+function CompetitorTable({ products, features }) {
+  return (
+    <div className="overflow-x-auto">
+      <table className="w-full border-collapse text-xs">
+        <thead>
+          <tr>
+            <th className="py-2 pr-4 text-left text-[10px] font-semibold uppercase tracking-[0.14em] text-white/30 w-[40%]">Feature</th>
+            {products.map((p, i) => (
+              <th key={p} className={`py-2 px-3 text-center text-[11px] font-semibold ${i === 0 ? 'text-amber-400' : 'text-white/40'}`}>
+                {p}
+              </th>
+            ))}
+          </tr>
+        </thead>
+        <tbody>
+          {features.map((f, ri) => (
+            <tr key={f.label} className={ri % 2 === 0 ? 'bg-white/[0.02]' : ''}>
+              <td className="py-2.5 pr-4 text-xs text-white/60">{f.label}</td>
+              {f.support.map((s, ci) => (
+                <td key={ci} className="py-2.5 px-3 text-center">
+                  {s === true  && <span className="text-sm font-bold text-emerald-400">✓</span>}
+                  {s === false && <span className="text-sm font-bold text-white/20">✗</span>}
+                  {s === null  && <span className="text-xs text-white/30">partial</span>}
+                </td>
+              ))}
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
+}
 
 function KallistiCard() {
   return (
@@ -508,10 +545,10 @@ function KallistiCard() {
           {/* Outer box clips the scaled iframe to visible dimensions */}
           <div
             className="overflow-hidden rounded-2xl border border-white/10 shadow-[0_12px_40px_rgba(0,0,0,0.6)]"
-            style={{ width: 560, height: 432, backgroundColor: '#0F172A' }}
+            style={{ width: 700, height: 540, backgroundColor: '#0F172A' }}
           >
-            {/* Scale 920px native width down to 560px visible */}
-            <div style={{ transform: 'scale(0.6087)', transformOrigin: 'top left', width: 920, height: 710 }}>
+            {/* Scale 920px native to 700px visible */}
+            <div style={{ transform: 'scale(0.7609)', transformOrigin: 'top left', width: 920, height: 710 }}>
               <iframe
                 src="/kallisti-embed/index.html"
                 title="Kallisti live demo"
@@ -532,6 +569,10 @@ function KallistiCard() {
             <p>Job searching while working full-time means roles slip through or go stale. The app runs in the background, scores every role against your actual profile, and lets you pull an AI briefing on any opportunity in one click. No browser tab context switch required.</p>
           </div>
           <div>
+            <SectionLabel>Who it's for</SectionLabel>
+            <p>Employed mid-to-senior engineers and designers passively exploring opportunities who want private, background job tracking without signing up for another cloud service or switching context from actual work.</p>
+          </div>
+          <div>
             <SectionLabel>Design decisions</SectionLabel>
             <ul className="space-y-1.5">
               {[
@@ -550,17 +591,14 @@ function KallistiCard() {
         </div>
       </div>
 
-      {/* Market position */}
-      <MarketSection
-        audience="Employed mid-to-senior engineers and designers who are passively exploring opportunities and want private, ambient job tracking without signing up for another cloud service or switching context from their actual work."
-      >
-        <div className="flex flex-col">
-          <VsRow name="Teal HQ" note="Strong pipeline management and resume tools, but cloud-only. Your job search data lives on their servers under their terms." />
-          <VsRow name="Huntr" note="Solid kanban tracker for applications, no AI scoring. Manual data entry, web-based, no background automation." />
-          <VsRow name="LinkedIn Jobs" note="Real-time market access but keyword-filtered only. No briefing generation, no fit scoring against your actual trajectory." />
-          <VsRow name="Kallisti" note="Local-first, no account. AI scores fit against career trajectory, not keywords. One-click Claude briefing. Runs in the background." />
-        </div>
-      </MarketSection>
+      {/* Market analysis */}
+      <div>
+        <SectionLabel>Market analysis</SectionLabel>
+        <p className="mb-4 text-xs leading-relaxed text-white/50">
+          Kallisti is the only local-first job tracker with AI-powered fit scoring. Existing tools require cloud accounts and manual data entry.
+        </p>
+        <CompetitorTable products={KALLISTI_PRODUCTS} features={KALLISTI_FEATURES} />
+      </div>
 
       <CardFooter
         models={['claude', 'cursor']}
