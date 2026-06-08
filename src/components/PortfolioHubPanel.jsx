@@ -2,6 +2,7 @@ import { Activity, Box, Clapperboard, Wrench, Building2, Cpu, Smartphone } from 
 import { motion, useReducedMotion } from 'framer-motion';
 import PageShell from './PageShell';
 import PortfolioHubCard from './PortfolioHubCard';
+import NerdsOnlyCard from './NerdsOnlyCard';
 import ReturnToHub from './ReturnToHub';
 import HubPageHeading, { HubPageHeadingRow } from './HubPageHeading';
 
@@ -117,6 +118,12 @@ export default function PortfolioHubPanel() {
                 />
               </motion.li>
             ))}
+            <motion.li
+              variants={reduceMotion ? {} : itemVariants}
+              className="flex min-h-0 min-w-0 max-md:flex-1 max-md:basis-0 md:h-full"
+            >
+              <NerdsOnlyCard />
+            </motion.li>
           </motion.ul>
         </div>
       </div>

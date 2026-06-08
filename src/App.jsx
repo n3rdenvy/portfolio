@@ -17,6 +17,7 @@ import DevTools from './pages/DevTools';
 import IkeaWork from './pages/IkeaWork';
 import Eris from './pages/Eris';
 import Inhabit from './pages/Inhabit';
+import NerdsOnly from './pages/NerdsOnly';
 
 const ROUTES = [
   { path: '/accessibility', Component: Accessibility },
@@ -48,6 +49,7 @@ function App() {
               return <Route key={route.path} path={route.path} element={<Page />} />;
             })}
           </Route>
+          <Route path="/nerds-only" element={<NerdsOnly />} />
         </Routes>
       </NavDepthProvider>
       </ThemeProvider>
