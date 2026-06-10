@@ -5,17 +5,26 @@ import { CHARACTERS, ROLES, ROLE_ORDER } from '../data/nerdsOnlyCharacters';
 
 /* ─── Character background: video when available, gradient placeholder ─────────
  *
- * FUTURE PASS — static image support (assets staged on Google Drive, not copied yet):
- *   1. Add a `background` field (string path) to each entry in nerdsOnlyCharacters.js,
- *      distinct from `portrait`. Copy images to src/assets/nerdsonly/ first.
- *   2. Render priority here becomes: char.video → char.background (<img> with
- *      object-cover, loading="lazy", explicit width/height, WebP) → gradient fallback.
+ * FUTURE PASS — VEO video architecture (decided 2026-06-10, assets pending):
+ *   Per character: 1 poster + idle loop + 2-3 motion clips, ALL frame-matched
+ *   to the same start/end pose so any clip hard-cuts into any other seamlessly.
+ *   Drop zone + encoding rules: public/assets/nerds-only/README.md
  *
- * SABLE DUAL-BACKGROUND CONCEPT:
- *   Sable defaults to SableAlderheart.png (city). On select, crossfade toward
- *   PredSable1.png (swamp / Sanguine Vow) — e.g. a second absolutely-positioned
- *   image whose opacity animates 0 → 1 over ~1.2s after selection settles.
- *   Data shape: `background: { default: '...', selected: '...' }` for Sable only.
+ *   Data shape replaces `video: null` with:
+ *     media: { poster: '...', idle: '...', motions: ['...', '...'] }
+ *
+ *   Loading strategy (do not regress this):
+ *     - Only the selected character's idle ever loads on page open;
+ *       all other <video> stay preload="none". Poster paints first.
+ *     - After idle starts playing, prefetch THAT character's motions via
+ *       requestIdleCallback. Never prefetch other characters.
+ *     - useReducedMotion → poster only, no autoplay.
+ *   Playback: idle loops; a click/timer plays one motion through, then returns
+ *   to idle. Frame-matched poses make cuts invisible — no crossfades.
+ *
+ * SABLE DUAL-BACKGROUND CONCEPT (still on the table for static fallback):
+ *   Alderheart (city) as default, swamp / Sanguine Vow on select — in video
+ *   terms this is just one of Sable's motion clips.
  */
 function CharacterBackground({ char }) {
   const reduceMotion = useReducedMotion();
