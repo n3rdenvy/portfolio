@@ -42,7 +42,7 @@ export const resumeData = {
     {
       title: 'Country Interior Design Leader',
       company: 'IKEA US',
-      dates: '01/2022 - Present',
+      dates: '02/2022 - Present',
       location: 'Conshohocken, PA',
       bullets: [
         'Co-led the nationwide rollout of Trauma-Informed Design principles. Navigated corporate compliance to deploy psychologically safe retail environments across every store in the US portfolio.',
@@ -62,14 +62,34 @@ export const resumeData = {
       ],
     },
     {
-      title: 'General Manager',
+      title: 'Guideshop & Sales Manager',
       company: 'Interior Define',
       dates: '07/2019 - 10/2020',
-      location: 'Greater Boston Area / Philadelphia, PA',
+      location: 'Boston, MA / Philadelphia, PA',
       bullets: [
         'Promoted from Design Specialist to open the Philadelphia market. Built Salesforce reporting from scratch to track individual KPIs, outreach cadence, and onboarding milestones across the full local team.',
         'Generated $685,242 in gross sales in six months. Used customer preference data to design visual consultations that turned first-time walk-ins into long-term clients.',
         'Ran technical training for the full team. Translated complex fiber science and ergonomic specs into plain language that helped close deals.',
+      ],
+    },
+    {
+      title: 'Showroom Manager & Render Specialist',
+      company: 'Spectrum, A Certified Herman Miller Dealer',
+      dates: '07/2018 - 03/2019',
+      location: 'Philadelphia, PA',
+      bullets: [
+        'Ran the Philadelphia showroom for a certified Herman Miller dealer. Merchandising, product vignettes, and design schemes built around new product and seasonal trends.',
+        'Worked directly with designers and their clients on furniture selection. Color theory and ergonomics carried the recommendation.',
+      ],
+    },
+    {
+      title: 'Interior Designer & Sales Assistant',
+      company: 'Roche Bobois',
+      dates: '01/2017 - 07/2018',
+      location: 'Philadelphia, PA',
+      bullets: [
+        'Design consultation at the Philadelphia showroom of the French luxury furniture house. 2D floor plans, photo-realistic 3D renderings, site visits, client presentations, and material selection.',
+        'Supported sales for architect- and developer-led projects where the client expected design fluency, not a pitch. Product knowledge and spatial reasoning closed the gap.',
       ],
     },
   ],

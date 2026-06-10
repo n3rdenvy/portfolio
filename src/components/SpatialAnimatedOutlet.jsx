@@ -16,7 +16,8 @@ export default function SpatialAnimatedOutlet() {
 
   return (
     <Framer.AnimatePresence mode="wait">
-      <Framer.motion.div
+      {/* <main>: the one landmark wrapping all routed page content */}
+      <Framer.motion.main
         key={pathname}
         id="page-scroll-root"
         className={[
@@ -30,7 +31,7 @@ export default function SpatialAnimatedOutlet() {
         exit="exit"
       >
         <Outlet />
-      </Framer.motion.div>
+      </Framer.motion.main>
     </Framer.AnimatePresence>
   );
 }

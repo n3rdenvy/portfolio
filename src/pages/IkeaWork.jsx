@@ -58,7 +58,7 @@ export default function IkeaWork() {
               { href: '#aurdal-malm', label: 'AURDAL + MALM' },
             ].map(({ href, label }) => (
               <li key={href}>
-                <a href={href} className="text-sm text-white/55 underline-offset-2 transition-colors hover:text-white hover:underline">
+                <a href={href} className="inline-block py-1 text-sm text-white/55 underline-offset-2 transition-colors hover:text-white hover:underline">
                   {label}
                 </a>
               </li>

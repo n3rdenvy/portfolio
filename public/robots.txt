@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://erik-portfolio-eta.vercel.app/sitemap.xml

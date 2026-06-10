@@ -1,12 +1,11 @@
-import { Canvas } from '@react-three/fiber';
-import { useEffect, useRef, useState } from 'react';
+import { lazy, Suspense, useEffect, useRef, useState } from 'react';
 import CustomCursor from '../components/CustomCursor';
-import CeramicShell from '../components/CeramicShell';
-import FluidBlob from '../components/FluidBlob';
 import SpatialAnimatedOutlet from '../components/SpatialAnimatedOutlet';
 import ThemeToggle from '../components/ThemeToggle';
 import DyslexiaToggle from '../components/DyslexiaToggle';
 import { useTheme } from '../context/ThemeContext';
+
+const BackgroundCanvas = lazy(() => import('../components/BackgroundCanvas'));
 
 const V1 = {
   bg: '#0D0D0D',
@@ -78,11 +77,11 @@ export default function RootLayout() {
       className={`relative h-screen w-screen overflow-hidden font-satoshi ${finePointer ? 'cursor-none' : ''}`}
       style={{ backgroundColor: T.bg }}
     >
-      {/* Background canvas */}
+      {/* Background canvas — async chunk; flat theme color paints first */}
       <div className="absolute inset-0" style={{ backgroundColor: T.bg }}>
-        <Canvas className="h-full w-full" gl={{ alpha: true, antialias: true }}>
-          {isV2 ? <CeramicShell key="ceramic" /> : <FluidBlob key="blob" />}
-        </Canvas>
+        <Suspense fallback={null}>
+          <BackgroundCanvas isV2={isV2} />
+        </Suspense>
       </div>
 
       {/* Glass panel */}

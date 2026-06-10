@@ -220,6 +220,14 @@ export default function TransitPulseAx() {
             </div>
           </div>
 
+          {/* Industry positioning — iF Design Trend Report 2026 */}
+          <div className="glass-hub-sheet px-6 py-5 md:px-8">
+            <SectionLabel as="h2">Positioning</SectionLabel>
+            <p className="mt-3 text-sm leading-relaxed text-white/70">
+              The iF Design Trend Report 2026 names transportation the most under-served space for "Convenience as a Transformation Strategy": behavioral change only scales when the sustainable choice is also the easiest one. Transit Pulse is that principle applied. Make the low-carbon option the low-friction option, and the mode shift follows.
+            </p>
+          </div>
+
           {/* Research */}
           <div className="glass-hub-sheet p-6 md:p-8">
             <SectionLabel as="h2">Research</SectionLabel>

@@ -63,7 +63,7 @@ const PORTFOLIO_HUB_CARDS = [
     to: '/dev-tools',
     title: 'Dev Tools',
     description:
-      'Electron menu bar apps built for the AI-heavy workflow. NitrousToken and Ignus.',
+      'Electron apps built for the AI-heavy workflow. NitrousToken, Ignus, and Kallisti.',
     icon: Wrench,
     tech: ['Electron', 'React', 'macOS', 'API'],
   },

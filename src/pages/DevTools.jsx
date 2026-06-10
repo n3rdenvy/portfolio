@@ -274,9 +274,9 @@ function NitrousTokenCard() {
 
       {/* Live embed + why */}
       <div className="flex flex-col gap-6 lg:flex-row lg:items-start">
-        <div className="shrink-0">
+        <div className="min-w-0 max-w-full shrink-0">
           <div
-            className="overflow-hidden rounded-2xl border border-white/10 shadow-[0_12px_40px_rgba(0,0,0,0.6)]"
+            className="max-w-full overflow-x-auto overflow-y-hidden rounded-2xl border border-white/10 shadow-[0_12px_40px_rgba(0,0,0,0.6)]"
             style={{ width: 560, height: 386, backgroundColor: '#09090B' }}
           >
             <iframe
@@ -544,10 +544,10 @@ function KallistiCard() {
 
       {/* Live embed + why */}
       <div className="flex flex-col gap-6 lg:flex-row lg:items-start">
-        <div className="shrink-0">
-          {/* Outer box clips the scaled iframe to visible dimensions */}
+        <div className="min-w-0 max-w-full shrink-0">
+          {/* Outer box clips the scaled iframe; scrolls horizontally on narrow viewports */}
           <div
-            className="overflow-hidden rounded-2xl border border-white/10 shadow-[0_12px_40px_rgba(0,0,0,0.6)]"
+            className="max-w-full overflow-x-auto overflow-y-hidden rounded-2xl border border-white/10 shadow-[0_12px_40px_rgba(0,0,0,0.6)]"
             style={{ width: 700, height: 540, backgroundColor: '#0F172A' }}
           >
             {/* Scale 920px native to 700px visible */}

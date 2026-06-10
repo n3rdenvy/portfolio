@@ -47,6 +47,7 @@ function D20Icon({ className }) {
 const TAPE_TEXT = '◆ NERDS ONLY ◆ NERDS ONLY ◆ NERDS ONLY ◆ NERDS ONLY ◆ NERDS ONLY ◆ NERDS ONLY ◆ NERDS ONLY ◆ ';
 
 function CautionTape({ reverse = false }) {
+  const reduceMotion = useReducedMotion();
   return (
     <div
       className="overflow-hidden"
@@ -59,7 +60,7 @@ function CautionTape({ reverse = false }) {
     >
       <motion.div
         className="flex items-center h-full whitespace-nowrap"
-        animate={{ x: reverse ? ['0%', '50%'] : ['0%', '-50%'] }}
+        animate={reduceMotion ? undefined : { x: reverse ? ['0%', '50%'] : ['0%', '-50%'] }}
         transition={{ duration: 14, repeat: Infinity, ease: 'linear' }}
         style={{ width: '200%' }}
       >
@@ -100,11 +101,11 @@ export default function NerdsOnlyCard() {
     <motion.div
       ref={wrapRef}
       style={{ scale: springScale, transformOrigin: 'center' }}
-      className="h-full"
+      className="h-full w-full min-w-0"
     >
       <button
         onClick={() => navigate('/nerds-only')}
-        className="btn-theme portfolio-hub-card h-full min-h-0 w-full overflow-hidden flex flex-col text-left !gap-0 !justify-start"
+        className="btn-theme portfolio-hub-card h-full min-h-0 w-full max-w-full overflow-hidden flex flex-col items-stretch text-left !p-0 !gap-0 !justify-start"
         aria-label="Nerd's Only — D&D character gallery"
       >
         {/* Top caution tape */}
@@ -120,10 +121,10 @@ export default function NerdsOnlyCard() {
               Nerd's Only
             </h2>
             <p className="mt-2 text-sm leading-relaxed text-white text-pretty">
-              The party. Five characters across D&amp;D 5e, Daggerheart, and FATE. Backstories, builds, and lore — no resume required.
+              The party. Nine characters across D&amp;D 5e, Daggerheart, and FATE. Backstories, builds, and lore — no resume required.
             </p>
             <ul className="mt-3 flex flex-wrap gap-1.5" aria-label="Systems">
-              {['D&D 5e', 'Daggerheart', 'FATE RPG', 'Humblewood'].map(t => (
+              {['D&D 5e', 'Daggerheart', 'FATE RPG', 'Humblewood', 'Mensa Atra'].map(t => (
                 <li
                   key={t}
                   className="rounded-full border border-white/15 px-2 py-0.5 text-[10px] font-medium tracking-tight text-white/60"

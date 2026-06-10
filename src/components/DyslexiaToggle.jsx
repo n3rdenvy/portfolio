@@ -21,6 +21,8 @@ export default function DyslexiaToggle({ dyslexia, setDyslexia }) {
       onClick={() => setDyslexia(!dyslexia)}
       onHoverStart={() => setExpanded(true)}
       onHoverEnd={() => setExpanded(false)}
+      onFocus={() => setExpanded(true)}
+      onBlur={() => setExpanded(false)}
       aria-label={dyslexia ? 'Disable dyslexia mode' : 'Enable dyslexia mode'}
       aria-pressed={dyslexia}
       className={[

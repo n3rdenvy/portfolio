@@ -1,4 +1,5 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { MotionConfig } from 'framer-motion';
 import { NavDepthProvider } from './context/NavDepthContext';
 import { ThemeProvider } from './context/ThemeContext';
 import RootLayout from './layouts/RootLayout';
@@ -18,6 +19,8 @@ import IkeaWork from './pages/IkeaWork';
 import Eris from './pages/Eris';
 import Inhabit from './pages/Inhabit';
 import NerdsOnly from './pages/NerdsOnly';
+import NotFound from './pages/NotFound';
+import RouteMeta from './components/RouteMeta';
 
 const ROUTES = [
   { path: '/accessibility', Component: Accessibility },
@@ -37,8 +40,12 @@ const ROUTES = [
 function App() {
   return (
     <BrowserRouter>
+      {/* Site-wide prefers-reduced-motion: transform/layout animations collapse
+          to opacity when the OS preference is set. */}
+      <MotionConfig reducedMotion="user">
       <ThemeProvider>
       <NavDepthProvider>
+        <RouteMeta />
         <Routes>
           <Route element={<RootLayout />}>
             <Route path="/" element={<TJunctionShell />} />
@@ -48,11 +55,13 @@ function App() {
               const Page = route.Component;
               return <Route key={route.path} path={route.path} element={<Page />} />;
             })}
+            <Route path="*" element={<NotFound />} />
           </Route>
           <Route path="/nerds-only" element={<NerdsOnly />} />
         </Routes>
       </NavDepthProvider>
       </ThemeProvider>
+      </MotionConfig>
     </BrowserRouter>
   );
 }
