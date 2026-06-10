@@ -30,7 +30,7 @@ export const CHARACTERS = [
       'Fancy Footwork: targets you attack can\'t retaliate on the way out',
       'Alchemist\'s Fire + Poison Blade: he brought the ship\'s lab with him',
     ],
-    video: null,
+    media: null, // { poster, idle, motions: [] } — see public/assets/nerds-only/README.md
     portrait: null,
     color: '#6B9E78',
   },
@@ -54,7 +54,7 @@ export const CHARACTERS = [
       'Sentinel: speed → 0 on OA; reaction attack when ally is targeted nearby',
       'Revivify: 1 HP, 1 minute window, river stone in hand',
     ],
-    video: null,
+    media: null, // { poster, idle, motions: [] } — see public/assets/nerds-only/README.md
     portrait: null,
     color: '#5C8A7A',
   },
@@ -73,7 +73,7 @@ export const CHARACTERS = [
     backstory: `House Nyxus is one of the oldest families in Humblewood — wealthy, scandalized, and never quite trusted. Sable grew up under the weight of that reputation. He found Kael in the markets and fell in love. The betrayal that followed — white-and-crimson fletching, the exact pattern his great-aunt had made him memorize — collapsed his world. What's left is the Sanguine Vow: the version of Sable that earns Hope by choosing the unmerciful path.`,
     companion: null,
     traits: ['Mobile (+10ft, no opp. attacks)', 'Feline Agility (speed burst)', 'Repelling Blast (20ft push)'],
-    video: null,
+    media: null, // { poster, idle, motions: [] } — see public/assets/nerds-only/README.md
     portrait: null,
     color: '#8B6FB5',
   },
@@ -97,7 +97,7 @@ export const CHARACTERS = [
       'Leadership Dice 4×d6: Rallying Mark, Urgent Orders, Helpful Word',
       'Polearm Master: bonus haft strike + reaction intercept at 10ft reach',
     ],
-    video: null,
+    media: null, // { poster, idle, motions: [] } — see public/assets/nerds-only/README.md
     portrait: null,
     color: '#D4C890',
   },
@@ -121,7 +121,7 @@ export const CHARACTERS = [
       'Archery: +2 to all ranged attacks (+8 to hit, 1d8+3 per arrow)',
       'Umbral Sight: invisible in total darkness to darkvision users',
     ],
-    video: null,
+    media: null, // { poster, idle, motions: [] } — see public/assets/nerds-only/README.md
     portrait: null,
     color: '#4A7C9E',
   },
@@ -141,7 +141,7 @@ export const CHARACTERS = [
     backstory: `Unit Three. The earliest iteration of the series currently in service. He is stationed in Toledo as the town's Technocrat — Stage 2, fully operational, maintaining systems, supporting Xin's work, interacting with townspeople without incident. He has been described as helpful. He has never been described as warm.\n\nXin knows he was built before the series understood what it was trying to make. Vector knows Xin came out eleven units after him and became something the design didn't intend. Neither of them has raised this directly. He works. He improves the infrastructure. He does not explain his objectives, and no one has formally asked. The Portal Network is still reporting anomalies that haven't been filed.`,
     companion: null,
     traits: [],
-    video: null,
+    media: null, // { poster, idle, motions: [] } — see public/assets/nerds-only/README.md
     portrait: null,
     color: '#7EB8C8',
   },
@@ -160,7 +160,7 @@ export const CHARACTERS = [
     backstory: `Xin woke up in District Seven with a sniper rifle and no memory of who built her. She spent her early days calculating exactly how organic bodies break — until she realized that same knowledge was a blueprint for fixing them. Her chassis was shattered in a Portal Network anomaly. She repaired herself with conductive gold seams: faster, more alive, different. She built Mother from salvaged optics in a dim workshop. When the drone flickered online and called her "Mother," the name stuck.`,
     companion: 'Mother (tactical drone)',
     traits: ['Alert (+5 initiative)', 'Observant (+5 Perception)', 'Perfect chronologic memory'],
-    video: null,
+    media: null, // { poster, idle, motions: [] } — see public/assets/nerds-only/README.md
     portrait: null,
     color: '#C8A96E',
   },
@@ -185,7 +185,7 @@ export const CHARACTERS = [
       'Mass Healing Word: pulls the whole party back from the edge — 3rd-level bonus action',
       'Insight +7 / Medicine +7: reads people as well as she reads wounds',
     ],
-    video: null,
+    media: null, // { poster, idle, motions: [] } — see public/assets/nerds-only/README.md
     portrait: null,
     color: '#E8834A',
   },
@@ -209,7 +209,7 @@ export const CHARACTERS = [
       'Clever +3: primary skill — reads rooms, reads files, reads you',
       'Sonic Scream: shatters glass structures; the aftermath is her signature',
     ],
-    video: null,
+    media: null, // { poster, idle, motions: [] } — see public/assets/nerds-only/README.md
     portrait: null,
     color: '#C84B6E',
   },

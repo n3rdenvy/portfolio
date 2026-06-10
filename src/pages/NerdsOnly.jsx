@@ -1,61 +1,124 @@
-import { useState, useCallback } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
 import { CHARACTERS, ROLES, ROLE_ORDER } from '../data/nerdsOnlyCharacters';
 
-/* ─── Character background: video when available, gradient placeholder ─────────
+/* ─── Character background: VEO video player with crossfades ───────────────────
  *
- * FUTURE PASS — VEO video architecture (decided 2026-06-10, assets pending):
- *   Per character: 1 poster + idle loop + 2-3 motion clips, ALL frame-matched
- *   to the same start/end pose so any clip hard-cuts into any other seamlessly.
- *   Drop zone + encoding rules: public/assets/nerds-only/README.md
+ * Per character: `media: { poster, idle, motions: [] }` (null until clips land —
+ * gradient placeholder renders meanwhile). Drop zone + encoding rules:
+ * public/assets/nerds-only/README.md. Clips should START AND END NEAR a common
+ * pose; the 0.25s crossfade absorbs generation drift, so VEO does not need to
+ * reproduce an exact frame (decided 2026-06-10).
  *
- *   Data shape replaces `video: null` with:
- *     media: { poster: '...', idle: '...', motions: ['...', '...'] }
+ * Playback: idle loops; an ambient timer plays one motion through, then
+ * crossfades back to idle. Clip entries are a src string or { webm, mp4 }.
  *
- *   Loading strategy (do not regress this):
- *     - Only the selected character's idle ever loads on page open;
- *       all other <video> stay preload="none". Poster paints first.
- *     - After idle starts playing, prefetch THAT character's motions via
- *       requestIdleCallback. Never prefetch other characters.
- *     - useReducedMotion → poster only, no autoplay.
- *   Playback: idle loops; a click/timer plays one motion through, then returns
- *   to idle. Frame-matched poses make cuts invisible — no crossfades.
- *
- * SABLE DUAL-BACKGROUND CONCEPT (still on the table for static fallback):
- *   Alderheart (city) as default, swamp / Sanguine Vow on select — in video
- *   terms this is just one of Sable's motion clips.
+ * Loading strategy (do not regress this):
+ *   - Only the selected character's media ever loads; switching characters
+ *     mounts a fresh player. Char-colored gradient paints under everything,
+ *     poster paints over it, video fades in on top.
+ *   - The character's extra motions warm the HTTP cache via requestIdleCallback
+ *     after mount. Never prefetch other characters.
+ *   - useReducedMotion → poster only, no autoplay, no ambient timer.
  */
+const CLIP_XFADE_S = 0.25;
+const AMBIENT_DELAY_MS = () => 9000 + Math.random() * 4000;
+
+function clipSources(clip) {
+  if (!clip) return [];
+  if (typeof clip === 'string') return [{ src: clip }];
+  return [
+    clip.webm && { src: clip.webm, type: 'video/webm' },
+    clip.mp4 && { src: clip.mp4, type: 'video/mp4' },
+  ].filter(Boolean);
+}
+
+const clipKey = (clip) => (typeof clip === 'string' ? clip : clip.webm || clip.mp4);
+
+function CharacterMedia({ media, reduceMotion }) {
+  const [clip, setClip] = useState(media.idle);
+  const isIdle = clip === media.idle;
+
+  // Ambient motion: while idling, occasionally play one motion clip through
+  useEffect(() => {
+    if (reduceMotion || !isIdle || !media.motions?.length) return;
+    const t = setTimeout(() => {
+      setClip(media.motions[Math.floor(Math.random() * media.motions.length)]);
+    }, AMBIENT_DELAY_MS());
+    return () => clearTimeout(t);
+  }, [isIdle, media, reduceMotion]);
+
+  // Warm the HTTP cache for this character's motions once the browser is idle
+  useEffect(() => {
+    if (reduceMotion || !media.motions?.length) return;
+    const warm = () =>
+      media.motions.flatMap(clipSources).forEach(({ src }) => fetch(src).catch(() => {}));
+    const ric = window.requestIdleCallback;
+    const id = ric ? ric(warm) : setTimeout(warm, 2500);
+    return () => (ric ? cancelIdleCallback(id) : clearTimeout(id));
+  }, [media, reduceMotion]);
+
+  return (
+    <>
+      {media.poster && (
+        <img
+          src={media.poster}
+          alt=""
+          width="1920"
+          height="1080"
+          className="absolute inset-0 h-full w-full object-cover"
+        />
+      )}
+      {!reduceMotion && (
+        // No `mode`: outgoing clip keeps playing while the next fades in over it
+        <AnimatePresence>
+          <motion.video
+            key={clipKey(clip)}
+            className="absolute inset-0 h-full w-full object-cover"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: CLIP_XFADE_S, ease: 'linear' }}
+            autoPlay
+            muted
+            playsInline
+            loop={isIdle}
+            preload="auto"
+            onEnded={() => setClip(media.idle)}
+          >
+            {clipSources(clip).map((s) => (
+              <source key={s.src} {...s} />
+            ))}
+          </motion.video>
+        </AnimatePresence>
+      )}
+    </>
+  );
+}
+
 function CharacterBackground({ char }) {
   const reduceMotion = useReducedMotion();
   return (
-    <AnimatePresence mode="wait">
+    // No `mode`: characters crossfade into each other instead of fading to black
+    <AnimatePresence>
       <motion.div
         key={char.id}
         initial={reduceMotion ? false : { opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
-        transition={{ duration: reduceMotion ? 0 : 0.5, ease: 'easeInOut' }}
+        transition={{ duration: reduceMotion ? 0 : 0.35, ease: 'easeInOut' }}
         className="absolute inset-0"
       >
-        {char.video ? (
-          <video
-            src={char.video}
-            autoPlay={!reduceMotion}
-            loop
-            muted
-            playsInline
-            className="h-full w-full object-cover"
-          />
-        ) : (
-          <div
-            className="h-full w-full"
-            style={{
-              background: `radial-gradient(ellipse 80% 90% at 60% 50%, ${char.color}28 0%, transparent 70%),
-                           linear-gradient(160deg, #0a0604 0%, #120c06 50%, #0a0604 100%)`,
-            }}
-          />
-        )}
+        {/* Char-colored gradient always paints first — covers media loading gaps */}
+        <div
+          className="absolute inset-0"
+          style={{
+            background: `radial-gradient(ellipse 80% 90% at 60% 50%, ${char.color}28 0%, transparent 70%),
+                         linear-gradient(160deg, #0a0604 0%, #120c06 50%, #0a0604 100%)`,
+          }}
+        />
+        {char.media?.idle && <CharacterMedia media={char.media} reduceMotion={reduceMotion} />}
         {/* vignette */}
         <div
           className="absolute inset-0"
