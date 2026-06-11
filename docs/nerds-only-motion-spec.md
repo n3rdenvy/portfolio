@@ -463,3 +463,63 @@ Revised order of operations (supersedes §6):
    still fails the 16:9 composition law).
 4. Xin, Valerius, Tortuga, Vector posters once Erik supplies source art.
 5. Batch video per §4.5. og:image from the strongest approved poster.
+
+---
+
+## 12. Asset drop protocol (where generated images go)
+
+**Where:** `My Drive/DND /<Character>/Photoreal/` (create the subfolder per character).
+Naming: `poster_v1.png`, `poster_v2.png` per attempt; Aed's forms are named
+`cosmic_v1.png`, `summer_v1.png`, etc. Never drop directly into the repo's
+`public/assets/` folders; that zone is encode-output only.
+
+**When:** after each generation batch, BEFORE any video spend on that character.
+
+**Then:** Claude reviews candidates against the composition law (UI stencil overlay),
+flags the winner, Erik confirms, Claude converts (webp), wires, transcribes and
+freezes the identity block from the winning pixels, and hands back the video prompt.
+A character's video money never moves until their poster is frozen.
+
+---
+
+## 13. Aed multi-form architecture (the transformation character)
+
+Source art inventory: cosmic.png (Starry Form, night, two star-panthers) + four full
+seasonal Fey Step aspects, each with distinct wardrobe, hair, palette, staff, shield,
+environment, and companion:
+- Summer: gold/bronze sun armor, amber crown, blonde, sunflower meadow, serval cat.
+  Already near-photoreal.
+- Winter: frost-blue skin, white hair, thorn-and-ice armor, snowflake crystal shield,
+  ice cave, two white ermines.
+- Fall: auburn braid, autumn-leaf armor, green crystal staff, tree shield, autumn
+  forest, golden eagle.
+- Spring: pink braid, moss-and-vine armor, flower crown, vine shield, cherry
+  blossoms, wolf.
+
+Wardrobe law per form: each form is its own frozen identity block. No clip blends
+forms except a designated transformation clip.
+
+**v1 clip graph (fits the existing player, no state machine):**
+- Home form: COSMIC. Poster, idle, ambients all cosmic.
+- ENTRANCE = the transformation, using Veo's first≠last frame conditioning:
+  first frame = one seasonal poster, last frame = cosmic poster, prompt describes
+  the shift (armor dissolving into night, starlight breaking through skin). The
+  player already plays entrance once then idles, and the entrance ends on the
+  idle's first frame, so it slots in with zero player changes. Recommended season:
+  SUMMER (highest contrast against night cosmic, and its near-photoreal finish
+  needs the least reboot work). Requires: photoreal summer poster + photoreal
+  cosmic poster before this clip.
+- Other seasons in v1: NOT video. See below.
+
+**v1.5 breakout: the Fey Step season selector.** A small four-season control on
+Aed's info panel that swaps his poster between approved seasonal stills (stills
+only, instant, no bandwidth cost, works with reduced-motion). His actual class
+mechanic (choose a season each long rest) expressed as UI. This is the cheapest
+high-impact feature on the whole page and a portfolio story by itself. Full
+season-to-season transformation VIDEO is v2, gated on budget: 4 idles + 4
+transitions would blow the page budget on one character.
+
+Generation order for Aed (revised pilot): photoreal cosmic poster → photoreal
+summer poster → freeze both blocks → cosmic idle → summer→cosmic entrance →
+cosmic ambients → seasonal stills (fall/winter/spring) for the selector as
+budget allows.
