@@ -120,10 +120,17 @@ The UI owns the left third and the bottom fifth. Therefore, in every prompt:
 - No on-screen text anywhere in frame. Veo garbles glyphs; all text is HTML.
 
 ### 4.3 Camera + light (fixed house style, paste into every prompt)
-> Locked-off static camera, 85mm portrait lens, eye level, shallow depth of field,
-> painterly dark-fantasy splash art, volumetric key light motivated by the scene,
-> deep soft shadows, muted desaturated background, character carries the only
-> saturated accent color, cinematic color grade, no camera movement.
+House style is PHOTOREAL as of the 2026-06-11 finish decision (§11). The painterly
+block this replaces died with the clay finish.
+> Locked-off static camera, 85mm portrait prime lens, eye level, shallow depth of
+> field, photorealistic cinematic film still, shot on ARRI Alexa 65, natural skin
+> and fur texture with fine detail, subtle film grain, motivated practical
+> lighting, deep soft shadows, muted desaturated background, the character carries
+> the only saturated accent color, HDR cinematic color grade, no camera movement.
+
+For the anthro characters (Hop, Sable, Silex, Elara, Tortuga) append:
+> photorealistic creature design, practical-effects quality fur groom, the
+> grounded realism of a live-action fantasy film
 
 - Idles and ambients: locked-off only. No handheld sway, no dolly. Movement belongs to
   the character, not the camera (this is also what keeps loops seamless).
@@ -133,7 +140,12 @@ The UI owns the left third and the bottom fifth. Therefore, in every prompt:
 ### 4.4 Standing negative prompt (every generation)
 > no text, no captions, no watermark, no logo, no UI elements, no extra limbs,
 > no second character, no strobe, no rapid flashing, no camera shake,
-> no morphing, no jelly motion
+> no morphing, no jelly motion, no costume change, no wardrobe change,
+> no smooth waxy skin, no plastic skin, no CGI render, no video game render,
+> no illustration, no painting, no cartoon, no doll-like face, no airbrushing
+
+(Drop "no second character" for characters whose poster includes companions:
+Aed's panthers, Xin's Mother, Elara's Treant.)
 
 ### 4.5 Clip set per character (4 generations minimum, budget 6-10 with retries)
 1. **poster** (image, not video): the anchor frame. Already exists for Aed; for others,
@@ -274,9 +286,10 @@ starting pose by the end of the shot.
 atmosphere only: soft haze, low contrast, nothing of interest. The bottom of the
 frame is ground and fog only.
 
-Painterly dark-fantasy splash art, volumetric key light motivated by the scene,
-deep soft shadows, muted desaturated background, the character carries the only
-saturated accent color ([COLOR NAME, hex]), cinematic color grade.
+Photorealistic cinematic film still, shot on ARRI Alexa 65, natural skin and fur
+texture with fine detail, subtle film grain, motivated practical lighting, deep
+soft shadows, muted desaturated background, the character carries the only
+saturated accent color ([COLOR NAME, hex]), HDR cinematic color grade.
 
 A seamless loop. The first and last frames are identical. No dialogue, no speech,
 quiet ambience.
@@ -312,9 +325,11 @@ blue mushrooms, a full moon with a thin comet arc. The left third of the frame i
 quiet atmosphere only: soft haze, low contrast, nothing of interest. The bottom of
 the frame is ground and fog only.
 
-Painterly dark-fantasy splash art, volumetric key light motivated by the moon,
-deep soft shadows, muted desaturated background, the character carries the only
-saturated accent colors (starlight white and lily red), cinematic color grade.
+Photorealistic cinematic film still, shot on ARRI Alexa 65, natural skin texture
+with fine detail, practical-effects quality creature design, subtle film grain,
+moonlight as the motivated key light, deep soft shadows, muted desaturated
+background, the character carries the only saturated accent colors (starlight
+white and lily red), HDR cinematic color grade.
 
 A seamless loop. The first and last frames are identical. No dialogue, no speech,
 quiet ambience.
@@ -413,3 +428,38 @@ She holds a clipboard stacked with papers behind a wooden crate desk holding
 papers, pens, and a chocolate chip cookie. Behind her, a warehouse workshop full
 of elves in green and red at workbenches, string lights and hanging lamps in soft
 bokeh. Cinematic film still, shallow depth of field.
+
+---
+
+## 11. Finish decision: FULL PHOTOREAL REBOOT (Erik, 2026-06-11)
+
+Target: cinematic film-still realism across all ten characters. Docket's existing
+poster is the reference standard and may skip regeneration.
+
+What this changes:
+1. **Posters get regenerated as photoreal film stills BEFORE any video.** A clip can
+   never be more real than its first frame; the painterly posters guarantee the clay
+   "moving illustration" finish. Generation order per character: photoreal poster →
+   approve → animate.
+2. **The current painterly art is the input, not waste.** It rides along as reference
+   ingredients for identity (face markings, wardrobe, palette, props), and the §5b
+   pixel-transcribed blocks become the wardrobe manifests inside the poster prompts.
+3. **After a photoreal poster is approved, its identity block gets re-transcribed
+   from the NEW pixels** and frozen. §5b blocks are poster-generation inputs, not
+   final video blocks.
+4. **Anthro risk is priced in.** Hop, Sable, Silex, Elara, Tortuga are live-action
+   talking animals at Narnia/Rocket quality bar. Expect a higher retry count on
+   their posters; faces are the kill criterion at review. If one character refuses
+   to land after a reasonable retry budget, escalate to Erik before burning more.
+5. Painterly originals stay archived in Drive and the asset folders; they are also
+   the case-study "before" frames.
+
+Revised order of operations (supersedes §6):
+1. Photoreal Aed poster (pilot): film-still re-render of cosmic.png composition,
+   §5b block as wardrobe manifest, cosmic.png + 2 seasonals as references.
+2. Approve → re-transcribe block → idle clip → entrance → ambients. Full pipe on
+   Aed alone validates poster reboot + video protocol in one character.
+3. Batch photoreal posters: Hop, Sable, Silex, Elara (+ Docket only if her existing
+   still fails the 16:9 composition law).
+4. Xin, Valerius, Tortuga, Vector posters once Erik supplies source art.
+5. Batch video per §4.5. og:image from the strongest approved poster.
