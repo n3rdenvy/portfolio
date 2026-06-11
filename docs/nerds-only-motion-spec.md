@@ -295,29 +295,64 @@ UI settings alongside the prompt, every generation:
 Locked-off static camera, 85mm portrait lens, eye level, shallow depth of field.
 No camera movement.
 
-A slender male Eladrin elf druid, 5'10" and lithe, pale moss-green skin with
-fluorescent yellow freckles, hazel eyes, full-moon-yellow hair in ringlets, wearing
-hide scale mail with a wooden shield slung on his back, standing right of center
-among red spider lilies under a huge full moon.
+A male elf druid in luminous Starry Form: charcoal-black skin speckled with tiny
+points of white starlight, long flowing silver-white hair, pointed ears, athletic
+build. He wears a fitted sleeveless black top, black trousers, and a black belt;
+his arms are bare. He holds a drawn longbow made of glowing white starlight with
+an arrow of light nocked. Two black panthers with white star-spotted coats stand
+at his sides, slightly behind him. The outfit never changes; nothing is added or
+removed.
 
-He breathes slowly and shifts his weight almost imperceptibly. Tiny catkin fibers
-drift down around him; faint pinpricks of starlight pulse softly under his skin.
-The character returns exactly to the starting pose by the end of the shot.
+He holds the drawn bow steady, breathing slowly. His hair drifts; the starlight
+points under his skin pulse softly; the panthers' tails sway. The character
+returns exactly to the starting pose by the end of the shot.
 
-A moonlit field of red spider lilies at night, distant treeline. The left third of
-the frame is quiet atmosphere only: soft haze, low contrast, nothing of interest.
-The bottom of the frame is ground and fog only.
+A night forest clearing filled with red spider lilies, gnarled dark trees, glowing
+blue mushrooms, a full moon with a thin comet arc. The left third of the frame is
+quiet atmosphere only: soft haze, low contrast, nothing of interest. The bottom of
+the frame is ground and fog only.
 
 Painterly dark-fantasy splash art, volumetric key light motivated by the moon,
 deep soft shadows, muted desaturated background, the character carries the only
-saturated accent colors (moss green and lily red), cinematic color grade.
+saturated accent colors (starlight white and lily red), cinematic color grade.
 
 A seamless loop. The first and last frames are identical. No dialogue, no speech,
 quiet ambience.
 ```
 
-(Aed's identity block above is provisional until checked against cosmic.png; freeze
-it in §5 after the first draft confirms likeness.)
+(Aed's identity block was transcribed from cosmic.png pixels on 2026-06-11 and is
+now frozen. His negative prompt drops "second character": the panthers are in the
+poster, and the standard negative would fight them.)
+
+### Wardrobe lock (added 2026-06-11 after attire drift in early generations)
+
+The drift has two causes. Both have laws now:
+
+1. **Text-image conflict is self-sabotage.** If the identity block describes the
+   character SHEET while the frames show the ART, Veo averages the two and
+   redresses the character. The first Aed block did exactly this: sheet said
+   moss-green skin and hide scale mail; cosmic.png shows Starry Form in black.
+   Law: identity blocks are transcribed from the poster's pixels, garment by
+   garment (type, color, material, state, props), never from the sheet. Where
+   sheet and art disagree, the art wins for video. The sheet is lore; the poster
+   is wardrobe.
+2. **Reference mode is not anchor mode.** "Ingredients"/reference images are
+   style guidance Veo reinterprets freely. The first-frame slot is a pixel anchor
+   Veo continues from. Wardrobe fidelity requires the poster in the FIRST FRAME
+   (and last frame) slots; reference slots are supplementary, for angles the
+   poster doesn't show.
+
+Supporting rules:
+- Every identity block ends with: "The outfit never changes; nothing is added or
+  removed."
+- Negative prompt gains: `costume change, wardrobe change, different outfit,
+  added armor, appearing jewelry, clothing morphing`.
+- Keep motion frontal. No turns, no spins: Veo has never seen the back of the
+  costume and will invent one. If a beat needs rotation, generate and approve a
+  back-view still first and feed it as a reference.
+- Judge wardrobe fidelity on full 3.1 takes only. Lite drafts drift more by
+  design; a Lite wardrobe error proves nothing. Drafts answer "is the motion
+  right," nothing else.
 
 ### Tier and length policy
 - Every clip in this project fits inside a single 8-second take BY DESIGN. Scene
