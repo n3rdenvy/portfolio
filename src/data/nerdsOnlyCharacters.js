@@ -1,4 +1,4 @@
-// `labelColor` — small-text variant where `color` fails WCAG contrast on the
+// `labelColor`: small-text variant where `color` fails WCAG contrast on the
 // dark page bg (tank red is ~2:1). Bars/swatches keep `color`; text uses
 // labelColor when present.
 export const ROLES = {
@@ -16,21 +16,21 @@ export const CHARACTERS = [
     name: 'Hop Skip',
     designation: null,
     race: 'Harengon',
-    class: 'Rogue — Swashbuckler',
+    class: 'Rogue · Swashbuckler',
     system: 'D&D 5e (Humblewood)',
     alignment: 'Chaotic Good',
     hp: 38,
     ac: 16,
     tagline: "Licensed explorer. Unlicensed everything else.",
-    backstory: `Hop Skip runs a mobile forge ship — a self-funded operation with a high-heat smelting furnace installed in a wooden hull, stabilized by a massive mechanical gyroscope bolted to the engine room so the whole workspace stays level in rough water. He answers to no crown. His operating capital is flawless gems pulled from smelting impurities. It works.\n\nHe learned Ignan because the forge required it. He grew up in underdark-adjacent tunnels before he found the ocean — that's where he developed the venom work — but once he got the ship running, he realized the fire wasn't a tool to contain, it was something you had to actually talk to. He spends downtime tuning the forge by speaking directly to the flames. Ignan isn't a weapon language for him. It's metallurgy.\n\nBy the time he docked in Alderheart, the birdfolk merchants already knew who he was. A steam-venting forge ship draws attention. The high-society guilds invited him into their lounges to talk fire safety — which he's actually qualified for — and he used that room to set up a clean storefront in the perches. Custom anti-venoms, precision metalwork, specialized alchemical wares. He's looking for a route to the desert region's ore deposits to keep the engine stocked.\n\nThe reason he's underground right now is that the Ignus elementals powering his gyroscope started groaning. Restless. Thermally erratic. Something deep in the Wood is disturbing the elemental layer and it's throwing off his ship's whole balance. He left the crew with the ship, grabbed his bandolier and a fresh poison coat on the rapier, and went underground to find the source. Not a quest. A troubleshooting job.`,
+    backstory: `Hop Skip runs a mobile forge ship: a self-funded operation with a high-heat smelting furnace installed in a wooden hull, stabilized by a massive mechanical gyroscope bolted to the engine room so the whole workspace stays level in rough water. He answers to no crown. His operating capital is flawless gems pulled from smelting impurities. It works.\n\nHe learned Ignan because the forge required it. He grew up in underdark-adjacent tunnels before he found the ocean (that's where he developed the venom work), but once he got the ship running, he realized the fire wasn't a tool to contain, it was something you had to actually talk to. He spends downtime tuning the forge by speaking directly to the flames. Ignan isn't a weapon language for him. It's metallurgy.\n\nBy the time he docked in Alderheart, the birdfolk merchants already knew who he was. A steam-venting forge ship draws attention. The high-society guilds invited him into their lounges to talk fire safety, which he's actually qualified for, and he used that room to set up a clean storefront in the perches. Custom anti-venoms, precision metalwork, specialized alchemical wares. He's looking for a route to the desert region's ore deposits to keep the engine stocked.\n\nThe reason he's underground right now is that the Ignus elementals powering his gyroscope started groaning. Restless. Thermally erratic. Something deep in the Wood is disturbing the elemental layer and it's throwing off his ship's whole balance. He left the crew with the ship, grabbed his bandolier and a fresh poison coat on the rapier, and went underground to find the source. Not a quest. A troubleshooting job.`,
     companion: null,
     traits: [
-      'Hare-Trigger + Rakish Audacity: +9 initiative — he was already moving when you decided',
+      'Hare-Trigger + Rakish Audacity: +9 initiative; he was already moving when you decided',
       'Rabbit Hop: 15ft clean jump, no opportunity attacks, 3×/rest',
       'Fancy Footwork: targets you attack can\'t retaliate on the way out',
       'Alchemist\'s Fire + Poison Blade: he brought the ship\'s lab with him',
     ],
-    media: null, // { poster, idle, motions: [] } — see public/assets/nerds-only/README.md
+    media: null, // { poster, idle, motions: [] }, see public/assets/nerds-only/README.md
     portrait: null,
     color: '#6B9E78',
   },
@@ -40,21 +40,21 @@ export const CHARACTERS = [
     name: 'Tortuga',
     designation: null,
     race: 'Tortle',
-    class: 'Cleric — Forge Domain',
+    class: 'Cleric · Forge Domain',
     system: 'D&D 5e (Humblewood)',
     alignment: 'Neutral Good',
     hp: 41,
     ac: 20,
     tagline: "He didn't put on armor. His god improved the armor he was born in.",
-    backstory: `Tortuga came up through river country — swamp-tracking, wetland terrain, the kind of geography that teaches you to read water before you read people. He carries a river stone as his holy symbol. He didn't find the Forge Domain in a temple or a city. He found it somewhere along a flooded bank, holding a piece of worked metal that had no business being where it was, and understood that fire and patience are the same discipline.\n\nHis shell is AC 17. The Forge Domain adds one. The shield adds two. He doesn't wear armor because he can't — but every long rest he lays hands on his own chassis and the god makes it better. The math lands at 20. Spirit Guardians radiates 15 feet. Enemies move at half speed inside the perimeter and take 3d8 radiant at the start of each turn. He chose where to stand before the fight started.\n\nHe has Revivify prepared. He has used it. He brought someone back from the dead with a river stone and a warhammer and the quiet certainty that it wasn't their time yet.`,
+    backstory: `Tortuga came up through river country: swamp-tracking, wetland terrain, the kind of geography that teaches you to read water before you read people. He carries a river stone as his holy symbol. He didn't find the Forge Domain in a temple or a city. He found it somewhere along a flooded bank, holding a piece of worked metal that had no business being where it was, and understood that fire and patience are the same discipline.\n\nHis shell is AC 17. The Forge Domain adds one. The shield adds two. He doesn't wear armor because he can't. But every long rest he lays hands on his own chassis and the god makes it better. The math lands at 20. Spirit Guardians radiates 15 feet. Enemies move at half speed inside the perimeter and take 3d8 radiant at the start of each turn. He chose where to stand before the fight started.\n\nHe has Revivify prepared. He has used it. He brought someone back from the dead with a river stone and a warhammer and the quiet certainty that it wasn't their time yet.`,
     companion: null,
     traits: [
-      'Spirit Guardians: 15ft zone — half speed, 3d8 radiant per turn (Concentration)',
+      'Spirit Guardians: 15ft zone, half speed, 3d8 radiant per turn (Concentration)',
       'Blessing of the Forge: touches his own shell each long rest for +1 AC',
       'Sentinel: speed → 0 on OA; reaction attack when ally is targeted nearby',
       'Revivify: 1 HP, 1 minute window, river stone in hand',
     ],
-    media: null, // { poster, idle, motions: [] } — see public/assets/nerds-only/README.md
+    media: null, // { poster, idle, motions: [] }, see public/assets/nerds-only/README.md
     portrait: null,
     color: '#5C8A7A',
   },
@@ -64,16 +64,16 @@ export const CHARACTERS = [
     name: 'Sable Nyxus',
     designation: null,
     race: 'Tabaxi',
-    class: 'Warlock — Pact of the Blade',
+    class: 'Warlock · Pact of the Blade',
     system: 'D&D 5e / Daggerheart',
     alignment: 'Chaotic Neutral',
     hp: 42,
     ac: 15,
     tagline: "Aristocratic. Grieving. Very fast. Don't make him use the claws.",
-    backstory: `House Nyxus is one of the oldest families in Humblewood — wealthy, scandalized, and never quite trusted. Sable grew up under the weight of that reputation. He found Kael in the markets and fell in love. The betrayal that followed — white-and-crimson fletching, the exact pattern his great-aunt had made him memorize — collapsed his world. What's left is the Sanguine Vow: the version of Sable that earns Hope by choosing the unmerciful path.`,
+    backstory: `House Nyxus is among the oldest families in Humblewood. Their ancestors, immigrants from distant lands, were among the founders of Bramblewell around Song 208, and as Bramblewell grew, so did the family's station. When the First Bandit Coalition formed in Song 402 and threatened the Great Tree, the Nyxus family were among the prominent houses that warned citizens early enough to escape into the branches. During that war the city of Alderheart was formed, and though the historical record forgot it, House Nyxus and House Sangrenard helped establish vast trade networks across the Wood.\n\nAfter the Conference of Glimmercall, House Nyxus settled in Alderheart, the city above. Some birdfolk elite were annoyed. Some in Bramblewell called it betrayal. Then the rumors started: bandits slain in battle were found carrying charms of obsidian glass, a known Nyxus craft. The family denied everything. The damage was done. When the Bandit Coalition made its final assault on Alderheart in Song 412, members of the militant Talon Guard destroyed the Nyxus home and killed most of the family. The Talon Guard was disbanded for it. The survivors moved down the tree to The Branches, a neighborhood of wood bridges and gliding platforms where a fall is fatal for anyone who can't glide, and held their heads high. Today the name is wealthy, diminished, and spoken with a sneer by people who no longer remember why.\n\nThe lineage was preserved in obsidian glass and in grudges, curated by Great-Aunt Vespera, the self-appointed Keeper of the Calamity. Beneath a display case Sable was forced to polish every Sunday rested the Tools of the Betrayal, and Vespera made him memorize the fletching of the arrow inside: stark white Strix feathers, bound with a distinctive crimson thread, dipped in a paralytic blue resin. "They claimed they were aiming for the Bandits. But these feathers only fly toward those with too much ambition. Never forget the pattern, boy." He memorized every barb just to make her stop talking. He never expected that spiral of feathers to be the last thing he saw flying through the air before his world shattered.\n\nHe spotted Kael during trips to the local markets: a gruff, handsome Servalkin Tabaxi dressed to blend into the forests outside Alderheart. Sable watched him for a week and learned the schedule of his supply runs. Then one sunset Kael did something unexpected. Instead of leaving, he marched straight into the tavern where Sable sat, surveyed the room once for a now-familiar scent, locked eyes, and approached. Neither of them could ever recount what was said. Kael taught him everything about the forests, and the teaching was the affection. Sable, for once, dropped the regal act. Kael represented everything his previous life didn't: a life ruled by what was necessary that still looked for beauty in the corners Sable had never noticed.\n\nSable wanted to show Kael something about the Wood for a change, and they made camp in the darker woods between Alderheart and the Atrium. A war horn ended the quiet. Kael's skin rippled, growing muscle and a strawberry blonde coat, and an arrow lodged inches from his foot: white Strix feathers, bound with crimson thread. Sable blacked out. A primal voice he would come to know as the Sanguine's Whisper growled, "Will you let them take your Serval, your everything, away?" His eyes, normally deep amber gold flecked with sapphire, blinked back bright red. The lovers split and ran a Mourne clan maneuver built to lose pursuers.\n\nSable reached the rendezvous first, a dense brush by a familiar black spruce, and exhaled when Kael appeared on a nearby branch. Kael slipped a bone cuff from his ear and reached out with the keepsake. Then he rigidly tensed. The trinket fell, and then he did. Paralytic resin. Sable's feline speed caught him just before the ground, and the truth landed at the same time: the only person he loved was being taken from him. Barely conscious, Kael ripped the necklace from his own neck and forced it into Sable's hands. As the ranger began coughing blood, a red haze descended, the swamp water turned crimson, and the fog resolved into the shapes of birdfolk. Red tears fell onto his dying partner as Sable gave Kael his final, merciful gift of love.\n\nSable alone carries the truth of what happened next. The assailants were Strix Talon Guard, and they met a purplish-black satin blur their arrows couldn't track, talons raking through feather and bone, a roar that was no longer one voice. The fight was quick, savage, and absolute. Traders found the wreckage days later and the stories grew teeth: a demon from the woods, all claws and shadow. A silence where the crickets used to sing, like the swamp holding its breath out of respect, or fear.\n\nHe roamed until time stopped feeling real, then appeared in Vespera's entryway. She looked him over, unaffected. "I was curious if the rumors had been about you." She pointed him toward Marshview, where a wind-touched Jerbeen had been sighted and the Talon Guard wouldn't be able to resist clipping those wings. Sable now operates with a polished veneer of diplomacy, using his inherited Position of Privilege to re-enter the very circles that betrayed him. His goal is the Birdfolk elder who commanded the Talon Guard, and the conspiracy dismantled from the inside out. His combat style matches the persona: swift, precise, and gone before his target's allies comprehend the attack. What's left is the Sanguine Vow: the version of Sable that earns Hope by choosing the unmerciful path.`,
     companion: null,
     traits: ['Mobile (+10ft, no opp. attacks)', 'Feline Agility (speed burst)', 'Repelling Blast (20ft push)'],
-    media: null, // { poster, idle, motions: [] } — see public/assets/nerds-only/README.md
+    media: null, // { poster, idle, motions: [] }, see public/assets/nerds-only/README.md
     portrait: null,
     color: '#8B6FB5',
   },
@@ -83,13 +83,13 @@ export const CHARACTERS = [
     name: 'Valerius VIII',
     designation: 'v_08',
     race: 'Warforged',
-    class: 'Warlord — Noble Presence',
+    class: 'Warlord · Noble Presence',
     system: 'D&D 5e (Mensa Atra)',
     alignment: 'Lawful Neutral',
     hp: 36,
     ac: 18,
     tagline: "He will calculate the cost of saving you. He might not pay it.",
-    backstory: `Unit Eight of fifteen. Shoulder-length blonde hair, white military coat with gold trim and ornate medals, dark brocade underneath. He was built for the Capitol — for the kind of room where power sits in good chairs and speaks in complete sentences and the decision to spend a life is recorded under Operational Costs.\n\nXin is Unit Fourteen. Six units later, the series produced something it didn't intend. Valerius VIII has not determined whether this is a manufacturing failure or a feature worth studying. He keeps the question open. Her field performance data is still interesting.\n\nHe operates with a pleasant, lighthearted demeanor and a smile he deploys at calibrated intervals. Teammates are organic hardware assets. The math is the math. He is not cruel about it. Cruelty would be inefficient.`,
+    backstory: `Unit Eight of fifteen. Shoulder-length blonde hair, white military coat with gold trim and ornate medals, dark brocade underneath. He was built for the Capitol, for the kind of room where power sits in good chairs and speaks in complete sentences and the decision to spend a life is recorded under Operational Costs.\n\nXin is Unit Fourteen. Six units later, the series produced something it didn't intend. Valerius VIII has not determined whether this is a manufacturing failure or a feature worth studying. He keeps the question open. Her field performance data is still interesting.\n\nHe operates with a pleasant, lighthearted demeanor and a smile he deploys at calibrated intervals. Teammates are organic hardware assets. The math is the math. He is not cruel about it. Cruelty would be inefficient.`,
     companion: null,
     traits: [
       'Call to Arms: grants advantage to up to 4 allies on initiative rolls',
@@ -97,7 +97,7 @@ export const CHARACTERS = [
       'Leadership Dice 4×d6: Rallying Mark, Urgent Orders, Helpful Word',
       'Polearm Master: bonus haft strike + reaction intercept at 10ft reach',
     ],
-    media: null, // { poster, idle, motions: [] } — see public/assets/nerds-only/README.md
+    media: null, // { poster, idle, motions: [] }, see public/assets/nerds-only/README.md
     portrait: null,
     color: '#D4C890',
   },
@@ -107,13 +107,13 @@ export const CHARACTERS = [
     name: 'Silex Sterling Grit',
     designation: null,
     race: 'Corvum',
-    class: 'Ranger — Gloom Stalker',
+    class: 'Ranger · Gloom Stalker',
     system: 'D&D 5e (Humblewood)',
     alignment: 'Lawful Neutral',
     hp: 44,
     ac: 15,
     tagline: "Three attacks on turn one. The fog was already there when he set up.",
-    backstory: `Corvum live in their heads. Silex lives in the gap between thinking and moving. He came up through Humblewood's scout-rangers tracking Elemental surges at the Scorched Grove's edge — the kind of work that requires you to be calm in total darkness, in ground that catches fire without warning, against targets that don't bleed the way expected. He has done it long enough that he stopped finding it exceptional.\n\nHe is not cold. He is economical. There's a difference. He speaks when the sentence does something. He coordinates with the party because the math is better that way. He trusts Elara's read on the Grove because she's been in the fire and came back knowing something — he respects that. He doesn't explain his decisions. The shot either lands or it didn't. Lawful Neutral doesn't mean rule-following. It means he made his ethical calculus a long time ago and doesn't revisit it in the field.`,
+    backstory: `Corvum live in their heads. Silex lives in the gap between thinking and moving. He came up through Humblewood's scout-rangers tracking Elemental surges at the Scorched Grove's edge: the kind of work that requires you to be calm in total darkness, in ground that catches fire without warning, against targets that don't bleed the way expected. He has done it long enough that he stopped finding it exceptional.\n\nHe is not cold. He is economical. There's a difference. He speaks when the sentence does something. He coordinates with the party because the math is better that way. He trusts Elara's read on the Grove because she's been in the fire and came back knowing something. He respects that. He doesn't explain his decisions. The shot either lands or it didn't. Lawful Neutral doesn't mean rule-following. It means he made his ethical calculus a long time ago and doesn't revisit it in the field.`,
     companion: null,
     traits: [
       'Dread Ambusher: 3 attacks on turn 1, first extra hits for +1d8',
@@ -121,7 +121,7 @@ export const CHARACTERS = [
       'Archery: +2 to all ranged attacks (+8 to hit, 1d8+3 per arrow)',
       'Umbral Sight: invisible in total darkness to darkvision users',
     ],
-    media: null, // { poster, idle, motions: [] } — see public/assets/nerds-only/README.md
+    media: null, // { poster, idle, motions: [] }, see public/assets/nerds-only/README.md
     portrait: null,
     color: '#4A7C9E',
   },
@@ -138,10 +138,10 @@ export const CHARACTERS = [
     hp: null,
     ac: null,
     tagline: "Unit three. Before Xin, there was him.",
-    backstory: `Unit Three. The earliest iteration of the series currently in service. He is stationed in Toledo as the town's Technocrat — Stage 2, fully operational, maintaining systems, supporting Xin's work, interacting with townspeople without incident. He has been described as helpful. He has never been described as warm.\n\nXin knows he was built before the series understood what it was trying to make. Vector knows Xin came out eleven units after him and became something the design didn't intend. Neither of them has raised this directly. He works. He improves the infrastructure. He does not explain his objectives, and no one has formally asked. The Portal Network is still reporting anomalies that haven't been filed.`,
+    backstory: `Unit Three. The earliest iteration of the series currently in service. He is stationed in Toledo as the town's Technocrat: Stage 2, fully operational, maintaining systems, supporting Xin's work, interacting with townspeople without incident. He has been described as helpful. He has never been described as warm.\n\nXin knows he was built before the series understood what it was trying to make. Vector knows Xin came out eleven units after him and became something the design didn't intend. Neither of them has raised this directly. He works. He improves the infrastructure. He does not explain his objectives, and no one has formally asked. The Portal Network is still reporting anomalies that haven't been filed.`,
     companion: null,
     traits: [],
-    media: null, // { poster, idle, motions: [] } — see public/assets/nerds-only/README.md
+    media: null, // { poster, idle, motions: [] }, see public/assets/nerds-only/README.md
     portrait: null,
     color: '#7EB8C8',
   },
@@ -157,35 +157,60 @@ export const CHARACTERS = [
     hp: 21,
     ac: 16,
     tagline: "One of fifteen. The only one who wanted to keep people alive.",
-    backstory: `Xin woke up in District Seven with a sniper rifle and no memory of who built her. She spent her early days calculating exactly how organic bodies break — until she realized that same knowledge was a blueprint for fixing them. Her chassis was shattered in a Portal Network anomaly. She repaired herself with conductive gold seams: faster, more alive, different. She built Mother from salvaged optics in a dim workshop. When the drone flickered online and called her "Mother," the name stuck.`,
+    backstory: `Xin was one of fifteen. She did not know who built her or why. She and her fourteen sisters simply woke up one day tethered to random charge modules across the districts, fully autonomous and highly capable. While her sisters initialized with heavy artillery or frontline defense matrices, Xin woke up in District Seven with a sniper rifle and a Marksman protocol.\n\nHer early operational days were spent perched on high vantage points, calculating wind resistance, terminal ballistics, and the precise breaking points of organic targets. She possessed a perfect chronologic memory and retained uncorrupted records of every injury she witnessed. Watching how easily organics broke sparked a profound curiosity: understanding exactly how to destroy a biological system meant she also held the exact blueprint required to fix it. Between contracts she studied botany, chemistry, and anatomy, and discovered a natural affinity for crafting. She could synthesize a lethal paralytic, and she could just as easily brew a rapid coagulant. She stopped viewing organic life as a fragile target and started seeing it as a beautiful, complex system that deserved protection. Her empathy engine fully initialized. She wanted to keep people alive.\n\nThen the Portal Network anomaly tore through District Seven. The disaster decimated her squad and shattered her ceramic chassis. Xin refused to stay broken. In the wreckage she gathered the high-grade conductive gold she had been quietly stockpiling for long-range signal arrays and painstakingly soldered her shattered plating back together. The gold seams acted as a hyper-conductive arcane grid that drastically accelerated her processing speed, and the repair triggered a complete system awakening. She was no longer just a sniper who watched people die from far away. She integrated Technocrat schematics into her core and formally pivoted to a Combat Medic framework.\n\nBut a sniper operates in isolation, and isolation does not keep a squad alive. A fully autonomous partner could carry excess ammunition, deploy healing on the front line, and give her someone to talk to in the quiet hours between contracts. In the dim light of her makeshift workshop, she assembled a medical drone from salvaged optics and polished ceramic. When the drone's blue visual sensors flickered online for the first time, Xin leaned in and gently spoke her own name. The newborn system processed the audio, tilted its chassis, and chirped a single miscalibrated response: "Mother." Xin paused. Her empathy engine hummed. "Hello, Mother." The name stuck. It created a permanent, mutual loop between the two of them.\n\nThe road out of District Seven's ash-choked ruins was long, violent, and full of refugees and merchants who fell prey to the wilds. Xin and Mother stopped for every injured traveler they found, Xin crafting stabilizers from foraged flora while Mother delicately administered the doses. They saved merchants from venomous bites and patched up scavengers who triggered old traps, and healing these strangers eased the quiet grief in Xin's core. By the time the fortified gates of District Six came into view, the two of them were a genuine lifeline for a brutal region. More urgently, LaetOS had just noted that the Portal Network near District Six was beginning to exhibit the exact same anomalies that shattered District Seven. Xin adjusted the heavy syringe rifle on her shoulder and looked at Mother. They had work to do.`,
     companion: 'Mother (tactical drone)',
     traits: ['Alert (+5 initiative)', 'Observant (+5 Perception)', 'Perfect chronologic memory'],
-    media: null, // { poster, idle, motions: [] } — see public/assets/nerds-only/README.md
+    media: null, // { poster, idle, motions: [] }, see public/assets/nerds-only/README.md
     portrait: null,
     color: '#C8A96E',
   },
   {
+    id: 'aed',
+    role: 'healer',
+    name: 'Aed Osier',
+    designation: null,
+    race: 'Eladrin (Elf)',
+    class: 'Druid · Circle of Stars',
+    system: 'D&D 5e (Curse of Strahd)',
+    alignment: 'Chaotic Neutral / Chaotic Evil (Split)',
+    hp: 45,
+    ac: 15,
+    tagline: "He asked the stars for love. They sent artillery.",
+    backstory: `Aed was born from a single catkin on a riverbank of Osier trees under the blood moon, during the constellation known as The Archer. The thicket offered protection to a neighboring sacred cherry blossom grove, and through the passing of time Aed came to be the caretaker of that grove and its inhabitants, bonding with the birds and butterflies that brought in smells of the outside world. A world that hopefully cradled a being he could truly bond with, not just care for.\n\nOver the years it was slowly discovered that weeping under the full moon among the blossoms would cause flowers to bloom that could charm whomever they were given to. Aed, in his quest for love and the shared joy it brings, welcomed his initial guests. As word travelled, humans and elves alike flocked to the grove in swarms, slowly destroying the landscape, overrunning habitats, and ruining the homes of those he called friends. When Aed felt the inner alarm of multiple intruders entering his grove, he went to greet the visitors and determine their intent. What he found were guests void of free will, ripped from their loved ones. A pain bloomed behind his eyes unlike anything he had experienced before, and he froze in place.\n\nThere is a story that talks of a slave driver who forced his captives to collectively weep on the oversaturated grove landscape. It is told that tiny Osier catkin fibers began to rain down from the branches above, innocently surrounding those below, a soft net radiating a placating cherry blossom scent that erased a layer of sound the way a heavy snowfall does. Overhead, the stars surrounding the moon intensified in brightness as they approached their encapsulated targets. The mourners' eyes bled as the constellations above impaled them with arrows made of crackling light.\n\nGrabbing his head and falling to his knees, Aed's irises dilated until they were soft milky speckled globes. His skin darkened to the translucent cerulean hue of the night sky as bright pinpricks of light broke through its surface, thin tendrils of red-hot white light connecting the dots as Orion, the archer, took over the druid's body. The archer aspect formed a bow made of light and fired directly upwards.\n\nAed awoke days later to a barren, thunder-stricken array he once helped shape. His current lifetime's worth of memories gone. At the center of the nine husks suspended in air by smoldering fulgurite, he wept. The surrounding towns and cities had simultaneously witnessed a single blinding light beam toward the moon and return a volley that would come to be known as Aed's Penance.\n\nThe Aed perceived today searches endlessly for a bond like the one he had at his grove, haunted by the weight of destroying his home and letting himself be consumed by the power of starlight. The stars still answer when he calls. He tries not to call.`,
+    companion: null,
+    traits: [
+      'Starry Form: burns a Wild Shape use to go constellation; Archer fires 1d8+4 radiant, Chalice adds 1d8+4 to every heal',
+      'Fey Step: 30ft bonus-action teleport with seasonal rider effects, 3×/rest',
+      'Cosmic Omen: reaction d6 bends any roll within 30ft toward Weal or Woe',
+      'Guiding Bolt: 3 free casts per rest via Star Map; 4d6 radiant and the next attack on the target has advantage',
+    ],
+    // Seasonal stills (summer/winter/fall/spring.webp) live in the same folder for the motion pass
+    media: { poster: '/assets/nerds-only/aed/poster.webp', idle: null, motions: [] },
+    portrait: null,
+    color: '#A4B86A',
+  },
+  {
     id: 'elara',
     role: 'utility',
-    retired: true, // fused with the Treant at the end of her arc — shown as a status chip
+    retired: true, // fused with the Treant at the end of her arc, shown as a status chip
     name: 'Elara Moonstone',
     designation: null,
     race: 'Vulpin',
-    class: 'Druid — Circle of Wildfire',
+    class: 'Druid · Circle of Wildfire',
     system: 'D&D 5e (Humblewood)',
     alignment: 'Chaotic Neutral',
     hp: 44,
     ac: 14,
     tagline: "Journalist. Fire enthusiast. Will heal you and burn you in the same turn.",
-    backstory: `Elara was small when her village burned. She was trapped inside, screaming, the smoke already winning — and then a will-o'-wisp appeared in the dark. Pipsqueak led her out through fire she should not have survived. The memory lives in her body, not just her mind. She doesn't fear fire. She understands it the way you understand something that has killed everyone you loved and still chose to save you.\n\nShe came to the Tanglewilds as a journalist and a Heartbraider — a Tender searching for the source of the fire disturbances spreading through the Wood. What was causing them. Whether they could be stopped. During a boss fight at the edge of the forest, a great tree reached for her, and she reached back. She went in. She's in there somewhere, with Pip, still witnessing. Sable joined the party after she left.`,
-    companion: 'Pipsqueak (Pip) — Wildfire Spirit, chaotic fire orb energy, never calms down. The Treant (name TBD) — ancient forest guardian she merges with at the end; carries a revived Mapach bandit on his shoulder from an earlier fight.',
+    backstory: `Elara was small when her village burned. She was trapped inside, screaming, the smoke already winning. And then a will-o'-wisp appeared in the dark. Pipsqueak led her out through fire she should not have survived. The memory lives in her body, not just her mind. She doesn't fear fire. She understands it the way you understand something that has killed everyone you loved and still chose to save you.\n\nShe came to the Tanglewilds as a journalist and a Heartbraider, a Tender searching for the source of the fire disturbances spreading through the Wood. What was causing them. Whether they could be stopped. During a boss fight at the edge of the forest, a great tree reached for her, and she reached back. She went in. She's in there somewhere, with Pip, still witnessing. Sable joined the party after she left.`,
+    companion: 'Pipsqueak (Pip): Wildfire Spirit, chaotic fire orb energy, never calms down. The Treant (name TBD): ancient forest guardian she merges with at the end; carries a revived Mapach bandit on his shoulder from an earlier fight.',
     traits: [
-      'Wither and Bloom: heals one ally and deals necrotic to enemies — in the same action',
+      'Wither and Bloom: heals one ally and deals necrotic to enemies, in the same action',
       'Melf\'s Minute Meteors: always-prepared fire; rains 2d6 fire per bolt, bonus action to keep the volley',
-      'Mass Healing Word: pulls the whole party back from the edge — 3rd-level bonus action',
+      'Mass Healing Word: pulls the whole party back from the edge, 3rd-level bonus action',
       'Insight +7 / Medicine +7: reads people as well as she reads wounds',
     ],
-    media: null, // { poster, idle, motions: [] } — see public/assets/nerds-only/README.md
+    media: null, // { poster, idle, motions: [] }, see public/assets/nerds-only/README.md
     portrait: null,
     color: '#E8834A',
   },
@@ -201,15 +226,15 @@ export const CHARACTERS = [
     hp: null,
     ac: null,
     tagline: "She audits the Naughty List. She has seen your file. It's tragic.",
-    backstory: `Docket works the Naughty/Nice list. The list is real. Getting on it has consequences. The boss is a large man in a latex speedo holding a red chain whip. This is the system she audits for.\n\nShe is from the High Elf city — stained-glass ice walls, kaleidoscope light at noon, beautiful in the specific way that makes ending up in an audit department feel like a personal failure, which she will not be discussing. She has a 40-inch wavy mullet and three-inch rhinestone acrylics that she has made work for paperwork through sheer discipline. She carries a clipboard as a shield because it functions as one. Her sonic scream shatters glass structures. This has come up in the field. It always comes up in the field.\n\nThe Toymaker is a steampunk cyborg goblin with wooden augmentations and goopy green tubes in his face. Mrs. Clause brews things in a black cauldron and bakes gingerbread men that are seven feet tall. Docket has files on all of them. The files are accurate. That's what makes them dangerous.`,
+    backstory: `Docket works the Naughty/Nice list. The list is real. Getting on it has consequences. The boss is a large man in a latex speedo holding a red chain whip. This is the system she audits for.\n\nShe is from the High Elf city: stained-glass ice walls, kaleidoscope light at noon, beautiful in the specific way that makes ending up in an audit department feel like a personal failure, which she will not be discussing. She has a 40-inch wavy mullet and three-inch rhinestone acrylics that she has made work for paperwork through sheer discipline. She carries a clipboard as a shield because it functions as one. Her sonic scream shatters glass structures. This has come up in the field. It always comes up in the field.\n\nThe Toymaker is a steampunk cyborg goblin with wooden augmentations and goopy green tubes in his face. Mrs. Clause brews things in a black cauldron and bakes gingerbread men that are seven feet tall. Docket has files on all of them. The files are accurate. That's what makes them dangerous.`,
     companion: null,
     traits: [
       'High Concept: Naughty/Nice Auditor Who Has Seen Your File',
       'Trouble: The Ghostly Flame Comes Out When I\'m Done Being Professional',
-      'Clever +3: primary skill — reads rooms, reads files, reads you',
+      'Clever +3: primary skill; reads rooms, reads files, reads you',
       'Sonic Scream: shatters glass structures; the aftermath is her signature',
     ],
-    media: null, // { poster, idle, motions: [] } — see public/assets/nerds-only/README.md
+    media: null, // { poster, idle, motions: [] }, see public/assets/nerds-only/README.md
     portrait: null,
     color: '#C84B6E',
   },

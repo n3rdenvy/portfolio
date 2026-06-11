@@ -27,7 +27,7 @@ function D20Icon({ className }) {
         fill="none"
         opacity="0.6"
       />
-      {/* center number hint — top face */}
+      {/* center number hint: top face */}
       <line x1="20" y1="2"  x2="20" y2="14" stroke="currentColor" strokeWidth="0.8" opacity="0.4" />
       <line x1="2"  y1="14" x2="20" y2="14" stroke="currentColor" strokeWidth="0.8" opacity="0.4" />
       <line x1="38" y1="14" x2="20" y2="14" stroke="currentColor" strokeWidth="0.8" opacity="0.4" />
@@ -106,7 +106,7 @@ export default function NerdsOnlyCard() {
       <button
         onClick={() => navigate('/nerds-only')}
         className="btn-theme portfolio-hub-card h-full min-h-0 w-full max-w-full overflow-hidden flex flex-col items-stretch text-left !p-0 !gap-0 !justify-start"
-        aria-label="Nerd's Only — D&D character gallery"
+        aria-label="Nerd's Only: D&D character gallery"
       >
         {/* Top caution tape */}
         <CautionTape reverse={false} />
@@ -121,7 +121,7 @@ export default function NerdsOnlyCard() {
               Nerd's Only
             </h2>
             <p className="mt-2 text-sm leading-relaxed text-white text-pretty">
-              The party. Nine characters across D&amp;D 5e, Daggerheart, and FATE. Backstories, builds, and lore — no resume required.
+              The party. Ten characters across D&amp;D 5e, Daggerheart, and FATE. Backstories, builds, and lore. No resume required.
             </p>
             <ul className="mt-3 flex flex-wrap gap-1.5" aria-label="Systems">
               {['D&D 5e', 'Daggerheart', 'FATE RPG', 'Humblewood', 'Mensa Atra'].map(t => (

@@ -5,7 +5,7 @@ import { CHARACTERS, ROLES, ROLE_ORDER } from '../data/nerdsOnlyCharacters';
 
 /* ─── Character background: VEO video player with crossfades ───────────────────
  *
- * Per character: `media: { poster, idle, motions: [] }` (null until clips land —
+ * Per character: `media: { poster, idle, motions: [] }` (null until clips land;
  * gradient placeholder renders meanwhile). Drop zone + encoding rules:
  * public/assets/nerds-only/README.md. Clips should START AND END NEAR a common
  * pose; the 0.25s crossfade absorbs generation drift, so VEO does not need to
@@ -70,7 +70,7 @@ function CharacterMedia({ media, reduceMotion }) {
           className="absolute inset-0 h-full w-full object-cover"
         />
       )}
-      {!reduceMotion && (
+      {!reduceMotion && clip && (
         // No `mode`: outgoing clip keeps playing while the next fades in over it
         <AnimatePresence>
           <motion.video
@@ -110,7 +110,7 @@ function CharacterBackground({ char }) {
         transition={{ duration: reduceMotion ? 0 : 0.35, ease: 'easeInOut' }}
         className="absolute inset-0"
       >
-        {/* Char-colored gradient always paints first — covers media loading gaps */}
+        {/* Char-colored gradient always paints first, covers media loading gaps */}
         <div
           className="absolute inset-0"
           style={{
@@ -118,7 +118,7 @@ function CharacterBackground({ char }) {
                          linear-gradient(160deg, #0a0604 0%, #120c06 50%, #0a0604 100%)`,
           }}
         />
-        {char.media?.idle && <CharacterMedia media={char.media} reduceMotion={reduceMotion} />}
+        {(char.media?.idle || char.media?.poster) && <CharacterMedia media={char.media} reduceMotion={reduceMotion} />}
         {/* vignette */}
         <div
           className="absolute inset-0"
@@ -283,7 +283,7 @@ function ParallelogramPortrait({ char, isSelected, onClick }) {
           background: `linear-gradient(160deg, ${char.color}25 0%, rgba(10,6,4,0.8) 100%)`,
         }}
       >
-        {/* Role color bar — top */}
+        {/* Role color bar, top */}
         <div
           className="absolute top-0 left-0 right-0 h-[3px] z-10"
           style={{ backgroundColor: role.color }}
@@ -307,7 +307,7 @@ function ParallelogramPortrait({ char, isSelected, onClick }) {
           )}
         </div>
 
-        {/* Name + class bar — bottom */}
+        {/* Name + class bar, bottom */}
         <div
           className="absolute bottom-0 left-0 right-0 px-1.5 py-1 z-10"
           style={{
@@ -446,10 +446,10 @@ export default function NerdsOnly() {
         </AnimatePresence>
       </div>
 
-      {/* Character info — left */}
+      {/* Character info, left */}
       <InfoPanel char={selected} />
 
-      {/* Portrait strip — bottom */}
+      {/* Portrait strip, bottom */}
       <CharacterStrip selectedId={selectedId} onSelect={handleSelect} />
     </main>
   );
