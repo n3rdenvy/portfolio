@@ -251,3 +251,79 @@ masks, selection rings, scrims, vignette, role badges, NPC/RETIRED chips, pause 
 keyboard hints. Reason: they must track role colors, themes, and AX contrast ratios,
 and keeping chrome out of renders keeps every render reusable (case study, og:image,
 print). A baked-in frame is a one-way door; a CSS frame is a variable.
+
+---
+
+## 10. Master prompt template (paste-ready, both tiers)
+
+Same prompt verbatim on Lite drafts and full 3.1 finals. The ONLY thing that changes
+between draft and final is the model toggle; if the prompt changes, the draft stopped
+being a draft of anything. Bracketed slots are the only edits per clip.
+
+```
+Locked-off static camera, 85mm portrait lens, eye level, shallow depth of field.
+No camera movement.
+
+[IDENTITY BLOCK: frozen paragraph from §5, verbatim every time]
+
+[ACTION: one beat. Idle = breathing-level. Entrance = the signature move,
+finishing back in the starting pose.] The character returns exactly to the
+starting pose by the end of the shot.
+
+[SCENE: environment matching the poster.] The left third of the frame is quiet
+atmosphere only: soft haze, low contrast, nothing of interest. The bottom of the
+frame is ground and fog only.
+
+Painterly dark-fantasy splash art, volumetric key light motivated by the scene,
+deep soft shadows, muted desaturated background, the character carries the only
+saturated accent color ([COLOR NAME, hex]), cinematic color grade.
+
+A seamless loop. The first and last frames are identical. No dialogue, no speech,
+quiet ambience.
+```
+
+UI settings alongside the prompt, every generation:
+- First frame: the character's poster. Last frame: the same poster.
+- Reference images: poster + up to 2 alternates (Aed: 2 seasonal stills).
+- Negative prompt field: `text, captions, watermark, logo, UI elements, extra limbs,
+  second character, strobe, rapid flashing, camera shake, morphing, jelly motion`
+- 16:9, 1080p, 8s.
+
+### Worked example: Aed idle (the pilot clip)
+
+```
+Locked-off static camera, 85mm portrait lens, eye level, shallow depth of field.
+No camera movement.
+
+A slender male Eladrin elf druid, 5'10" and lithe, pale moss-green skin with
+fluorescent yellow freckles, hazel eyes, full-moon-yellow hair in ringlets, wearing
+hide scale mail with a wooden shield slung on his back, standing right of center
+among red spider lilies under a huge full moon.
+
+He breathes slowly and shifts his weight almost imperceptibly. Tiny catkin fibers
+drift down around him; faint pinpricks of starlight pulse softly under his skin.
+The character returns exactly to the starting pose by the end of the shot.
+
+A moonlit field of red spider lilies at night, distant treeline. The left third of
+the frame is quiet atmosphere only: soft haze, low contrast, nothing of interest.
+The bottom of the frame is ground and fog only.
+
+Painterly dark-fantasy splash art, volumetric key light motivated by the moon,
+deep soft shadows, muted desaturated background, the character carries the only
+saturated accent colors (moss green and lily red), cinematic color grade.
+
+A seamless loop. The first and last frames are identical. No dialogue, no speech,
+quiet ambience.
+```
+
+(Aed's identity block above is provisional until checked against cosmic.png; freeze
+it in §5 after the first draft confirms likeness.)
+
+### Tier and length policy
+- Every clip in this project fits inside a single 8-second take BY DESIGN. Scene
+  Extension / "extended" generation is never used: each extension is a re-encode
+  that drifts identity, and our loops must close on the poster frame.
+- Lite = drafts (beat blocking, composition checks). Full 3.1 = finals only, after
+  a draft is approved, because finals need the reference-image identity lock and
+  1080p quality. If Lite's UI lacks first/last-frame or reference slots, draft with
+  first-frame-only; the draft answers "is the motion right," not "is the loop sealed."
