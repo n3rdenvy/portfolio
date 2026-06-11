@@ -362,3 +362,54 @@ Supporting rules:
   a draft is approved, because finals need the reference-image identity lock and
   1080p quality. If Lite's UI lacks first/last-frame or reference slots, draft with
   first-frame-only; the draft answers "is the motion right," not "is the loop sealed."
+
+---
+
+## 5b. Frozen identity blocks (transcribed from poster pixels, 2026-06-11)
+
+Wardrobe law applies: these describe what the art shows, not what the sheets say.
+Each block ends with the no-change clause when pasted. Style/finish sentence gets
+appended after the §11 finish decision.
+
+**Hop (kneeling camp.png):** A muscular anthropomorphic hare warrior with sleek
+black fur covered in small white spots, tall black ears with pink inner lining,
+white fur on his muzzle and chest. He wears lamellar shoulder armor with red
+lacing on the right pauldron, a green sash across his bare spotted chest, brown
+leather bracers, an ornate armored waist skirt with a draped red cloth, and dark
+armored leg wraps. A sword hilt rises over his shoulder. He crouches low on rocky
+ground, forearms resting on his knees, at a daytime camp with blurred trees behind.
+
+**Sable (SableAlderheart.png):** An aristocratic black-furred panther Tabaxi with
+faint dark rosettes in his fur and golden-yellow eyes. He wears a long black
+high-collared coat with fine embroidery, a fitted dark bodice, layered black
+skirts with geometric trim, and black clawed gloves, a small dagger at his belt,
+long spotted tail behind him. He stands on a curved wooden walkway of a city
+built through giant living trees, sunlit green canopy beyond, distant birdfolk
+figures staying far in the background.
+
+**Silex (SilexGritArtwork.png):** A corvid ranger with glossy black feathers and
+a pale gold beak, hooded in dark feather-patterned scale armor layered over
+chainmail, with bronze filigree trim on the plates and small green gem accents.
+A quiver of arrows sits on his back; he grips a dark recurve bow in one hand. He
+stands in a near-black tangled thorn forest with faintly glowing green mushrooms
+at his feet. Palette stays very dark; he is lit by a thin cold key light.
+
+**Elara (ElaraDryad.png):** A fennec-fox Vulpin woman with cream-and-tan fur,
+very large ears, wearing a hooded tan layered wrap dress with woven tribal
+patterns, beaded necklaces, midriff bare, holding a tall carved wooden staff,
+full fox tail behind her. Towering just behind her stands a Treant: a tree giant
+with glowing yellow eyes, a mossy beard, an antlered crown of branches, and a
+raccoon perched in its canopy. Sunlit dense green forest, ferns and mushrooms.
+NOTE: Pip is NOT in this poster. Pip appears in clips only if a Pip poster/still
+anchors them (elara-and-pip.webp exists as the alternate). Nothing gets added.
+
+**Docket (Docket.png), ALREADY PHOTOREALISTIC:** A photorealistic middle-aged elf
+woman with a long brown curly mullet and straight bangs, pointed ears with huge
+gold door-knocker hoop earrings, faded neck tattoos, an aggressively unimpressed
+expression. She wears a worn green elf uniform with red trim over a brown
+long-sleeve shirt, a red lanyard with a badge, and an ornate western belt buckle
+with a tiger motif. Long white rhinestone acrylic nails; one ring finger raised.
+She holds a clipboard stacked with papers behind a wooden crate desk holding
+papers, pens, and a chocolate chip cookie. Behind her, a warehouse workshop full
+of elves in green and red at workbenches, string lights and hanging lamps in soft
+bokeh. Cinematic film still, shallow depth of field.
