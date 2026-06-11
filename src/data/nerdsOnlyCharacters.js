@@ -30,7 +30,7 @@ export const CHARACTERS = [
       'Fancy Footwork: targets you attack can\'t retaliate on the way out',
       'Alchemist\'s Fire + Poison Blade: he brought the ship\'s lab with him',
     ],
-    media: null, // { poster, idle, motions: [] }, see public/assets/nerds-only/README.md
+    media: { poster: '/assets/nerds-only/hop/poster.webp', posterPosition: 'center 22%', idle: null, motions: [] }, // tavern.webp staged for motion pass
     portrait: null,
     color: '#6B9E78',
   },
@@ -73,7 +73,7 @@ export const CHARACTERS = [
     backstory: `House Nyxus is among the oldest families in Humblewood. Their ancestors, immigrants from distant lands, were among the founders of Bramblewell around Song 208, and as Bramblewell grew, so did the family's station. When the First Bandit Coalition formed in Song 402 and threatened the Great Tree, the Nyxus family were among the prominent houses that warned citizens early enough to escape into the branches. During that war the city of Alderheart was formed, and though the historical record forgot it, House Nyxus and House Sangrenard helped establish vast trade networks across the Wood.\n\nAfter the Conference of Glimmercall, House Nyxus settled in Alderheart, the city above. Some birdfolk elite were annoyed. Some in Bramblewell called it betrayal. Then the rumors started: bandits slain in battle were found carrying charms of obsidian glass, a known Nyxus craft. The family denied everything. The damage was done. When the Bandit Coalition made its final assault on Alderheart in Song 412, members of the militant Talon Guard destroyed the Nyxus home and killed most of the family. The Talon Guard was disbanded for it. The survivors moved down the tree to The Branches, a neighborhood of wood bridges and gliding platforms where a fall is fatal for anyone who can't glide, and held their heads high. Today the name is wealthy, diminished, and spoken with a sneer by people who no longer remember why.\n\nThe lineage was preserved in obsidian glass and in grudges, curated by Great-Aunt Vespera, the self-appointed Keeper of the Calamity. Beneath a display case Sable was forced to polish every Sunday rested the Tools of the Betrayal, and Vespera made him memorize the fletching of the arrow inside: stark white Strix feathers, bound with a distinctive crimson thread, dipped in a paralytic blue resin. "They claimed they were aiming for the Bandits. But these feathers only fly toward those with too much ambition. Never forget the pattern, boy." He memorized every barb just to make her stop talking. He never expected that spiral of feathers to be the last thing he saw flying through the air before his world shattered.\n\nHe spotted Kael during trips to the local markets: a gruff, handsome Servalkin Tabaxi dressed to blend into the forests outside Alderheart. Sable watched him for a week and learned the schedule of his supply runs. Then one sunset Kael did something unexpected. Instead of leaving, he marched straight into the tavern where Sable sat, surveyed the room once for a now-familiar scent, locked eyes, and approached. Neither of them could ever recount what was said. Kael taught him everything about the forests, and the teaching was the affection. Sable, for once, dropped the regal act. Kael represented everything his previous life didn't: a life ruled by what was necessary that still looked for beauty in the corners Sable had never noticed.\n\nSable wanted to show Kael something about the Wood for a change, and they made camp in the darker woods between Alderheart and the Atrium. A war horn ended the quiet. Kael's skin rippled, growing muscle and a strawberry blonde coat, and an arrow lodged inches from his foot: white Strix feathers, bound with crimson thread. Sable blacked out. A primal voice he would come to know as the Sanguine's Whisper growled, "Will you let them take your Serval, your everything, away?" His eyes, normally deep amber gold flecked with sapphire, blinked back bright red. The lovers split and ran a Mourne clan maneuver built to lose pursuers.\n\nSable reached the rendezvous first, a dense brush by a familiar black spruce, and exhaled when Kael appeared on a nearby branch. Kael slipped a bone cuff from his ear and reached out with the keepsake. Then he rigidly tensed. The trinket fell, and then he did. Paralytic resin. Sable's feline speed caught him just before the ground, and the truth landed at the same time: the only person he loved was being taken from him. Barely conscious, Kael ripped the necklace from his own neck and forced it into Sable's hands. As the ranger began coughing blood, a red haze descended, the swamp water turned crimson, and the fog resolved into the shapes of birdfolk. Red tears fell onto his dying partner as Sable gave Kael his final, merciful gift of love.\n\nSable alone carries the truth of what happened next. The assailants were Strix Talon Guard, and they met a purplish-black satin blur their arrows couldn't track, talons raking through feather and bone, a roar that was no longer one voice. The fight was quick, savage, and absolute. Traders found the wreckage days later and the stories grew teeth: a demon from the woods, all claws and shadow. A silence where the crickets used to sing, like the swamp holding its breath out of respect, or fear.\n\nHe roamed until time stopped feeling real, then appeared in Vespera's entryway. She looked him over, unaffected. "I was curious if the rumors had been about you." She pointed him toward Marshview, where a wind-touched Jerbeen had been sighted and the Talon Guard wouldn't be able to resist clipping those wings. Sable now operates with a polished veneer of diplomacy, using his inherited Position of Privilege to re-enter the very circles that betrayed him. His goal is the Birdfolk elder who commanded the Talon Guard, and the conspiracy dismantled from the inside out. His combat style matches the persona: swift, precise, and gone before his target's allies comprehend the attack. What's left is the Sanguine Vow: the version of Sable that earns Hope by choosing the unmerciful path.`,
     companion: null,
     traits: ['Mobile (+10ft, no opp. attacks)', 'Feline Agility (speed burst)', 'Repelling Blast (20ft push)'],
-    media: null, // { poster, idle, motions: [] }, see public/assets/nerds-only/README.md
+    media: { poster: '/assets/nerds-only/sable/poster.webp', posterPosition: 'center 15%', idle: null, motions: [] }, // sanguine.webp staged for motion pass
     portrait: null,
     color: '#8B6FB5',
   },
@@ -121,7 +121,7 @@ export const CHARACTERS = [
       'Archery: +2 to all ranged attacks (+8 to hit, 1d8+3 per arrow)',
       'Umbral Sight: invisible in total darkness to darkvision users',
     ],
-    media: null, // { poster, idle, motions: [] }, see public/assets/nerds-only/README.md
+    media: { poster: '/assets/nerds-only/silex/poster.webp', posterPosition: 'center 12%', idle: null, motions: [] },
     portrait: null,
     color: '#4A7C9E',
   },
@@ -210,7 +210,7 @@ export const CHARACTERS = [
       'Mass Healing Word: pulls the whole party back from the edge, 3rd-level bonus action',
       'Insight +7 / Medicine +7: reads people as well as she reads wounds',
     ],
-    media: null, // { poster, idle, motions: [] }, see public/assets/nerds-only/README.md
+    media: { poster: '/assets/nerds-only/elara/poster.webp', posterPosition: 'center 20%', idle: null, motions: [] }, // elara-and-pip.webp staged for motion pass
     portrait: null,
     color: '#E8834A',
   },
@@ -234,7 +234,7 @@ export const CHARACTERS = [
       'Clever +3: primary skill; reads rooms, reads files, reads you',
       'Sonic Scream: shatters glass structures; the aftermath is her signature',
     ],
-    media: null, // { poster, idle, motions: [] }, see public/assets/nerds-only/README.md
+    media: { poster: '/assets/nerds-only/docket/poster.webp', posterPosition: 'center 18%', idle: null, motions: [] },
     portrait: null,
     color: '#C84B6E',
   },

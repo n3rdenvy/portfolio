@@ -68,6 +68,7 @@ function CharacterMedia({ media, reduceMotion }) {
           width="1920"
           height="1080"
           className="absolute inset-0 h-full w-full object-cover"
+          style={{ objectPosition: media.posterPosition || 'center' }}
         />
       )}
       {!reduceMotion && clip && (
@@ -125,6 +126,16 @@ function CharacterBackground({ char }) {
           style={{
             background: 'radial-gradient(ellipse 100% 100% at 50% 50%, transparent 30%, rgba(4,2,1,0.7) 100%)',
           }}
+        />
+        {/* legibility scrims: UI owns the left third (info panel) and bottom fifth
+            (portrait strip). Applied in CSS so renders stay clean for reuse. */}
+        <div
+          className="absolute inset-0 hidden md:block"
+          style={{ background: 'linear-gradient(90deg, rgba(4,2,1,0.62) 0%, transparent 42%)' }}
+        />
+        <div
+          className="absolute inset-0"
+          style={{ background: 'linear-gradient(0deg, rgba(4,2,1,0.55) 0%, transparent 26%)' }}
         />
       </motion.div>
     </AnimatePresence>
