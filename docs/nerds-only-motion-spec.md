@@ -554,3 +554,29 @@ conversation record and below in compressed form:
 Video negative list = image list + strobe, rapid flashing, camera shake, morphing,
 jelly motion, costume change, wardrobe change. Aed never carries "no second
 character." All 16:9, 1080p, 8s, Lite drafts, 3.1 finals.
+
+---
+
+## 15. Aed full season-change sequence (greenlit 2026-06-12)
+
+Four Frames-to-Video legs, chained by shared anchors (each leg's end frame = next
+leg's start frame), so the downloaded clips concat seamlessly into one ~32s
+transformation: spring → summer → fall → winter → cosmic (Starry Form finale).
+Prerequisite: FIVE photoreal form posters (spring, summer, fall, winter, cosmic),
+which double as the §13 season-selector stills. Companion handoff per leg:
+wolf → serval → golden eagle → ermines → panthers.
+
+Form manifests (transcribed from painting pixels): spring = pink braid, flower/gem
+crown, moss-and-vine armor, green crystal staff, vine shield with tree motif, grey
+wolf, cherry blossoms + crocuses. Fall = auburn braid, copper circlet, layered
+autumn-leaf armor, green crystal staff, tall wooden shield carved with a bare tree,
+golden eagle, autumn forest. Winter = pale blue-grey skin, white hair, ice-crusted
+silver thorn-and-leaf armor, ice crystal crown, frosted staff with pale green glow,
+crystalline snowflake shield, two white ermines, blue ice cave.
+
+Cost estimate ~450-500 credits (5 image gens + 4 Lite drafts + 4 Quality finals).
+Placement decision deferred until the sequence exists: candidates are click-to-play
+showcase on Aed's panel (user-initiated, loads on demand, WCAG-clean) or the case
+study reel. It does NOT autoplay as an ambient; 32s interrupts reading.
+Checkpoint unchanged: all five posters into DND /Aed Osier/Photoreal/ for block
+freezing BEFORE any leg renders.
