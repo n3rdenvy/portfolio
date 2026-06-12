@@ -580,3 +580,15 @@ showcase on Aed's panel (user-initiated, loads on demand, WCAG-clean) or the cas
 study reel. It does NOT autoplay as an ambient; 32s interrupts reading.
 Checkpoint unchanged: all five posters into DND /Aed Osier/Photoreal/ for block
 freezing BEFORE any leg renders.
+
+---
+
+## 16. Pilot reassignment (2026-06-12): Hop Skip first
+
+Hop replaces Aed as pilot character: single form, no companion, simplest validation
+of the full protocol (photoreal poster regen → frozen block → idle/entrance/ambient).
+Aed's §15 season sequence runs after Hop proves the pipe (and likely after a credit
+reset; Hop ~350cr + Aed ~500cr exceeds one Pro month). Hop beats are pixel-true to
+kneeling camp.png: kneeling pose is the anchor; entrance = explosive Rabbit Hop flip
+returning to the kneel; ambient = ears-on-alert beat (prop-free). Acid-vial flip
+ambient is conditional on the approved poster showing a belt pouch.
