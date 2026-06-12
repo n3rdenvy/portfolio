@@ -523,3 +523,34 @@ Generation order for Aed (revised pilot): photoreal cosmic poster → photoreal
 summer poster → freeze both blocks → cosmic idle → summer→cosmic entrance →
 cosmic ambients → seasonal stills (fall/winter/spring) for the selector as
 budget allows.
+
+---
+
+## 14. Aed pilot run sheet (full prompts, issued 2026-06-11)
+
+Five generations, strict order. GEN 1-2 are IMAGE generations (paintings attached as
+reference). GEN 3-5 are Frames-to-Video (approved photoreal posters as literal
+start/end frames; entrance uses summer start + cosmic end). Identity paragraphs in
+GEN 3-5 get re-transcribed from approved posters if they drift from these manifests.
+Full prompt texts delivered in-session 2026-06-11; canonical copies live in the
+conversation record and below in compressed form:
+
+1. **GEN 1, image:** photoreal cosmic poster. Ref: cosmic.png. Starry Form manifest +
+   composition law + photoreal style block. Image negative list.
+2. **GEN 2, image:** photoreal summer poster. Ref: Summer.png. Summer aspect manifest
+   (bronze sun armor, amber chest gem, wheat-and-antler crown, amber staff, sun
+   shield, serval) + composition law + golden-hour key. Image negative list.
+3. **GEN 3, video idle:** cosmic poster both frames. Beats: aim corrections while
+   breathing, skin starlight pulses, hair/petal drift, left panther scans, right
+   panther tail sways, never lowers the bow. Seamless loop clause.
+4. **GEN 4, video entrance:** summer start frame, cosmic end frame. Full
+   transformation: armor to embers, skin to starfield, blonde to silver, serval out /
+   panthers in, staff+shield dissolve into the starlight bow at full draw, meadow to
+   lilies, golden hour to moonlight. Highest retry budget of the five.
+5. **GEN 5, video ambient (Penance shot):** cosmic both frames. Looses the arrow
+   skyward (soft streak, never flashing), new arrow condenses and self-nocks,
+   panthers track it, returns to full draw.
+
+Video negative list = image list + strobe, rapid flashing, camera shake, morphing,
+jelly motion, costume change, wardrobe change. Aed never carries "no second
+character." All 16:9, 1080p, 8s, Lite drafts, 3.1 finals.
